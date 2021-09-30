@@ -1,0 +1,16 @@
+Opened connection at 1.6.2021. 13:09:17 +02:00
+Started transaction at 1.6.2021. 13:09:17 +02:00
+DELETE [dbo].[Singers_Competitor]
+WHERE ([JMBG_SIN] = @0)
+-- @0: '12' (Type = Int64)
+-- Executing at 1.6.2021. 13:09:17 +02:00
+-- Completed in 6 ms with result: 20
+
+DELETE [dbo].[Singers]
+WHERE ([JMBG_SIN] = @0)
+-- @0: '12' (Type = Int64)
+-- Executing at 1.6.2021. 13:09:17 +02:00
+-- Completed in 6 ms with result: 1
+
+Committed transaction at 1.6.2021. 13:09:17 +02:00
+Closed connection at 1.6.2021. 13:09:17 +02:00

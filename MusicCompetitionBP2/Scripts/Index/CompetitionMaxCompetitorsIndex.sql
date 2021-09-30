@@ -1,0 +1,2 @@
+create nonclustered INDEX CompetitionMaxCompetitors
+on Competitions(MAX_COMPETITORS asc);

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ClientUI.Views.IsExpertTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="650*"></RowDefinition>
+            <RowDefinition Height="350*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="Black" Opacity="0.8" Grid.Row="0">
+            <Label Content="Expertises"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
+        </Grid>
+        <Grid Grid.Row="1" >
+
+            <DataGrid  x:Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" RowBackground="AliceBlue" ItemsSource="{Binding Path=IsExpertSet,UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedExpertise}" CanUserAddRows="False"  Background="#87CEFA" Opacity="0.8" MinHeight="500">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Jury member JMBG" Binding="{Binding JuryMemberJMBG_SIN, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="Jury FirstName" Binding="{Binding JuryMember.FIRSTNAME_SIN}" Width="*" />
+                    <DataGridTextColumn Header="Jury LastName" Binding="{Binding JuryMember.LASTNAME_SIN}" Width="*" />
+                    <DataGridTextColumn Header="Genre ID" Binding="{Binding GenreID_GENRE, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="Genre Name" Binding="{Binding Genre.GENRE_NAME}" Width="*" />
+
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
+            <StackPanel Grid.Row="2">
+               
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Genre name:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Jury Member JMBG:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <ComboBox IsEditable="True" x:Name="GenreCB" Margin="4" Width="150" ItemsSource="{Binding GenreStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGenre}"></ComboBox>
+                <ComboBox IsEditable="True" x:Name="CompetitionCB" Margin="4" ItemsSource="{Binding JuryMemberStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedJuryMember}"></ComboBox>
+            </StackPanel>
+
+        </StackPanel>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+    </Grid>
+</UserControl>

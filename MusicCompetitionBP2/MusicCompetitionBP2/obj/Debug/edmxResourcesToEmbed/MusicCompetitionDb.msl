@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MusicCompetitionDbStoreContainer" CdmEntityContainer="MusicCompetitionDbContext">
+    <EntitySetMapping Name="Singers">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Singer)">
+        <MappingFragment StoreEntitySet="Singers">
+          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
+          <ScalarProperty Name="FIRSTNAME_SIN" ColumnName="FIRSTNAME_SIN" />
+          <ScalarProperty Name="LASTNAME_SIN" ColumnName="LASTNAME_SIN" />
+          <ScalarProperty Name="BIRTHDATE_SIN" ColumnName="BIRTHDATE_SIN" />
+          <ScalarProperty Name="EMAIL_SIN" ColumnName="EMAIL_SIN" />
+          <ScalarProperty Name="PHONE_NO_SIN" ColumnName="PHONE_NO_SIN" />
+          <ComplexProperty Name="ADDRESS_SIN" TypeName="MusicCompetitionDb.ADDRESS">
+            <ScalarProperty Name="HOME_NUMBER" ColumnName="ADDRESS_SIN_HOME_NUMBER" />
+            <ScalarProperty Name="CITY" ColumnName="ADDRESS_SIN_CITY" />
+            <ScalarProperty Name="STREET" ColumnName="ADDRESS_SIN_STREET" />
+          </ComplexProperty>
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Competitor)">
+        <MappingFragment StoreEntitySet="Singers_Competitor">
+          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.JuryMember)">
+        <MappingFragment StoreEntitySet="Singers_JuryMember">
+          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Competitions">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Competition)">
+        <MappingFragment StoreEntitySet="Competitions">
+          <ScalarProperty Name="ID_COMP" ColumnName="ID_COMP" />
+          <ScalarProperty Name="DATE_START" ColumnName="DATE_START" />
+          <ScalarProperty Name="DATE_END" ColumnName="DATE_END" />
+          <ScalarProperty Name="NAME_COMP" ColumnName="NAME_COMP" />
+          <ScalarProperty Name="MAX_COMPETITORS" ColumnName="MAX_COMPETITORS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genres">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Genre)">
+        <MappingFragment StoreEntitySet="Genres">
+          <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+          <ScalarProperty Name="GENRE_NAME" ColumnName="GENRE_NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MusicPerformances">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.MusicPerformance)">
+        <MappingFragment StoreEntitySet="MusicPerformances">
+          <ScalarProperty Name="ID_PERF" ColumnName="ID_PERF" />
+          <ScalarProperty Name="ORIG_PERFORMER" ColumnName="ORIG_PERFORMER" />
+          <ScalarProperty Name="SONG_NAME" ColumnName="SONG_NAME" />
+          <ScalarProperty Name="SONG_AUTHOR" ColumnName="SONG_AUTHOR" />
+          <ScalarProperty Name="DATE_PERF" ColumnName="DATE_PERF" />
+          <ScalarProperty Name="CompetitingCompetitorJMBG_SIN" ColumnName="CompetitingCompetitorJMBG_SIN" />
+          <ScalarProperty Name="CompetitingCompetitionID_COMP" ColumnName="CompetitingCompetitionID_COMP" />
+          <ScalarProperty Name="GenreID_GENRE" ColumnName="GenreID_GENRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PublishingHouses">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.PublishingHouse)">
+        <MappingFragment StoreEntitySet="PublishingHouses">
+          <ScalarProperty Name="ID_PH" ColumnName="ID_PH" />
+          <ScalarProperty Name="NAME_PH" ColumnName="NAME_PH" />
+          <ComplexProperty Name="ADR_PH" TypeName="MusicCompetitionDb.ADDRESS">
+            <ScalarProperty Name="HOME_NUMBER" ColumnName="ADR_PH_HOME_NUMBER" />
+            <ScalarProperty Name="CITY" ColumnName="ADR_PH_CITY" />
+            <ScalarProperty Name="STREET" ColumnName="ADR_PH_STREET" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerformanceHalls">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.PerformanceHall)">
+        <MappingFragment StoreEntitySet="PerformanceHalls">
+          <ScalarProperty Name="ID_HALL" ColumnName="ID_HALL" />
+          <ScalarProperty Name="NAME_HALL" ColumnName="NAME_HALL" />
+          <ScalarProperty Name="CAPACITY" ColumnName="CAPACITY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Competitings">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Competiting)">
+        <MappingFragment StoreEntitySet="Competitings">
+          <ScalarProperty Name="CompetitorJMBG_SIN" ColumnName="CompetitorJMBG_SIN" />
+          <ScalarProperty Name="CompetitionID_COMP" ColumnName="CompetitionID_COMP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizations">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Organize)">
+        <MappingFragment StoreEntitySet="Organizations">
+          <ScalarProperty Name="PublishingHouseID_PH" ColumnName="PublishingHouseID_PH" />
+          <ScalarProperty Name="CompetitionID_COMP" ColumnName="CompetitionID_COMP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HiredForSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.HiredFor)">
+        <MappingFragment StoreEntitySet="HiredForSet">
+          <ScalarProperty Name="JuryMemberJMBG_SIN" ColumnName="JuryMemberJMBG_SIN" />
+          <ScalarProperty Name="CompetitionID_COMP" ColumnName="CompetitionID_COMP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PossessesASet">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.PossessesA)">
+        <MappingFragment StoreEntitySet="PossessesASet">
+          <ScalarProperty Name="CompetitionID_COMP" ColumnName="CompetitionID_COMP" />
+          <ScalarProperty Name="GenreID_GENRE" ColumnName="GenreID_GENRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IsExpertSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.IsExpert)">
+        <MappingFragment StoreEntitySet="IsExpertSet">
+          <ScalarProperty Name="JuryMemberJMBG_SIN" ColumnName="JuryMemberJMBG_SIN" />
+          <ScalarProperty Name="GenreID_GENRE" ColumnName="GenreID_GENRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Evaluations">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Evaluate)">
+        <MappingFragment StoreEntitySet="Evaluations">
+          <ScalarProperty Name="IsExpertJuryMemberJMBG_SIN" ColumnName="IsExpertJuryMemberJMBG_SIN" />
+          <ScalarProperty Name="IsExpertGenreID_GENRE" ColumnName="IsExpertGenreID_GENRE" />
+          <ScalarProperty Name="MusicPerformanceID_PERF" ColumnName="MusicPerformanceID_PERF" />
+          <ScalarProperty Name="MARK" ColumnName="MARK" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservations">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Reserve)">
+        <MappingFragment StoreEntitySet="Reservations">
+          <ScalarProperty Name="OrganizePublishingHouseID_PH" ColumnName="OrganizePublishingHouseID_PH" />
+          <ScalarProperty Name="OrganizeCompetitionID_COMP" ColumnName="OrganizeCompetitionID_COMP" />
+          <ScalarProperty Name="PerformanceHallID_HALL" ColumnName="PerformanceHallID_HALL" />
+          <ScalarProperty Name="DATE_RES" ColumnName="DATE_RES" />
+          <ScalarProperty Name="START_TIME" ColumnName="START_TIME" />
+          <ScalarProperty Name="END_TIME" ColumnName="END_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

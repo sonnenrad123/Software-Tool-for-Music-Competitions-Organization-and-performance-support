@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="ClientUI.Views.ReservationsTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="650*"></RowDefinition>
+            <RowDefinition Height="350*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="Black" Opacity="0.8" Grid.Row="0">
+            <Label Content="Hall reservations"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
+        </Grid>
+        <Grid Grid.Row="1" >
+
+            <DataGrid  x:Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" RowBackground="AliceBlue" ItemsSource="{Binding Path=Reservations,UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedReservation}" CanUserAddRows="False"  Background="#87CEFA" Opacity="0.8" MinHeight="500">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="PerformanceHall ID" Binding="{Binding PerformanceHallID_HALL, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="PerformanceHall Name" Binding="{Binding PerformanceHall.NAME_HALL, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="Competition ID" Binding="{Binding OrganizeCompetitionID_COMP, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="Competition Name" Binding="{Binding Organize.Competition.NAME_COMP}" Width="*" />
+                    <DataGridTextColumn Header="Publishing House ID" Binding="{Binding OrganizePublishingHouseID_PH}" Width="*" />
+                    <DataGridTextColumn Header="Publishing House Name" Binding="{Binding Organize.PublishingHouse.NAME_PH}" Width="*" />
+                    <DataGridTextColumn Header="Start time" Binding="{Binding START_TIME}" Width="*" />
+                    <DataGridTextColumn Header="End time" Binding="{Binding END_TIME}" Width="*" />
+                    <DataGridTextColumn Header="Reservation date" Binding="{Binding DATE_RES,StringFormat='dd.MM.yyyy'}" Width="auto" />
+
+
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
+            <StackPanel Grid.Row="2">
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">PublishingHouse ID:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Competition ID:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Performance Hall ID:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Reservation date:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Start time:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">End time:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <ComboBox IsEditable="True" x:Name="CompetitorCB" Margin="4" Width="150" ItemsSource="{Binding PublishingHouseStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPublishingHouse}"></ComboBox>
+                <ComboBox IsEditable="True" x:Name="SCB" Margin="4" ItemsSource="{Binding CompetitionStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCompetition}"></ComboBox>
+                <ComboBox IsEditable="True" x:Name="DCB" Margin="5" ItemsSource="{Binding PerformanceHallStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPerformanceHall}"></ComboBox>
+                <DatePicker  Margin="5"  SelectedDate="{Binding ReservationDP, Mode=TwoWay}">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="StartTimeHoursTB" MaxLength="2" Width="30" Text="{Binding StartTimeHoursTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                    <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="30">:</Label>
+                    <TextBox Name="StartTimeMinutesTB" MaxLength="2" Width="30" Text="{Binding StartTimeMinutesTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="EndTimeHoursTB" MaxLength="2"  Width="30" Text="{Binding EndTimeHoursTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                    <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="30">:</Label>
+                    <TextBox x:Name="EndTimeMinutesTB" MaxLength="2" Width="30" Text="{Binding EndTimeMinutesTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,59,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,14 @@
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\MusicCompetitionBP2.exe.config
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\MusicCompetitionBP2.exe
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\MusicCompetitionBP2.pdb
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\Common.dll
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\EntityFramework.dll
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\Common.pdb
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\EntityFramework.xml
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\obj\Debug\MusicCompetitionBP2.csprojAssemblyReference.cache
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\obj\Debug\MusicCompetitionBP2.csproj.CoreCompileInputs.cache
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\obj\Debug\MusicCompetitionBP2.csproj.CopyComplete
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\obj\Debug\MusicCompetitionBP2.exe
+D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\obj\Debug\MusicCompetitionBP2.pdb

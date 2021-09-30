@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{354235EE-15BF-4F36-A6DA-D7840D19E94C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MusicCompetitionBP2</RootNamespace>
+    <AssemblyName>MusicCompetitionBP2</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADDRESS.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Competiting.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Competition.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Competitor.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Evaluate.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Genre.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HiredFor.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IsExpert.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JuryMember.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainRepository.cs" />
+    <Compile Include="MusicCompetitionDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicCompetitionDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MusicCompetitionDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MusicCompetitionDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicCompetitionDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MusicPerformance.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Organize.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PerformanceHall.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PossessesA.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublishingHouse.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CompetitingRepository.cs" />
+    <Compile Include="Repositories\CompetitionRepository.cs" />
+    <Compile Include="Repositories\CompetitorRepository.cs" />
+    <Compile Include="Repositories\EvaluateRepository.cs" />
+    <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Repositories\HiredForRepository.cs" />
+    <Compile Include="Repositories\IsExpertRepository.cs" />
+    <Compile Include="Repositories\JuryMemberRepository.cs" />
+    <Compile Include="Repositories\MusicPerformanceRepository.cs" />
+    <Compile Include="Repositories\OrganizeRepository.cs" />
+    <Compile Include="Repositories\PerformanceHallRepository.cs" />
+    <Compile Include="Repositories\PossessesARepository.cs" />
+    <Compile Include="Repositories\PublishinHouseRepository.cs" />
+    <Compile Include="Repositories\ReserveRepository.cs" />
+    <Compile Include="Reserve.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Server.cs" />
+    <Compile Include="Singer.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="MusicCompetitionDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MusicCompetitionDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MusicCompetitionDb.edmx.diagram">
+      <DependentUpon>MusicCompetitionDb.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MusicCompetitionDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MusicCompetitionDb.Context.cs</LastGenOutput>
+      <DependentUpon>MusicCompetitionDb.edmx</DependentUpon>
+    </Content>
+    <Content Include="MusicCompetitionDb.edmx.sql" />
+    <Content Include="MusicCompetitionDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MusicCompetitionDb.cs</LastGenOutput>
+      <DependentUpon>MusicCompetitionDb.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{290beb5a-c264-43d7-bd99-aad25c2d0f2b}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MusicCompetitionDb" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="MusicCompetitionDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Singers" EntityType="MusicCompetitionDb.Singer" />
+    <EntitySet Name="Competitions" EntityType="MusicCompetitionDb.Competition" />
+    <EntitySet Name="Genres" EntityType="MusicCompetitionDb.Genre" />
+    <EntitySet Name="MusicPerformances" EntityType="MusicCompetitionDb.MusicPerformance" />
+    <EntitySet Name="PublishingHouses" EntityType="MusicCompetitionDb.PublishingHouse" />
+    <EntitySet Name="PerformanceHalls" EntityType="MusicCompetitionDb.PerformanceHall" />
+    <EntitySet Name="Competitings" EntityType="MusicCompetitionDb.Competiting" />
+    <AssociationSet Name="CompetitorCompetiting" Association="MusicCompetitionDb.CompetitorCompetiting">
+      <End Role="Competitor" EntitySet="Singers" />
+      <End Role="Competiting" EntitySet="Competitings" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionCompetiting" Association="MusicCompetitionDb.CompetitionCompetiting">
+      <End Role="Competition" EntitySet="Competitions" />
+      <End Role="Competiting" EntitySet="Competitings" />
+    </AssociationSet>
+    <EntitySet Name="Organizations" EntityType="MusicCompetitionDb.Organize" />
+    <AssociationSet Name="PublishingHouseOrganize" Association="MusicCompetitionDb.PublishingHouseOrganize">
+      <End Role="PublishingHouse" EntitySet="PublishingHouses" />
+      <End Role="Organize" EntitySet="Organizations" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionOrganize" Association="MusicCompetitionDb.CompetitionOrganize">
+      <End Role="Competition" EntitySet="Competitions" />
+      <End Role="Organize" EntitySet="Organizations" />
+    </AssociationSet>
+    <EntitySet Name="HiredForSet" EntityType="MusicCompetitionDb.HiredFor" />
+    <AssociationSet Name="JuryMemberHiredFor" Association="MusicCompetitionDb.JuryMemberHiredFor">
+      <End Role="JuryMember" EntitySet="Singers" />
+      <End Role="HiredFor" EntitySet="HiredForSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitionHiredFor" Association="MusicCompetitionDb.CompetitionHiredFor">
+      <End Role="Competition" EntitySet="Competitions" />
+      <End Role="HiredFor" EntitySet="HiredForSet" />
+    </AssociationSet>
+    <EntitySet Name="PossessesASet" EntityType="MusicCompetitionDb.PossessesA" />
+    <AssociationSet Name="CompetitionPossessesA" Association="MusicCompetitionDb.CompetitionPossessesA">
+      <End Role="Competition" EntitySet="Competitions" />
+      <End Role="PossessesA" EntitySet="PossessesASet" />
+    </AssociationSet>
+    <AssociationSet Name="GenrePossessesA" Association="MusicCompetitionDb.GenrePossessesA">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="PossessesA" EntitySet="PossessesASet" />
+    </AssociationSet>
+    <EntitySet Name="IsExpertSet" EntityType="MusicCompetitionDb.IsExpert" />
+    <AssociationSet Name="JuryMemberIsExpert" Association="MusicCompetitionDb.JuryMemberIsExpert">
+      <End Role="JuryMember" EntitySet="Singers" />
+      <End Role="IsExpert" EntitySet="IsExpertSet" />
+    </AssociationSet>
+    <AssociationSet Name="GenreIsExpert" Association="MusicCompetitionDb.GenreIsExpert">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="IsExpert" EntitySet="IsExpertSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetitingMusicPerformance" Association="MusicCompetitionDb.CompetitingMusicPerformance">
+      <End Role="Competiting" EntitySet="Competitings" />
+      <End Role="MusicPerformance" EntitySet="MusicPerformances" />
+    </AssociationSet>
+    <AssociationSet Name="MusicPerformanceGenre" Association="MusicCompetitionDb.MusicPerformanceGenre">
+      <End Role="MusicPerformance" EntitySet="MusicPerformances" />
+      <End Role="Genre" EntitySet="Genres" />
+    </AssociationSet>
+    <EntitySet Name="Evaluations" EntityType="MusicCompetitionDb.Evaluate" />
+    <AssociationSet Name="IsExpertEvaluate" Association="MusicCompetitionDb.IsExpertEvaluate">
+      <End Role="IsExpert" EntitySet="IsExpertSet" />
+      <End Role="Evaluate" EntitySet="Evaluations" />
+    </AssociationSet>
+    <AssociationSet Name="MusicPerformanceEvaluate" Association="MusicCompetitionDb.MusicPerformanceEvaluate">
+      <End Role="MusicPerformance" EntitySet="MusicPerformances" />
+      <End Role="Evaluate" EntitySet="Evaluations" />
+    </AssociationSet>
+    <EntitySet Name="Reservations" EntityType="MusicCompetitionDb.Reserve" />
+    <AssociationSet Name="OrganizeReserve" Association="MusicCompetitionDb.OrganizeReserve">
+      <End Role="Organize" EntitySet="Organizations" />
+      <End Role="Reserve" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="PerformanceHallReserve" Association="MusicCompetitionDb.PerformanceHallReserve">
+      <End Role="PerformanceHall" EntitySet="PerformanceHalls" />
+      <End Role="Reserve" EntitySet="Reservations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Singer">
+    <Key>
+      <PropertyRef Name="JMBG_SIN" />
+    </Key>
+    <Property Name="JMBG_SIN" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="FIRSTNAME_SIN" Type="String" Nullable="false" />
+    <Property Name="LASTNAME_SIN" Type="String" Nullable="false" />
+    <Property Name="BIRTHDATE_SIN" Type="DateTime" Nullable="false" />
+    <Property Name="EMAIL_SIN" Type="String" Nullable="false" />
+    <Property Name="PHONE_NO_SIN" Type="String" Nullable="false" />
+    <Property Name="ADDRESS_SIN" Type="MusicCompetitionDb.ADDRESS" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Competitor" BaseType="MusicCompetitionDb.Singer">
+    <NavigationProperty Name="Competiting" Relationship="MusicCompetitionDb.CompetitorCompetiting" FromRole="Competitor" ToRole="Competiting" />
+  </EntityType>
+  <EntityType Name="JuryMember" BaseType="MusicCompetitionDb.Singer">
+    <NavigationProperty Name="HiredFor" Relationship="MusicCompetitionDb.JuryMemberHiredFor" FromRole="JuryMember" ToRole="HiredFor" />
+    <NavigationProperty Name="IsExpert" Relationship="MusicCompetitionDb.JuryMemberIsExpert" FromRole="JuryMember" ToRole="IsExpert" />
+  </EntityType>
+  <EntityType Name="Competition">
+    <Key>
+      <PropertyRef Name="ID_COMP" />
+    </Key>
+    <Property Name="ID_COMP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DATE_START" Type="DateTime" Nullable="false" />
+    <Property Name="DATE_END" Type="DateTime" Nullable="false" />
+    <Property Name="NAME_COMP" Type="String" Nullable="false" />
+    <Property Name="MAX_COMPETITORS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Competiting" Relationship="MusicCompetitionDb.CompetitionCompetiting" FromRole="Competition" ToRole="Competiting" />
+    <NavigationProperty Name="Organize" Relationship="MusicCompetitionDb.CompetitionOrganize" FromRole="Competition" ToRole="Organize" />
+    <NavigationProperty Name="HiredFor" Relationship="MusicCompetitionDb.CompetitionHiredFor" FromRole="Competition" ToRole="HiredFor" />
+    <NavigationProperty Name="PossessesA" Relationship="MusicCompetitionDb.CompetitionPossessesA" FromRole="Competition" ToRole="PossessesA" />
+  </EntityType>
+  <ComplexType Name="ADDRESS">
+    <Property Type="String" Name="HOME_NUMBER" Nullable="false" />
+    <Property Type="String" Name="CITY" Nullable="false" />
+    <Property Type="String" Name="STREET" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="ID_GENRE" />
+    </Key>
+    <Property Name="ID_GENRE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="PossessesA" Relationship="MusicCompetitionDb.GenrePossessesA" FromRole="Genre" ToRole="PossessesA" />
+    <NavigationProperty Name="IsExpert" Relationship="MusicCompetitionDb.GenreIsExpert" FromRole="Genre" ToRole="IsExpert" />
+    <NavigationProperty Name="MusicPerformance" Relationship="MusicCompetitionDb.MusicPerformanceGenre" FromRole="Genre" ToRole="MusicPerformance" />
+    <Property Name="GENRE_NAME" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MusicPerformance">
+    <Key>
+      <PropertyRef Name="ID_PERF" />
+    </Key>
+    <Property Name="ID_PERF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ORIG_PERFORMER" Type="String" Nullable="false" />
+    <Property Name="SONG_NAME" Type="String" Nullable="false" />
+    <Property Name="SONG_AUTHOR" Type="String" Nullable="false" />
+    <Property Name="DATE_PERF" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Competiting" Relationship="MusicCompetitionDb.CompetitingMusicPerformance" FromRole="MusicPerformance" ToRole="Competiting" />
+    <Property Name="CompetitingCompetitorJMBG_SIN" Type="Int64" Nullable="true" />
+    <Property Name="CompetitingCompetitionID_COMP" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Genre" Relationship="MusicCompetitionDb.MusicPerformanceGenre" FromRole="MusicPerformance" ToRole="Genre" />
+    <Property Name="GenreID_GENRE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Evaluate" Relationship="MusicCompetitionDb.MusicPerformanceEvaluate" FromRole="MusicPerformance" ToRole="Evaluate" />
+  </EntityType>
+  <EntityType Name="PublishingHouse">
+    <Key>
+      <PropertyRef Name="ID_PH" />
+    </Key>
+    <Property Name="ID_PH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME_PH" Type="String" Nullable="false" />
+    <Property Name="ADR_PH" Type="MusicCompetitionDb.ADDRESS" Nullable="false" />
+    <NavigationProperty Name="Organize" Relationship="MusicCompetitionDb.PublishingHouseOrganize" FromRole="PublishingHouse" ToRole="Organize" />
+  </EntityType>
+  <EntityType Name="PerformanceHall">
+    <Key>
+      <PropertyRef Name="ID_HALL" />
+    </Key>
+    <Property Name="ID_HALL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME_HALL" Type="String" Nullable="false" />
+    <Property Name="CAPACITY" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Reserve" Relationship="MusicCompetitionDb.PerformanceHallReserve" FromRole="PerformanceHall" ToRole="Reserve" />
+  </EntityType>
+  <EntityType Name="Competiting">
+    <Key>
+      <PropertyRef Name="CompetitorJMBG_SIN" />
+      <PropertyRef Name="CompetitionID_COMP" />
+    </Key>
+    <NavigationProperty Name="Competitor" Relationship="MusicCompetitionDb.CompetitorCompetiting" FromRole="Competiting" ToRole="Competitor" />
+    <Property Name="CompetitorJMBG_SIN" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Competition" Relationship="MusicCompetitionDb.CompetitionCompetiting" FromRole="Competiting" ToRole="Competition" />
+    <Property Name="CompetitionID_COMP" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MusicPerformance" Relationship="MusicCompetitionDb.CompetitingMusicPerformance" FromRole="Competiting" ToRole="MusicPerformance" />
+  </EntityType>
+  <Association Name="CompetitorCompetiting">
+    <End Type="MusicCompetitionDb.Competitor" Role="Competitor" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Competiting" Role="Competiting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competitor">
+        <PropertyRef Name="JMBG_SIN" />
+      </Principal>
+      <Dependent Role="Competiting">
+        <PropertyRef Name="CompetitorJMBG_SIN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionCompetiting">
+    <End Type="MusicCompetitionDb.Competition" Role="Competition" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Competiting" Role="Competiting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="ID_COMP" />
+      </Principal>
+      <Dependent Role="Competiting">
+        <PropertyRef Name="CompetitionID_COMP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Organize">
+    <Key>
+      <PropertyRef Name="PublishingHouseID_PH" />
+      <PropertyRef Name="CompetitionID_COMP" />
+    </Key>
+    <NavigationProperty Name="PublishingHouse" Relationship="MusicCompetitionDb.PublishingHouseOrganize" FromRole="Organize" ToRole="PublishingHouse" />
+    <Property Name="PublishingHouseID_PH" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Competition" Relationship="MusicCompetitionDb.CompetitionOrganize" FromRole="Organize" ToRole="Competition" />
+    <Property Name="CompetitionID_COMP" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Reserve" Relationship="MusicCompetitionDb.OrganizeReserve" FromRole="Organize" ToRole="Reserve" />
+  </EntityType>
+  <Association Name="PublishingHouseOrganize">
+    <End Type="MusicCompetitionDb.PublishingHouse" Role="PublishingHouse" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Organize" Role="Organize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PublishingHouse">
+        <PropertyRef Name="ID_PH" />
+      </Principal>
+      <Dependent Role="Organize">
+        <PropertyRef Name="PublishingHouseID_PH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionOrganize">
+    <End Type="MusicCompetitionDb.Competition" Role="Competition" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Organize" Role="Organize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="ID_COMP" />
+      </Principal>
+      <Dependent Role="Organize">
+        <PropertyRef Name="CompetitionID_COMP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="HiredFor">
+    <Key>
+      <PropertyRef Name="JuryMemberJMBG_SIN" />
+      <PropertyRef Name="CompetitionID_COMP" />
+    </Key>
+    <NavigationProperty Name="JuryMember" Relationship="MusicCompetitionDb.JuryMemberHiredFor" FromRole="HiredFor" ToRole="JuryMember" />
+    <Property Name="JuryMemberJMBG_SIN" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Competition" Relationship="MusicCompetitionDb.CompetitionHiredFor" FromRole="HiredFor" ToRole="Competition" />
+    <Property Name="CompetitionID_COMP" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="JuryMemberHiredFor">
+    <End Type="MusicCompetitionDb.JuryMember" Role="JuryMember" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.HiredFor" Role="HiredFor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JuryMember">
+        <PropertyRef Name="JMBG_SIN" />
+      </Principal>
+      <Dependent Role="HiredFor">
+        <PropertyRef Name="JuryMemberJMBG_SIN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitionHiredFor">
+    <End Type="MusicCompetitionDb.Competition" Role="Competition" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.HiredFor" Role="HiredFor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="ID_COMP" />
+      </Principal>
+      <Dependent Role="HiredFor">
+        <PropertyRef Name="CompetitionID_COMP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PossessesA">
+    <Key>
+      <PropertyRef Name="CompetitionID_COMP" />
+      <PropertyRef Name="GenreID_GENRE" />
+    </Key>
+    <NavigationProperty Name="Competition" Relationship="MusicCompetitionDb.CompetitionPossessesA" FromRole="PossessesA" ToRole="Competition" />
+    <Property Name="CompetitionID_COMP" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Genre" Relationship="MusicCompetitionDb.GenrePossessesA" FromRole="PossessesA" ToRole="Genre" />
+    <Property Name="GenreID_GENRE" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="CompetitionPossessesA">
+    <End Type="MusicCompetitionDb.Competition" Role="Competition" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.PossessesA" Role="PossessesA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="ID_COMP" />
+      </Principal>
+      <Dependent Role="PossessesA">
+        <PropertyRef Name="CompetitionID_COMP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GenrePossessesA">
+    <End Type="MusicCompetitionDb.Genre" Role="Genre" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.PossessesA" Role="PossessesA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="ID_GENRE" />
+      </Principal>
+      <Dependent Role="PossessesA">
+        <PropertyRef Name="GenreID_GENRE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="IsExpert">
+    <Key>
+      <PropertyRef Name="JuryMemberJMBG_SIN" />
+      <PropertyRef Name="GenreID_GENRE" />
+    </Key>
+    <NavigationProperty Name="JuryMember" Relationship="MusicCompetitionDb.JuryMemberIsExpert" FromRole="IsExpert" ToRole="JuryMember" />
+    <Property Name="JuryMemberJMBG_SIN" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Genre" Relationship="MusicCompetitionDb.GenreIsExpert" FromRole="IsExpert" ToRole="Genre" />
+    <Property Name="GenreID_GENRE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Evaluate" Relationship="MusicCompetitionDb.IsExpertEvaluate" FromRole="IsExpert" ToRole="Evaluate" />
+  </EntityType>
+  <Association Name="JuryMemberIsExpert">
+    <End Type="MusicCompetitionDb.JuryMember" Role="JuryMember" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.IsExpert" Role="IsExpert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JuryMember">
+        <PropertyRef Name="JMBG_SIN" />
+      </Principal>
+      <Dependent Role="IsExpert">
+        <PropertyRef Name="JuryMemberJMBG_SIN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GenreIsExpert">
+    <End Type="MusicCompetitionDb.Genre" Role="Genre" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.IsExpert" Role="IsExpert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="ID_GENRE" />
+      </Principal>
+      <Dependent Role="IsExpert">
+        <PropertyRef Name="GenreID_GENRE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetitingMusicPerformance">
+    <End Type="MusicCompetitionDb.Competiting" Role="Competiting" Multiplicity="0..1" />
+    <End Type="MusicCompetitionDb.MusicPerformance" Role="MusicPerformance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competiting">
+        <PropertyRef Name="CompetitorJMBG_SIN" />
+        <PropertyRef Name="CompetitionID_COMP" />
+      </Principal>
+      <Dependent Role="MusicPerformance">
+        <PropertyRef Name="CompetitingCompetitorJMBG_SIN" />
+        <PropertyRef Name="CompetitingCompetitionID_COMP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MusicPerformanceGenre">
+    <End Type="MusicCompetitionDb.MusicPerformance" Role="MusicPerformance" Multiplicity="*" />
+    <End Type="MusicCompetitionDb.Genre" Role="Genre" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="ID_GENRE" />
+      </Principal>
+      <Dependent Role="MusicPerformance">
+        <PropertyRef Name="GenreID_GENRE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Evaluate">
+    <Key>
+      <PropertyRef Name="IsExpertJuryMemberJMBG_SIN" />
+      <PropertyRef Name="IsExpertGenreID_GENRE" />
+      <PropertyRef Name="MusicPerformanceID_PERF" />
+    </Key>
+    <Property Name="MARK" Type="Int16" Nullable="false" />
+    <Property Name="COMMENT" Type="String" Nullable="false" />
+    <NavigationProperty Name="IsExpert" Relationship="MusicCompetitionDb.IsExpertEvaluate" FromRole="Evaluate" ToRole="IsExpert" />
+    <Property Name="IsExpertJuryMemberJMBG_SIN" Type="Int64" Nullable="false" />
+    <Property Name="IsExpertGenreID_GENRE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MusicPerformance" Relationship="MusicCompetitionDb.MusicPerformanceEvaluate" FromRole="Evaluate" ToRole="MusicPerformance" />
+    <Property Name="MusicPerformanceID_PERF" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="IsExpertEvaluate">
+    <End Type="MusicCompetitionDb.IsExpert" Role="IsExpert" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Evaluate" Role="Evaluate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IsExpert">
+        <PropertyRef Name="JuryMemberJMBG_SIN" />
+        <PropertyRef Name="GenreID_GENRE" />
+      </Principal>
+      <Dependent Role="Evaluate">
+        <PropertyRef Name="IsExpertJuryMemberJMBG_SIN" />
+        <PropertyRef Name="IsExpertGenreID_GENRE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MusicPerformanceEvaluate">
+    <End Type="MusicCompetitionDb.MusicPerformance" Role="MusicPerformance" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Evaluate" Role="Evaluate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MusicPerformance">
+        <PropertyRef Name="ID_PERF" />
+      </Principal>
+      <Dependent Role="Evaluate">
+        <PropertyRef Name="MusicPerformanceID_PERF" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Reserve">
+    <Key>
+      <PropertyRef Name="OrganizePublishingHouseID_PH" />
+      <PropertyRef Name="OrganizeCompetitionID_COMP" />
+      <PropertyRef Name="PerformanceHallID_HALL" />
+    </Key>
+    <Property Name="DATE_RES" Type="DateTime" Nullable="false" />
+    <Property Name="START_TIME" Type="Time" Nullable="false" />
+    <Property Name="END_TIME" Type="Time" Nullable="false" />
+    <NavigationProperty Name="Organize" Relationship="MusicCompetitionDb.OrganizeReserve" FromRole="Reserve" ToRole="Organize" />
+    <Property Name="OrganizePublishingHouseID_PH" Type="Int32" Nullable="false" />
+    <Property Name="OrganizeCompetitionID_COMP" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PerformanceHall" Relationship="MusicCompetitionDb.PerformanceHallReserve" FromRole="Reserve" ToRole="PerformanceHall" />
+    <Property Name="PerformanceHallID_HALL" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="OrganizeReserve">
+    <End Type="MusicCompetitionDb.Organize" Role="Organize" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Reserve" Role="Reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organize">
+        <PropertyRef Name="PublishingHouseID_PH" />
+        <PropertyRef Name="CompetitionID_COMP" />
+      </Principal>
+      <Dependent Role="Reserve">
+        <PropertyRef Name="OrganizePublishingHouseID_PH" />
+        <PropertyRef Name="OrganizeCompetitionID_COMP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PerformanceHallReserve">
+    <End Type="MusicCompetitionDb.PerformanceHall" Role="PerformanceHall" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.Reserve" Role="Reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PerformanceHall">
+        <PropertyRef Name="ID_HALL" />
+      </Principal>
+      <Dependent Role="Reserve">
+        <PropertyRef Name="PerformanceHallID_HALL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="ClientUI.Views.EvaluationsTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="650*"></RowDefinition>
+            <RowDefinition Height="350*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="Black" Opacity="0.8" Grid.Row="0">
+            <Label Content="Evaluations"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
+        </Grid>
+        <Grid Grid.Row="1" >
+
+            <DataGrid  x:Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" RowBackground="AliceBlue" ItemsSource="{Binding Path=Evaluations,UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedEvaluation}" CanUserAddRows="False"  Background="#87CEFA" Opacity="0.8" MinHeight="500">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Music Performance ID" Binding="{Binding MusicPerformanceID_PERF, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <DataGridTextColumn Header="Competitor Firstname" Binding="{Binding MusicPerformance.Competiting.Competitor.FIRSTNAME_SIN}" Width="auto" />
+                    <DataGridTextColumn Header="Competitor Lastname" Binding="{Binding MusicPerformance.Competiting.Competitor.LASTNAME_SIN, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <DataGridTextColumn Header="Song name" Binding="{Binding MusicPerformance.SONG_NAME}" Width="*" />
+                    <DataGridTextColumn Header="Genre name" Binding="{Binding MusicPerformance.Genre.GENRE_NAME}" Width="*" />
+                    <DataGridTextColumn Header="Jury Member JMBG" Binding="{Binding IsExpert.JuryMemberJMBG_SIN}" Width="auto" />
+                    <DataGridTextColumn Header="Mark" Binding="{Binding MARK}" Width="*" />
+                    <DataGridTextColumn Header="Comment" Binding="{Binding COMMENT}" Width="*" />
+                    
+                    
+
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
+            <StackPanel Grid.Row="2">
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Music Performance ID:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Jury Member JMBG:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Mark:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Comment:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <ComboBox IsEditable="True" x:Name="MusicPerformanceCB" Margin="4" Width="150" ItemsSource="{Binding MusicPerformanceStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedMusicPerformance}"></ComboBox>
+                <ComboBox IsEditable="True" x:Name="JuryMemberCB" Margin="4" ItemsSource="{Binding JuryMemberStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedJuryMember}"></ComboBox>
+                <TextBox  MinWidth="100" Text="{Binding MarkTB, Mode=TwoWay}" Margin="7" MaxWidth="200" PreviewTextInput="PreviewTextInput"></TextBox>
+                <TextBox  MinWidth="100" Text="{Binding CommentTB, Mode=TwoWay}" Margin="7" MaxWidth="200"></TextBox>
+            </StackPanel>
+
+        </StackPanel>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,59,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+    </Grid>
+</UserControl>
