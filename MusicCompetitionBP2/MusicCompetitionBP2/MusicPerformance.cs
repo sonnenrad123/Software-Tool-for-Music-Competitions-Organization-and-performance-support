@@ -25,13 +25,14 @@ namespace MusicCompetitionBP2
         public string SONG_NAME { get; set; }
         public string SONG_AUTHOR { get; set; }
         public System.DateTime DATE_PERF { get; set; }
-        public Nullable<long> CompetitingCompetitorJMBG_SIN { get; set; }
-        public Nullable<int> CompetitingCompetitionID_COMP { get; set; }
         public int GenreID_GENRE { get; set; }
+        public Nullable<long> CompetitingCompetitorJMBG_SIN { get; set; }
+        public Nullable<int> CompetitingOrganizePublishingHouseID_PH { get; set; }
+        public Nullable<int> CompetitingOrganizeCompetitionID_COMP { get; set; }
     
-        public virtual Competiting Competiting { get; set; }
         public virtual Genre Genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Evaluate> Evaluate { get; set; }
+        public virtual Competiting Competiting { get; set; }
     }
 }

@@ -15,14 +15,15 @@ namespace MusicCompetitionBP2.Repositories
             this.dbContext = dbContext;
         }
 
-        public bool Create(int? competitionID,long? competitorID,int genreID,string songAuthor,string orig_perf,string song_name,DateTime dateperf)
+        public bool Create(int? competitionID,long? competitorID,int? pubhouseID,int genreID,string songAuthor,string orig_perf,string song_name,DateTime dateperf)
         {
             
             try
             {
                 MusicPerformance temp = new MusicPerformance()
                 {
-                    CompetitingCompetitionID_COMP = competitionID,
+                    CompetitingOrganizeCompetitionID_COMP = competitionID,
+                    CompetitingOrganizePublishingHouseID_PH = pubhouseID,
                     CompetitingCompetitorJMBG_SIN = competitorID,
                     GenreID_GENRE = genreID,
 
@@ -68,14 +69,20 @@ namespace MusicCompetitionBP2.Repositories
 
             Common.Models.Competitor competitortemp = new Common.Models.Competitor(temp.Competiting.Competitor.JMBG_SIN, temp.Competiting.Competitor.FIRSTNAME_SIN, temp.Competiting.Competitor.LASTNAME_SIN, temp.Competiting.Competitor.BIRTHDATE_SIN,
                 temp.Competiting.Competitor.EMAIL_SIN, temp.Competiting.Competitor.PHONE_NO_SIN, new Common.Models.ADDRESS(temp.Competiting.Competitor.ADDRESS_SIN.HOME_NUMBER, temp.Competiting.Competitor.ADDRESS_SIN.CITY, temp.Competiting.Competitor.ADDRESS_SIN.STREET));
-            Common.Models.Competition competitiontemp = new Common.Models.Competition(temp.Competiting.Competition.ID_COMP, temp.Competiting.Competition.DATE_START, temp.Competiting.Competition.DATE_END, temp.Competiting.Competition.NAME_COMP, temp.Competiting.Competition.MAX_COMPETITORS);
+            
+            Common.Models.Competition competitiontemp = new Common.Models.Competition(temp.Competiting.Organize.Competition.ID_COMP, temp.Competiting.Organize.Competition.DATE_START, temp.Competiting.Organize.Competition.DATE_END, temp.Competiting.Organize.Competition.NAME_COMP, temp.Competiting.Organize.Competition.MAX_COMPETITORS);
 
-            Common.Models.Competiting competitingTemp = new Common.Models.Competiting(competitortemp.JMBG_SIN, competitiontemp.ID_COMP, competitortemp, competitiontemp);
+            Common.Models.PublishingHouse pubhousetemp = new Common.Models.PublishingHouse(temp.Competiting.Organize.PublishingHouseID_PH, temp.Competiting.Organize.PublishingHouse.NAME_PH, new Common.Models.ADDRESS(temp.Competiting.Organize.PublishingHouse.ADR_PH.HOME_NUMBER, temp.Competiting.Organize.PublishingHouse.ADR_PH.CITY, temp.Competiting.Organize.PublishingHouse.ADR_PH.STREET));
+
+            Common.Models.Organize organizetemp = new Common.Models.Organize(temp.Competiting.OrganizePublishingHouseID_PH,temp.Competiting.OrganizeCompetitionID_COMP,pubhousetemp,competitiontemp);
+            
+
+            Common.Models.Competiting competitingTemp = new Common.Models.Competiting(competitortemp.JMBG_SIN, competitiontemp.ID_COMP, pubhousetemp.ID_PH, competitortemp, organizetemp);
 
             Common.Models.Genre genreTemp = new Common.Models.Genre(temp.GenreID_GENRE, temp.Genre.GENRE_NAME);
 
-            return new Common.Models.MusicPerformance(temp.ID_PERF, temp.ORIG_PERFORMER, temp.SONG_NAME, temp.SONG_AUTHOR, temp.DATE_PERF, temp.Competiting.CompetitorJMBG_SIN, temp.Competiting.CompetitionID_COMP, temp.GenreID_GENRE, competitingTemp, genreTemp);
-
+            
+            return new Common.Models.MusicPerformance(temp.ID_PERF, temp.ORIG_PERFORMER, temp.SONG_NAME, temp.SONG_AUTHOR, temp.DATE_PERF, temp.Competiting.CompetitorJMBG_SIN, temp.Competiting.Organize.CompetitionID_COMP, temp.Competiting.Organize.PublishingHouseID_PH, temp.GenreID_GENRE, competitingTemp, genreTemp);
 
 
 
@@ -87,14 +94,21 @@ namespace MusicCompetitionBP2.Repositories
             dbContext.MusicPerformances.AsNoTracking().ToList().ForEach((temp) =>
             {
                 Common.Models.Competitor competitortemp = new Common.Models.Competitor(temp.Competiting.Competitor.JMBG_SIN, temp.Competiting.Competitor.FIRSTNAME_SIN, temp.Competiting.Competitor.LASTNAME_SIN, temp.Competiting.Competitor.BIRTHDATE_SIN,
-                temp.Competiting.Competitor.EMAIL_SIN, temp.Competiting.Competitor.PHONE_NO_SIN, new Common.Models.ADDRESS(temp.Competiting.Competitor.ADDRESS_SIN.HOME_NUMBER, temp.Competiting.Competitor.ADDRESS_SIN.CITY, temp.Competiting.Competitor.ADDRESS_SIN.STREET));
-                Common.Models.Competition competitiontemp = new Common.Models.Competition(temp.Competiting.Competition.ID_COMP, temp.Competiting.Competition.DATE_START, temp.Competiting.Competition.DATE_END, temp.Competiting.Competition.NAME_COMP, temp.Competiting.Competition.MAX_COMPETITORS);
+               temp.Competiting.Competitor.EMAIL_SIN, temp.Competiting.Competitor.PHONE_NO_SIN, new Common.Models.ADDRESS(temp.Competiting.Competitor.ADDRESS_SIN.HOME_NUMBER, temp.Competiting.Competitor.ADDRESS_SIN.CITY, temp.Competiting.Competitor.ADDRESS_SIN.STREET));
 
-                Common.Models.Competiting competitingTemp = new Common.Models.Competiting(competitortemp.JMBG_SIN, competitiontemp.ID_COMP, competitortemp, competitiontemp);
+                Common.Models.Competition competitiontemp = new Common.Models.Competition(temp.Competiting.Organize.Competition.ID_COMP, temp.Competiting.Organize.Competition.DATE_START, temp.Competiting.Organize.Competition.DATE_END, temp.Competiting.Organize.Competition.NAME_COMP, temp.Competiting.Organize.Competition.MAX_COMPETITORS);
+
+                Common.Models.PublishingHouse pubhousetemp = new Common.Models.PublishingHouse(temp.Competiting.Organize.PublishingHouseID_PH, temp.Competiting.Organize.PublishingHouse.NAME_PH, new Common.Models.ADDRESS(temp.Competiting.Organize.PublishingHouse.ADR_PH.HOME_NUMBER, temp.Competiting.Organize.PublishingHouse.ADR_PH.CITY, temp.Competiting.Organize.PublishingHouse.ADR_PH.STREET));
+
+                Common.Models.Organize organizetemp = new Common.Models.Organize(temp.Competiting.OrganizePublishingHouseID_PH, temp.Competiting.OrganizeCompetitionID_COMP, pubhousetemp, competitiontemp);
+
+
+                Common.Models.Competiting competitingTemp = new Common.Models.Competiting(competitortemp.JMBG_SIN, competitiontemp.ID_COMP, pubhousetemp.ID_PH, competitortemp, organizetemp);
 
                 Common.Models.Genre genreTemp = new Common.Models.Genre(temp.GenreID_GENRE, temp.Genre.GENRE_NAME);
 
-                ret.Add(new Common.Models.MusicPerformance(temp.ID_PERF, temp.ORIG_PERFORMER, temp.SONG_NAME, temp.SONG_AUTHOR, temp.DATE_PERF, temp.Competiting.CompetitorJMBG_SIN, temp.Competiting.CompetitionID_COMP, temp.GenreID_GENRE, competitingTemp, genreTemp));
+
+                ret.Add( new Common.Models.MusicPerformance(temp.ID_PERF, temp.ORIG_PERFORMER, temp.SONG_NAME, temp.SONG_AUTHOR, temp.DATE_PERF, temp.Competiting.CompetitorJMBG_SIN, temp.Competiting.Organize.CompetitionID_COMP, temp.Competiting.Organize.PublishingHouseID_PH, temp.GenreID_GENRE, competitingTemp, genreTemp));
             });
             return ret;
         }

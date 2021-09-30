@@ -17,7 +17,6 @@ namespace MusicCompetitionBP2
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Competition()
         {
-            this.Competiting = new HashSet<Competiting>();
             this.Organize = new HashSet<Organize>();
             this.HiredFor = new HashSet<HiredFor>();
             this.PossessesA = new HashSet<PossessesA>();
@@ -29,8 +28,6 @@ namespace MusicCompetitionBP2
         public string NAME_COMP { get; set; }
         public int MAX_COMPETITORS { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Competiting> Competiting { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Organize> Organize { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -18,6 +18,7 @@ namespace MusicCompetitionBP2
         public Organize()
         {
             this.Reserve = new HashSet<Reserve>();
+            this.Competiting = new HashSet<Competiting>();
         }
     
         public int PublishingHouseID_PH { get; set; }
@@ -27,5 +28,7 @@ namespace MusicCompetitionBP2
         public virtual Competition Competition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reserve> Reserve { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Competiting> Competiting { get; set; }
     }
 }

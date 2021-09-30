@@ -5,19 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9ae604e4b34d46be9777fec750b61fc4" Name="Diagram1" ZoomLevel="74" >
-        <EntityTypeShape EntityType="MusicCompetitionDb.Singer" Width="1.5" PointX="13.5" PointY="0.5" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.Singer" Width="1.5" PointX="13.375" PointY="0.5" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Competitor" Width="1.5" PointX="12.375" PointY="3.25" />
         <InheritanceConnector EntityType="MusicCompetitionDb.Competitor" />
         <EntityTypeShape EntityType="MusicCompetitionDb.JuryMember" Width="1.5" PointX="14.875" PointY="3.25" />
         <InheritanceConnector EntityType="MusicCompetitionDb.JuryMember" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.Competition" Width="1.5" PointX="6.75" PointY="2.5" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.Genre" Width="1.5" PointX="6.5" PointY="8.625" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.MusicPerformance" Width="1.5" PointX="9.875" PointY="6.5" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.Competition" Width="1.5" PointX="6.625" PointY="4" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.Genre" Width="1.5" PointX="6.375" PointY="9.5" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.MusicPerformance" Width="1.5" PointX="9.625" PointY="6.5" />
         <EntityTypeShape EntityType="MusicCompetitionDb.PublishingHouse" Width="1.5" PointX="2.625" PointY="0.875" />
         <EntityTypeShape EntityType="MusicCompetitionDb.PerformanceHall" Width="1.5" PointX="1.5" PointY="6.375" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.Competiting" Width="1.5" PointX="9.5" PointY="2.875" />
-        <AssociationConnector Association="MusicCompetitionDb.CompetitorCompetiting" />
-        <AssociationConnector Association="MusicCompetitionDb.CompetitionCompetiting" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Organize" Width="1.5" PointX="4.5" PointY="1.75" />
         <AssociationConnector Association="MusicCompetitionDb.PublishingHouseOrganize" />
         <AssociationConnector Association="MusicCompetitionDb.CompetitionOrganize" />
@@ -25,13 +22,12 @@
         <AssociationConnector Association="MusicCompetitionDb.JuryMemberHiredFor" />
         <AssociationConnector Association="MusicCompetitionDb.CompetitionHiredFor" ManuallyRouted="false" >
         </AssociationConnector>
-        <EntityTypeShape EntityType="MusicCompetitionDb.PossessesA" Width="1.5" PointX="6.625" PointY="6" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.PossessesA" Width="1.5" PointX="6.5" PointY="7.125" />
         <AssociationConnector Association="MusicCompetitionDb.CompetitionPossessesA" />
         <AssociationConnector Association="MusicCompetitionDb.GenrePossessesA" />
         <EntityTypeShape EntityType="MusicCompetitionDb.IsExpert" Width="1.5" PointX="15.25" PointY="6" />
         <AssociationConnector Association="MusicCompetitionDb.JuryMemberIsExpert" />
         <AssociationConnector Association="MusicCompetitionDb.GenreIsExpert" />
-        <AssociationConnector Association="MusicCompetitionDb.CompetitingMusicPerformance" />
         <AssociationConnector Association="MusicCompetitionDb.MusicPerformanceGenre" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Evaluate" Width="1.5" PointX="13.125" PointY="8.125" />
         <AssociationConnector Association="MusicCompetitionDb.IsExpertEvaluate" />
@@ -39,6 +35,10 @@
         <EntityTypeShape EntityType="MusicCompetitionDb.Reserve" Width="1.5" PointX="3.5" PointY="4.125" />
         <AssociationConnector Association="MusicCompetitionDb.OrganizeReserve" />
         <AssociationConnector Association="MusicCompetitionDb.PerformanceHallReserve" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.Competiting" Width="1.5" PointX="9.25" PointY="2.625" />
+        <AssociationConnector Association="MusicCompetitionDb.CompetitorCompetiting" />
+        <AssociationConnector Association="MusicCompetitionDb.OrganizeCompetiting" />
+        <AssociationConnector Association="MusicCompetitionDb.CompetitingMusicPerformance" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

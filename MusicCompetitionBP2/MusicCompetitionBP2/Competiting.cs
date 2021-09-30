@@ -21,10 +21,11 @@ namespace MusicCompetitionBP2
         }
     
         public long CompetitorJMBG_SIN { get; set; }
-        public int CompetitionID_COMP { get; set; }
+        public int OrganizePublishingHouseID_PH { get; set; }
+        public int OrganizeCompetitionID_COMP { get; set; }
     
         public virtual Competitor Competitor { get; set; }
-        public virtual Competition Competition { get; set; }
+        public virtual Organize Organize { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MusicPerformance> MusicPerformance { get; set; }
     }

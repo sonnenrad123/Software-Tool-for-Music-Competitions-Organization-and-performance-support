@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Projekti2020-2021\BP2\MusicCompetitionBP2\ClientUI\obj\Debug\
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\
 ClientUI
 none
 false
 DEBUG;TRACE
-D:\Projekti2020-2021\BP2\MusicCompetitionBP2\ClientUI\App.xaml
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\App.xaml
 17-1778079455
 
 45628938444
-151148556493
+15-1433896751
 MainWindow.xaml;Views\CompetitingsTableView.xaml;Views\CompetitionsTableView.xaml;Views\CompetitorsTableView.xaml;Views\EvaluationsTableView.xaml;Views\GenresTableView.xaml;Views\HiredForTableView.xaml;Views\IsExpertTableView.xaml;Views\JuryMembersView.xaml;Views\MainMenuView.xaml;Views\MusicPerformancesTableView.xaml;Views\OrganizationsTableView.xaml;Views\PerformanceHallsTableView.xaml;Views\PossessesATableView.xaml;Views\PublishingHousesTableView.xaml;Views\ReservationsTableView.xaml;Views\SingersTableView.xaml;
 
-False
+True
 

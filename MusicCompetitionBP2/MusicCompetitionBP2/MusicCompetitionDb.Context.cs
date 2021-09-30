@@ -31,12 +31,12 @@ namespace MusicCompetitionBP2
         public virtual DbSet<MusicPerformance> MusicPerformances { get; set; }
         public virtual DbSet<PublishingHouse> PublishingHouses { get; set; }
         public virtual DbSet<PerformanceHall> PerformanceHalls { get; set; }
-        public virtual DbSet<Competiting> Competitings { get; set; }
         public virtual DbSet<Organize> Organizations { get; set; }
         public virtual DbSet<HiredFor> HiredForSet { get; set; }
         public virtual DbSet<PossessesA> PossessesASet { get; set; }
         public virtual DbSet<IsExpert> IsExpertSet { get; set; }
         public virtual DbSet<Evaluate> Evaluations { get; set; }
         public virtual DbSet<Reserve> Reservations { get; set; }
+        public virtual DbSet<Competiting> Competitings { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Common.Models
     [DataContract]
     public class MusicPerformance
     {
-        public MusicPerformance(int iD_PERF, string oRIG_PERFORMER, string sONG_NAME, string sONG_AUTHOR, DateTime dATE_PERF, long? competitingCompetitorJMBG_SIN, int? competitingCompetitionID_COMP, int genreID_GENRE, Competiting competiting, Genre genre)
+        public MusicPerformance(int iD_PERF, string oRIG_PERFORMER, string sONG_NAME, string sONG_AUTHOR, DateTime dATE_PERF, long? competitingCompetitorJMBG_SIN, int? competitingOrganizeCompetitionID_COMP,int? competitingOrganizePublishingHouseID_PH, int genreID_GENRE, Competiting competiting, Genre genre)
         {
             ID_PERF = iD_PERF;
             ORIG_PERFORMER = oRIG_PERFORMER;
@@ -18,7 +18,8 @@ namespace Common.Models
             SONG_AUTHOR = sONG_AUTHOR;
             DATE_PERF = dATE_PERF;
             CompetitingCompetitorJMBG_SIN = competitingCompetitorJMBG_SIN;
-            CompetitingCompetitionID_COMP = competitingCompetitionID_COMP;
+            CompetitingOrganizeCompetitionID_COMP = competitingOrganizeCompetitionID_COMP;
+            CompetitingOrganizePublishingHouseID_PH = competitingOrganizePublishingHouseID_PH;
             GenreID_GENRE = genreID_GENRE;
             Competiting = competiting;
             Genre = genre;
@@ -36,7 +37,9 @@ namespace Common.Models
         [DataMember]
         public Nullable<long> CompetitingCompetitorJMBG_SIN { get; set; }
         [DataMember]
-        public Nullable<int> CompetitingCompetitionID_COMP { get; set; }
+        public Nullable<int> CompetitingOrganizePublishingHouseID_PH { get; set; }
+        [DataMember]
+        public Nullable<int> CompetitingOrganizeCompetitionID_COMP { get; set; }
         [DataMember]
         public int GenreID_GENRE { get; set; }
         [DataMember]

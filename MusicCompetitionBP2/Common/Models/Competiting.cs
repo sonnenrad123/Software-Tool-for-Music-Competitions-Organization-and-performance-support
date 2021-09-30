@@ -10,21 +10,24 @@ namespace Common.Models
     [DataContract]
     public class Competiting
     {
-        public Competiting(long competitorJMBG_SIN, int competitionID_COMP, Competitor competitor, Competition competition)
+        public Competiting(long competitorJMBG_SIN, int organizeCompetitionID_COMP, int organizePublishingHouseID_PH, Competitor competitor, Organize organize)
         {
             CompetitorJMBG_SIN = competitorJMBG_SIN;
-            CompetitionID_COMP = competitionID_COMP;
+            OrganizeCompetitionID_COMP = organizeCompetitionID_COMP;
+            OrganizePublishingHouseID_PH = organizePublishingHouseID_PH;
             Competitor = competitor;
-            Competition = competition;
+            Organize = organize;
         }
         [DataMember]
         public long CompetitorJMBG_SIN { get; set; }
         [DataMember]
-        public int CompetitionID_COMP { get; set; }
+        public int OrganizeCompetitionID_COMP { get; set; }
+        [DataMember]
+        public int OrganizePublishingHouseID_PH { get; set; }
         [DataMember]
 
         public Competitor Competitor { get; set; }
         [DataMember]
-        public Competition Competition { get; set; }
+        public Organize Organize { get; set; }
     }
 }

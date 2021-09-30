@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/01/2021 13:02:10
--- Generated from EDMX file: D:\Projekti2020-2021\BP2\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
+-- Date Created: 09/30/2021 14:00:33
+-- Generated from EDMX file: D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [MusicCompetitionDB];
+USE [BP2DB];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,12 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_CompetitorCompetiting]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Competitings] DROP CONSTRAINT [FK_CompetitorCompetiting];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CompetitionCompetiting]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Competitings] DROP CONSTRAINT [FK_CompetitionCompetiting];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PublishingHouseOrganize]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Organizations] DROP CONSTRAINT [FK_PublishingHouseOrganize];
 GO
@@ -46,9 +40,6 @@ IF OBJECT_ID(N'[dbo].[FK_JuryMemberIsExpert]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_GenreIsExpert]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[IsExpertSet] DROP CONSTRAINT [FK_GenreIsExpert];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CompetitingMusicPerformance]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[MusicPerformances] DROP CONSTRAINT [FK_CompetitingMusicPerformance];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MusicPerformanceGenre]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MusicPerformances] DROP CONSTRAINT [FK_MusicPerformanceGenre];
@@ -93,9 +84,6 @@ IF OBJECT_ID(N'[dbo].[PublishingHouses]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PerformanceHalls]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PerformanceHalls];
-GO
-IF OBJECT_ID(N'[dbo].[Competitings]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Competitings];
 GO
 IF OBJECT_ID(N'[dbo].[Organizations]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Organizations];
@@ -165,9 +153,10 @@ CREATE TABLE [dbo].[MusicPerformances] (
     [SONG_NAME] nvarchar(max)  NOT NULL,
     [SONG_AUTHOR] nvarchar(max)  NOT NULL,
     [DATE_PERF] datetime  NOT NULL,
+    [GenreID_GENRE] int  NOT NULL,
     [CompetitingCompetitorJMBG_SIN] bigint  NULL,
-    [CompetitingCompetitionID_COMP] int  NULL,
-    [GenreID_GENRE] int  NOT NULL
+    [CompetitingOrganizePublishingHouseID_PH] int  NULL,
+    [CompetitingOrganizeCompetitionID_COMP] int  NULL
 );
 GO
 
@@ -186,13 +175,6 @@ CREATE TABLE [dbo].[PerformanceHalls] (
     [ID_HALL] int IDENTITY(1,1) NOT NULL,
     [NAME_HALL] nvarchar(max)  NOT NULL,
     [CAPACITY] int  NOT NULL
-);
-GO
-
--- Creating table 'Competitings'
-CREATE TABLE [dbo].[Competitings] (
-    [CompetitorJMBG_SIN] bigint  NOT NULL,
-    [CompetitionID_COMP] int  NOT NULL
 );
 GO
 
@@ -245,14 +227,22 @@ CREATE TABLE [dbo].[Reservations] (
 );
 GO
 
--- Creating table 'Singers_Competitor'
-CREATE TABLE [dbo].[Singers_Competitor] (
-    [JMBG_SIN] bigint  NOT NULL
+-- Creating table 'Competitings'
+CREATE TABLE [dbo].[Competitings] (
+    [CompetitorJMBG_SIN] bigint  NOT NULL,
+    [OrganizePublishingHouseID_PH] int  NOT NULL,
+    [OrganizeCompetitionID_COMP] int  NOT NULL
 );
 GO
 
 -- Creating table 'Singers_JuryMember'
 CREATE TABLE [dbo].[Singers_JuryMember] (
+    [JMBG_SIN] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'Singers_Competitor'
+CREATE TABLE [dbo].[Singers_Competitor] (
     [JMBG_SIN] bigint  NOT NULL
 );
 GO
@@ -297,12 +287,6 @@ ADD CONSTRAINT [PK_PerformanceHalls]
     PRIMARY KEY CLUSTERED ([ID_HALL] ASC);
 GO
 
--- Creating primary key on [CompetitorJMBG_SIN], [CompetitionID_COMP] in table 'Competitings'
-ALTER TABLE [dbo].[Competitings]
-ADD CONSTRAINT [PK_Competitings]
-    PRIMARY KEY CLUSTERED ([CompetitorJMBG_SIN], [CompetitionID_COMP] ASC);
-GO
-
 -- Creating primary key on [PublishingHouseID_PH], [CompetitionID_COMP] in table 'Organizations'
 ALTER TABLE [dbo].[Organizations]
 ADD CONSTRAINT [PK_Organizations]
@@ -339,10 +323,10 @@ ADD CONSTRAINT [PK_Reservations]
     PRIMARY KEY CLUSTERED ([OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP], [PerformanceHallID_HALL] ASC);
 GO
 
--- Creating primary key on [JMBG_SIN] in table 'Singers_Competitor'
-ALTER TABLE [dbo].[Singers_Competitor]
-ADD CONSTRAINT [PK_Singers_Competitor]
-    PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
+-- Creating primary key on [CompetitorJMBG_SIN], [OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP] in table 'Competitings'
+ALTER TABLE [dbo].[Competitings]
+ADD CONSTRAINT [PK_Competitings]
+    PRIMARY KEY CLUSTERED ([CompetitorJMBG_SIN], [OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP] ASC);
 GO
 
 -- Creating primary key on [JMBG_SIN] in table 'Singers_JuryMember'
@@ -351,33 +335,15 @@ ADD CONSTRAINT [PK_Singers_JuryMember]
     PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
 GO
 
+-- Creating primary key on [JMBG_SIN] in table 'Singers_Competitor'
+ALTER TABLE [dbo].[Singers_Competitor]
+ADD CONSTRAINT [PK_Singers_Competitor]
+    PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [CompetitorJMBG_SIN] in table 'Competitings'
-ALTER TABLE [dbo].[Competitings]
-ADD CONSTRAINT [FK_CompetitorCompetiting]
-    FOREIGN KEY ([CompetitorJMBG_SIN])
-    REFERENCES [dbo].[Singers_Competitor]
-        ([JMBG_SIN])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [CompetitionID_COMP] in table 'Competitings'
-ALTER TABLE [dbo].[Competitings]
-ADD CONSTRAINT [FK_CompetitionCompetiting]
-    FOREIGN KEY ([CompetitionID_COMP])
-    REFERENCES [dbo].[Competitions]
-        ([ID_COMP])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CompetitionCompetiting'
-CREATE INDEX [IX_FK_CompetitionCompetiting]
-ON [dbo].[Competitings]
-    ([CompetitionID_COMP]);
-GO
 
 -- Creating foreign key on [PublishingHouseID_PH] in table 'Organizations'
 ALTER TABLE [dbo].[Organizations]
@@ -475,21 +441,6 @@ ON [dbo].[IsExpertSet]
     ([GenreID_GENRE]);
 GO
 
--- Creating foreign key on [CompetitingCompetitorJMBG_SIN], [CompetitingCompetitionID_COMP] in table 'MusicPerformances'
-ALTER TABLE [dbo].[MusicPerformances]
-ADD CONSTRAINT [FK_CompetitingMusicPerformance]
-    FOREIGN KEY ([CompetitingCompetitorJMBG_SIN], [CompetitingCompetitionID_COMP])
-    REFERENCES [dbo].[Competitings]
-        ([CompetitorJMBG_SIN], [CompetitionID_COMP])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CompetitingMusicPerformance'
-CREATE INDEX [IX_FK_CompetitingMusicPerformance]
-ON [dbo].[MusicPerformances]
-    ([CompetitingCompetitorJMBG_SIN], [CompetitingCompetitionID_COMP]);
-GO
-
 -- Creating foreign key on [GenreID_GENRE] in table 'MusicPerformances'
 ALTER TABLE [dbo].[MusicPerformances]
 ADD CONSTRAINT [FK_MusicPerformanceGenre]
@@ -553,13 +504,43 @@ ON [dbo].[Reservations]
     ([PerformanceHallID_HALL]);
 GO
 
--- Creating foreign key on [JMBG_SIN] in table 'Singers_Competitor'
-ALTER TABLE [dbo].[Singers_Competitor]
-ADD CONSTRAINT [FK_Competitor_inherits_Singer]
-    FOREIGN KEY ([JMBG_SIN])
-    REFERENCES [dbo].[Singers]
+-- Creating foreign key on [CompetitorJMBG_SIN] in table 'Competitings'
+ALTER TABLE [dbo].[Competitings]
+ADD CONSTRAINT [FK_CompetitorCompetiting]
+    FOREIGN KEY ([CompetitorJMBG_SIN])
+    REFERENCES [dbo].[Singers_Competitor]
         ([JMBG_SIN])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP] in table 'Competitings'
+ALTER TABLE [dbo].[Competitings]
+ADD CONSTRAINT [FK_OrganizeCompetiting]
+    FOREIGN KEY ([OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP])
+    REFERENCES [dbo].[Organizations]
+        ([PublishingHouseID_PH], [CompetitionID_COMP])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_OrganizeCompetiting'
+CREATE INDEX [IX_FK_OrganizeCompetiting]
+ON [dbo].[Competitings]
+    ([OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP]);
+GO
+
+-- Creating foreign key on [CompetitingCompetitorJMBG_SIN], [CompetitingOrganizePublishingHouseID_PH], [CompetitingOrganizeCompetitionID_COMP] in table 'MusicPerformances'
+ALTER TABLE [dbo].[MusicPerformances]
+ADD CONSTRAINT [FK_CompetitingMusicPerformance]
+    FOREIGN KEY ([CompetitingCompetitorJMBG_SIN], [CompetitingOrganizePublishingHouseID_PH], [CompetitingOrganizeCompetitionID_COMP])
+    REFERENCES [dbo].[Competitings]
+        ([CompetitorJMBG_SIN], [OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CompetitingMusicPerformance'
+CREATE INDEX [IX_FK_CompetitingMusicPerformance]
+ON [dbo].[MusicPerformances]
+    ([CompetitingCompetitorJMBG_SIN], [CompetitingOrganizePublishingHouseID_PH], [CompetitingOrganizeCompetitionID_COMP]);
 GO
 
 -- Creating foreign key on [JMBG_SIN] in table 'Singers_JuryMember'
@@ -568,7 +549,16 @@ ADD CONSTRAINT [FK_JuryMember_inherits_Singer]
     FOREIGN KEY ([JMBG_SIN])
     REFERENCES [dbo].[Singers]
         ([JMBG_SIN])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [JMBG_SIN] in table 'Singers_Competitor'
+ALTER TABLE [dbo].[Singers_Competitor]
+ADD CONSTRAINT [FK_Competitor_inherits_Singer]
+    FOREIGN KEY ([JMBG_SIN])
+    REFERENCES [dbo].[Singers]
+        ([JMBG_SIN])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- --------------------------------------------------
