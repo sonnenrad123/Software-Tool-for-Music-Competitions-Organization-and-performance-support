@@ -77,6 +77,17 @@ namespace ClientUI.ViewModel
                 {
                     if(ph.NAME_PH == selectedPublishingHouse)
                     {
+
+                        //ne sme se dva puta isto takmicenje preuzeti od razlicitih kuca
+                        RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+                        List<Common.Models.Organize> orgztemp = repo.RepositoryProxy.ReadOrganizations().ToList();
+
+                        Common.Models.Organize orttemp = orgztemp.Find(x => x.CompetitionID_COMP.ToString() == selectedCompetition);
+                        if (orttemp != null)
+                        {
+                            return false;
+                        }
+
                         return true;
                     }
                 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/30/2021 14:00:33
+-- Date Created: 10/01/2021 14:34:18
 -- Generated from EDMX file: D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
 -- --------------------------------------------------
 
@@ -56,11 +56,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PerformanceHallReserve]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Reservations] DROP CONSTRAINT [FK_PerformanceHallReserve];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Competitor_inherits_Singer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_Singer];
+IF OBJECT_ID(N'[dbo].[FK_CompetitorCompetiting]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Competitings] DROP CONSTRAINT [FK_CompetitorCompetiting];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrganizeCompetiting]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Competitings] DROP CONSTRAINT [FK_OrganizeCompetiting];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CompetitingMusicPerformance]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MusicPerformances] DROP CONSTRAINT [FK_CompetitingMusicPerformance];
 GO
 IF OBJECT_ID(N'[dbo].[FK_JuryMember_inherits_Singer]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Singers_JuryMember] DROP CONSTRAINT [FK_JuryMember_inherits_Singer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Competitor_inherits_Singer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Singers_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_Singer];
 GO
 
 -- --------------------------------------------------
@@ -103,11 +112,14 @@ GO
 IF OBJECT_ID(N'[dbo].[Reservations]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Reservations];
 GO
-IF OBJECT_ID(N'[dbo].[Singers_Competitor]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Singers_Competitor];
+IF OBJECT_ID(N'[dbo].[Competitings]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Competitings];
 GO
 IF OBJECT_ID(N'[dbo].[Singers_JuryMember]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Singers_JuryMember];
+GO
+IF OBJECT_ID(N'[dbo].[Singers_Competitor]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Singers_Competitor];
 GO
 
 -- --------------------------------------------------

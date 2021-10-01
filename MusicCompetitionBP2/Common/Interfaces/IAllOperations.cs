@@ -12,7 +12,7 @@ namespace Common.Interfaces
     public interface IAllOperations:ICreateOperations,IReadOperations,IUpdateOperations,IDeleteOperations
     {
         [OperationContract]
-        bool AddCompetitorToCompetition(long competitorJMBG, int competitionID);
+        bool AddCompetitorToCompetition(long competitorJMBG, int competitionID,int pubhouseID);
         [OperationContract]
         bool AddEvaluationForMusicPerformance(long juryMemberJMBG, int genreID, int performanceID, short mark, string comment);
         [OperationContract]
@@ -40,7 +40,7 @@ namespace Common.Interfaces
         [OperationContract]
         IEnumerable<Reserve> ReadHallReservations();
         [OperationContract]
-        bool DeleteCompetiting(long jmbg,int compid);
+        bool DeleteCompetiting(long jmbg,int compid,int pubhouseid);
         [OperationContract]
         bool DeletePossessA(int gid,int compid);
         [OperationContract]

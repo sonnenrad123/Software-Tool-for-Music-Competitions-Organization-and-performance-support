@@ -19,8 +19,9 @@
 
             <DataGrid  x:Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" RowBackground="AliceBlue" ItemsSource="{Binding Path=Competitings,UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedCompetiting}" CanUserAddRows="False"  Background="#87CEFA" Opacity="0.8" MinHeight="500">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Competition ID" Binding="{Binding CompetitionID_COMP, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                    <DataGridTextColumn Header="Competition Name" Binding="{Binding Competition.NAME_COMP}" Width="*" />
+                    <DataGridTextColumn Header="Competition ID" Binding="{Binding OrganizeCompetitionID_COMP, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="Pub. House Name" Binding="{Binding Organize.PublishingHouseID_PH, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                    <DataGridTextColumn Header="Competition Name" Binding="{Binding Organize.Competition.NAME_COMP}" Width="*" />
                     <DataGridTextColumn Header="Competitor JMBG" Binding="{Binding CompetitorJMBG_SIN}" Width="*" />
                     <DataGridTextColumn Header="Competitor Firstname" Binding="{Binding Competitor.FIRSTNAME_SIN}" Width="*" />
                     <DataGridTextColumn Header="Competitor Lastname" Binding="{Binding Competitor.LASTNAME_SIN}" Width="*" />

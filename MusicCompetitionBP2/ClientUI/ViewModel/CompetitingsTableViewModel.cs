@@ -20,6 +20,8 @@ namespace ClientUI.ViewModel
 
         public List<Common.Models.Competitor> Competitors;
         public List<Common.Models.Competition> Competitions;
+        public List<Common.Models.Organize> Organizations;
+
 
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
@@ -31,6 +33,7 @@ namespace ClientUI.ViewModel
             Competitings = new ObservableCollection<Common.Models.Competiting>(repo.RepositoryProxy.ReadCompetitings());
             Competitions = repo.RepositoryProxy.ReadCompetitions().ToList();
             Competitors = repo.RepositoryProxy.ReadCompetitors().ToList();
+            Organizations = repo.RepositoryProxy.ReadOrganizations().ToList();
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             AddCommand = new MyICommand(OnAdd, CanAdd);
             foreach (Common.Models.Competitor cmp in Competitors)
@@ -41,7 +44,12 @@ namespace ClientUI.ViewModel
 
             foreach (Common.Models.Competition cmp in Competitions)
             {
-                CompetitionStrings.Add(cmp.ID_COMP.ToString());
+                Common.Models.Organize org = Organizations.Find(x => x.CompetitionID_COMP == cmp.ID_COMP);
+                if (org != null && cmp.DATE_START > DateTime.Now)
+                {
+                    CompetitionStrings.Add(cmp.ID_COMP.ToString());
+                }
+               
             }
 
             OnPropertyChanged("CompetitorStrings");
@@ -88,8 +96,8 @@ namespace ClientUI.ViewModel
 
             if(long.TryParse(SelectedCompetitor, out competitorId) && int.TryParse(SelectedCompetition, out competitionId))
             {
-
-                if (repo.RepositoryProxy.AddCompetitorToCompetition(competitorId, competitionId))
+                Common.Models.Organize org = Organizations.Find(x => x.CompetitionID_COMP == competitionId);
+                if (repo.RepositoryProxy.AddCompetitorToCompetition(competitorId, competitionId,org.PublishingHouseID_PH))
                 {
 
                 }
@@ -118,7 +126,8 @@ namespace ClientUI.ViewModel
         {
             if ( SelectedCompetiting != null){
                 RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
-                repo.RepositoryProxy.DeleteCompetiting(selectedCompetiting.CompetitorJMBG_SIN, selectedCompetiting.CompetitionID_COMP);
+                
+                repo.RepositoryProxy.DeleteCompetiting(selectedCompetiting.CompetitorJMBG_SIN, selectedCompetiting.OrganizeCompetitionID_COMP,selectedCompetiting.OrganizePublishingHouseID_PH);
                 RefreshTable();
             }
         }

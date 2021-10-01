@@ -24,9 +24,9 @@ namespace MusicCompetitionBP2
             return repo.CompetitorRepository.Create(c);
         }
 
-        public bool AddCompetitorToCompetition(long competitorJMBG, int competitionID)
+        public bool AddCompetitorToCompetition(long competitorJMBG, int competitionID,int pubhouseID)
         {
-            return repo.CompetitingRepository.Create(competitorJMBG, competitionID);
+            return repo.CompetitingRepository.Create(competitorJMBG, competitionID, pubhouseID);
         }
 
         public bool AddEvaluationForMusicPerformance(long juryMemberJMBG, int genreID, int performanceID, short mark, string comment)
@@ -61,7 +61,8 @@ namespace MusicCompetitionBP2
 
         public bool AddMusicPerformance(Common.Models.MusicPerformance mP)
         {
-            return repo.MusicPerformanceRepository.Create(mP.CompetitingCompetitionID_COMP, mP.CompetitingCompetitorJMBG_SIN, mP.GenreID_GENRE, mP.SONG_AUTHOR, mP.ORIG_PERFORMER, mP.SONG_NAME, mP.DATE_PERF);
+            return repo.MusicPerformanceRepository.Create(mP.CompetitingOrganizeCompetitionID_COMP, mP.CompetitingCompetitorJMBG_SIN, mP.CompetitingOrganizePublishingHouseID_PH, mP.GenreID_GENRE, mP.SONG_AUTHOR, mP.ORIG_PERFORMER, mP.SONG_NAME, mP.DATE_PERF);
+            
         }
 
         public bool AddPerformanceHall(Common.Models.PerformanceHall pH)
@@ -79,9 +80,9 @@ namespace MusicCompetitionBP2
             return repo.OrganizeRepository.Create(competitionID, phID);
         }
 
-        public bool DeleteCompetiting(long jmbg, int compid)
+        public bool DeleteCompetiting(long jmbg, int compid, int pubhouseid)
         {
-            return repo.CompetitingRepository.Remove(jmbg, compid);
+            return repo.CompetitingRepository.Remove(jmbg, compid,pubhouseid);
         }
 
         public bool DeleteCompetition(int iD)

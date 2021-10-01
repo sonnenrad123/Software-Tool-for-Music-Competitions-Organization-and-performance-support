@@ -88,7 +88,7 @@ namespace ClientUI.ViewModel
                     Competitor competitorTemp = repo.RepositoryProxy.ReadCompetitor(selectedMusicPerformance.CompetitingCompetitorJMBG_SIN ?? default(long));
                     SelectedCompetitor = competitorTemp.JMBG_SIN.ToString();
 
-                    Competition cmpTemp = repo.RepositoryProxy.ReadCompetition(SelectedMusicPerformance.CompetitingCompetitionID_COMP ?? default(int));
+                    Competition cmpTemp = repo.RepositoryProxy.ReadCompetition(SelectedMusicPerformance.CompetitingOrganizeCompetitionID_COMP ?? default(int));
                     SelectedCompetition = cmpTemp.NAME_COMP;
 
                     Genre genretmp = repo.RepositoryProxy.ReadGenre(SelectedMusicPerformance.GenreID_GENRE);
@@ -122,9 +122,10 @@ namespace ClientUI.ViewModel
                 return false;
             }
 
-            if (OrigPerfTB == "" || SongAuthorTB == "" || songNameTB == "" || selectedCompetition != selectedMusicPerformance.Competiting.Competition.NAME_COMP || selectedGenre != selectedMusicPerformance.Genre.GENRE_NAME || selectedCompetitor != selectedMusicPerformance.CompetitingCompetitorJMBG_SIN.ToString())
+            if (OrigPerfTB == "" || SongAuthorTB == "" || songNameTB == "" || selectedCompetition != selectedMusicPerformance.Competiting.Organize.Competition.NAME_COMP || selectedGenre != selectedMusicPerformance.Genre.GENRE_NAME || selectedCompetitor != selectedMusicPerformance.CompetitingCompetitorJMBG_SIN.ToString())
             {
                 AllOkey = false;
+                
             }
 
 
@@ -174,7 +175,10 @@ namespace ClientUI.ViewModel
                 return;
             }
 
-            repo.RepositoryProxy.EditMusicPerformance(new MusicPerformance(selectedMusicPerformance.ID_PERF, OrigPerfTB, SongNameTB, SongAuthorTB, DateDP, competitorId, competitionId, genreID, null, null));
+            List<Common.Models.Organize> orgnz = repo.RepositoryProxy.ReadOrganizations().ToList();
+            Common.Models.Organize orgtemp = orgnz.Find(x => x.CompetitionID_COMP == competitionId);
+
+            repo.RepositoryProxy.EditMusicPerformance(new MusicPerformance(selectedMusicPerformance.ID_PERF, OrigPerfTB, SongNameTB, SongAuthorTB, DateDP, competitorId, competitionId,orgtemp.PublishingHouseID_PH, genreID, null, null));
             RefreshTable();
         }
 
@@ -197,9 +201,13 @@ namespace ClientUI.ViewModel
         private void OnAdd()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            List<Common.Models.Organize> orgnz = repo.RepositoryProxy.ReadOrganizations().ToList();
+            
+
             long competitorId = -1;
             int competitionId = -1;
             int genreID = -1;
+            
             foreach (Competitor cmp in Competitors)
             {
                 if(selectedCompetitor == cmp.JMBG_SIN.ToString())
@@ -228,9 +236,16 @@ namespace ClientUI.ViewModel
                 System.Windows.MessageBox.Show("There was a problem! Please, try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            Common.Models.Organize orgtemp = orgnz.Find(x => x.CompetitionID_COMP == competitionId);
+            if (orgtemp == null)
+            {
+                System.Windows.MessageBox.Show("There was a problem! Please, try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            int pubhouseid = orgtemp.PublishingHouseID_PH;
+          
 
-
-            if (repo.RepositoryProxy.AddMusicPerformance(new MusicPerformance(-1, OrigPerfTB, SongNameTB, SongAuthorTB, DateDP, competitorId, competitionId, genreID, null, null)))
+            if (repo.RepositoryProxy.AddMusicPerformance(new MusicPerformance(-1, OrigPerfTB, SongNameTB, SongAuthorTB, DateDP, competitorId, competitionId,pubhouseid, genreID, null, null)))
             {
                 RefreshTable();
             }
