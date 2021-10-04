@@ -9,6 +9,9 @@ namespace ClientUI
 {
     public class MainWindowViewModel: BindableBase
     {
+        //cuvamo ulogovanog korisnika
+
+
         public MyICommand<string> MenuCommand { get; private set; }
        
         public MyICommand BackCommand { get; set; }
@@ -55,7 +58,7 @@ namespace ClientUI
 
         private void Back()
         {
-
+            
         }
 
 
@@ -64,8 +67,8 @@ namespace ClientUI
             akcije.Add(new Akcija("Navigacija", currentViewModel));//cuvamo prethodni view
             switch (view)
             {
-                case "Singers":
-                    CurrentViewModel = new SingersTableViewModel();
+                case "Users":
+                    CurrentViewModel = new UsersTableViewModel();
                     break;
                 case "Competitors":
                     CurrentViewModel = new CompetitorsTableViewModel();

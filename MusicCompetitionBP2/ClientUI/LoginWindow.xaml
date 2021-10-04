@@ -1,0 +1,42 @@
+﻿<Window x:Name="LoginMainWindow" x:Class="ClientUI.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientUI"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="LoginWindow" Height="700" Width="550" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"  FontFamily="Segoe UI Emoji">
+    <Window.DataContext>
+        <local:LoginWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Rectangle Height="480" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2281D1" />
+                    <GradientStop Color="#FF34268A" Offset="1"/>
+                    <GradientStop Color="#FF33288B" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image Source="Resources/Images/mic2.png" Width="200" Height="200" VerticalAlignment="Top" Margin="10"/>
+        <Rectangle Width="380" Height="340" Fill="White" VerticalAlignment="Bottom" Margin="0,100">
+            <Rectangle.Effect>
+                <DropShadowEffect Color="#FFBBBBBB" Direction="0" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Grid Width="380" Height="340" VerticalAlignment="Bottom" Margin="0,100">
+            <TextBlock Text="LOGIN" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="18" />
+            <StackPanel VerticalAlignment="Center" Margin="10">
+                <TextBox Margin="0,10" materialDesign:HintAssist.Hint="EMAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Text="{Binding EmailTB, Mode=TwoWay}"/>
+                <PasswordBox x:Name="PasswordBox" Margin="0,10" materialDesign:HintAssist.Hint="PASSWORD" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" />
+            </StackPanel>
+        </Grid>
+
+        <Button VerticalAlignment="Bottom" Margin="0,85" Width="200" Content="LOGIN" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=LoginMainWindow}"/>
+        
+        
+        
+    </Grid>
+</Window>

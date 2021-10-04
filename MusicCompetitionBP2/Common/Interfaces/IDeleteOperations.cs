@@ -15,6 +15,8 @@ namespace Common.Interfaces
         [OperationContract]
         bool DeleteJuryMember(long JMBG);
         [OperationContract]
+        bool DeleteEventOrganizer(long JMBG);
+        [OperationContract]
         bool DeleteMusicPerformance(int iD);
         [OperationContract]
         bool DeleteGenre(int iD);

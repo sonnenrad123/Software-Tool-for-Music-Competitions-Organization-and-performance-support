@@ -46,15 +46,18 @@
     <Compile Include="Interfaces\IAllOperations.cs" />
     <Compile Include="Interfaces\ICreateOperations.cs" />
     <Compile Include="Interfaces\IDeleteOperations.cs" />
+    <Compile Include="Interfaces\ILoginOperations.cs" />
     <Compile Include="Interfaces\IReadMultipleOperations.cs" />
     <Compile Include="Interfaces\IReadOperations.cs" />
     <Compile Include="Interfaces\IReadSingleOperations.cs" />
     <Compile Include="Interfaces\IUpdateOperations.cs" />
     <Compile Include="Models\ADDRESS.cs" />
+    <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Competiting.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\Evaluate.cs" />
+    <Compile Include="Models\EventOrganizer.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\HiredFor.cs" />
     <Compile Include="Models\IsExpert.cs" />
@@ -65,7 +68,7 @@
     <Compile Include="Models\PossessesA.cs" />
     <Compile Include="Models\PublishingHouse.cs" />
     <Compile Include="Models\Reserve.cs" />
-    <Compile Include="Models\Singer.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

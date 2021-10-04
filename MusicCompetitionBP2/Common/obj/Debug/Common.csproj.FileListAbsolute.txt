@@ -6,7 +6,7 @@ D:\Projekti2020-2021\BP2\MusicCompetitionBP2\Common\obj\Debug\Common.pdb
 D:\Projekti2020-2021\BP2\MusicCompetitionBP2\Common\obj\Debug\Common.csprojAssemblyReference.cache
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\bin\Debug\Common.dll
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\bin\Debug\Common.pdb
-D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.csproj.AssemblyReference.cache
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.dll
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.pdb
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.csproj.AssemblyReference.cache

@@ -17,6 +17,7 @@ namespace MusicCompetitionBP2
         public CompetitingRepository CompetitingRepository { get; }
         public CompetitionRepository CompetitionRepository { get; }
         public CompetitorRepository CompetitorRepository { get; }
+        public EventOrganizerRepository EventOrganizerRepository { get; }
         public EvaluateRepository EvaluateRepository { get; }
         public GenreRepository GenreRepository { get; }
         public HiredForRepository HiredForRepository { get; }
@@ -28,7 +29,7 @@ namespace MusicCompetitionBP2
         public PossessesARepository PossessesARepository { get; }
         public PublishinHouseRepository PublishingHouseRepository { get; }
         public ReserveRepository ReserveRepository { get; }
-
+        public AuthRepository AuthRepository { get; }
         public MainRepository(MusicCompetitionDbContext dbc)
         {
             DbContext = dbc;
@@ -49,6 +50,8 @@ namespace MusicCompetitionBP2
             PossessesARepository = new PossessesARepository(DbContext);
             PublishingHouseRepository = new PublishinHouseRepository(DbContext);
             ReserveRepository = new ReserveRepository(DbContext);
+            EventOrganizerRepository = new EventOrganizerRepository(DbContext);
+            AuthRepository = new AuthRepository(DbContext);
         }
 
         ~MainRepository()

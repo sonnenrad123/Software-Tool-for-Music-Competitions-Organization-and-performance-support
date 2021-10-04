@@ -17,6 +17,8 @@ namespace Common.Interfaces
         [OperationContract]
         bool AddJuryMember(JuryMember jM);
         [OperationContract]
+        bool AddEventOrganizer(EventOrganizer eo);
+        [OperationContract]
         bool AddMusicPerformance(MusicPerformance mP);
         [OperationContract]
         bool AddGenre(Genre g);

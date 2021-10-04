@@ -12,7 +12,7 @@ namespace MusicCompetitionBP2
     using System;
     using System.Collections.Generic;
     
-    public partial class JuryMember : Singer
+    public partial class JuryMember : User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public JuryMember()

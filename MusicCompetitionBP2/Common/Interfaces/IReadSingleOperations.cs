@@ -17,6 +17,8 @@ namespace Common.Interfaces
         [OperationContract]
         JuryMember ReadJuryMember(long JMBG);
         [OperationContract]
+        EventOrganizer ReadEventOrganizer(long JMBG);
+        [OperationContract]
         MusicPerformance ReadMusicPerformance(int iD);
         [OperationContract]
         Genre ReadGenre(int iD);

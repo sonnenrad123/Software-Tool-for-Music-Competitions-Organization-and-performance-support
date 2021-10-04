@@ -17,7 +17,7 @@ namespace MusicCompetitionBP2.Repositories
 
         public bool Create(Common.Models.JuryMember competitor)
         {
-            if (dbContext.Singers.FirstOrDefault((x) => x.JMBG_SIN == competitor.JMBG_SIN) != null)//ako pronadjemo nekoga sa istim jmbg-om ne mere
+            if (dbContext.Users.FirstOrDefault((x) => x.JMBG_SIN == competitor.JMBG_SIN) != null)//ako pronadjemo nekoga sa istim jmbg-om ne mere
             {
                 return false;
             }
@@ -33,7 +33,7 @@ namespace MusicCompetitionBP2.Repositories
                 PHONE_NO_SIN = competitor.PHONE_NO_SIN,
                 Type = "JuryMember"
             };
-            dbContext.Singers.Add(tempCmp);
+            dbContext.Users.Add(tempCmp);
 
             return dbContext.SaveChanges() > 0 ? true : false;
         }
@@ -41,7 +41,7 @@ namespace MusicCompetitionBP2.Repositories
 
         public Common.Models.JuryMember Read(long JMBG)
         {
-            var temp = dbContext.Singers.AsNoTracking().FirstOrDefault((x) => x.JMBG_SIN == JMBG);
+            var temp = dbContext.Users.AsNoTracking().FirstOrDefault((x) => x.JMBG_SIN == JMBG);
             if (temp == null)
             {
                 return null;
@@ -57,7 +57,7 @@ namespace MusicCompetitionBP2.Repositories
         public IEnumerable<Common.Models.JuryMember> ReadAll()
         {
             var ret = new List<Common.Models.JuryMember>();
-            dbContext.Singers.AsNoTracking().ToList().ForEach((temp) =>
+            dbContext.Users.AsNoTracking().ToList().ForEach((temp) =>
             {
                 if (temp.Type == "JuryMember")
                 {
@@ -69,7 +69,7 @@ namespace MusicCompetitionBP2.Repositories
 
         public void Update(Common.Models.JuryMember comp)
         {
-            var temp = dbContext.Singers.FirstOrDefault((x) => x.JMBG_SIN == comp.JMBG_SIN);
+            var temp = dbContext.Users.FirstOrDefault((x) => x.JMBG_SIN == comp.JMBG_SIN);
             dbContext.Entry(temp).CurrentValues.SetValues(comp);
             dbContext.SaveChanges();
         }
@@ -79,14 +79,14 @@ namespace MusicCompetitionBP2.Repositories
         {
             try
             {
-                Singer s = dbContext.Singers.FirstOrDefault((x) => x.JMBG_SIN == JMBG);
+                User s = dbContext.Users.FirstOrDefault((x) => x.JMBG_SIN == JMBG);
                 if (s == null)
                 {
                     return false;
                 }
                 if (s.Type == "JuryMember")
                 {
-                    dbContext.Singers.Remove(s);
+                    dbContext.Users.Remove(s);
                     dbContext.SaveChanges();
                     return true;
                 }

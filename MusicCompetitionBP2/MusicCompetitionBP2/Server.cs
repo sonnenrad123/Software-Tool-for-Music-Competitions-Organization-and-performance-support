@@ -34,6 +34,11 @@ namespace MusicCompetitionBP2
             return repo.EvaluateRepository.Create(juryMemberJMBG, performanceID, mark, comment);
         }
 
+        public bool AddEventOrganizer(Common.Models.EventOrganizer eo)
+        {
+            return repo.EventOrganizerRepository.Create(eo);
+        }
+
         public bool AddGenre(Common.Models.Genre g)
         {
             return repo.GenreRepository.Create(g);
@@ -98,6 +103,11 @@ namespace MusicCompetitionBP2
         public bool DeleteEvaluation(long jmbg_jury, int id_perf)
         {
             return repo.EvaluateRepository.Remove(jmbg_jury,id_perf);
+        }
+
+        public bool DeleteEventOrganizer(long JMBG)
+        {
+            return repo.EventOrganizerRepository.Remove(JMBG);
         }
 
         public bool DeleteExpertise(long jmbg_jury, int gid)
@@ -166,6 +176,11 @@ namespace MusicCompetitionBP2
             repo.EvaluateRepository.Update(ocena, komentar, juryJMBG, idPerf);
         }
 
+        public void EditEventOrganizer(Common.Models.EventOrganizer eo)
+        {
+            repo.EventOrganizerRepository.Update(eo);
+        }
+
         public void EditGenre(Common.Models.Genre g)
         {
             repo.GenreRepository.Update(g);
@@ -179,6 +194,11 @@ namespace MusicCompetitionBP2
         public void EditMusicPerformance(Common.Models.MusicPerformance mP)
         {
             repo.MusicPerformanceRepository.Update(mP.ID_PERF, mP.SONG_AUTHOR, mP.ORIG_PERFORMER, mP.SONG_NAME, mP.DATE_PERF);
+        }
+
+        public void EditPassword(Common.Models.User u)
+        {
+            repo.AuthRepository.ChangePassword(u);
         }
 
         public void EditPerformanceHall(Common.Models.PerformanceHall pH)
@@ -236,6 +256,16 @@ namespace MusicCompetitionBP2
             return repo.EvaluateRepository.ReadAll();
         }
 
+        public Common.Models.EventOrganizer ReadEventOrganizer(long JMBG)
+        {
+            return repo.EventOrganizerRepository.Read(JMBG);
+        }
+
+        public IEnumerable<Common.Models.EventOrganizer> ReadEventOrganizers()
+        {
+            return repo.EventOrganizerRepository.ReadAll();
+        }
+
         public IEnumerable<Common.Models.IsExpert> ReadExpertises()
         {
             return repo.IsExpertRepository.ReadAll();
@@ -264,6 +294,11 @@ namespace MusicCompetitionBP2
         public IEnumerable<Common.Models.JuryMember> ReadJuryMembers()
         {
             return repo.JuryMemberRepository.ReadAll();
+        }
+
+        public Common.Models.User ReadLoggedInUser(string email, string password)
+        {
+            return repo.AuthRepository.ReadUser(email, password);
         }
 
         public Common.Models.MusicPerformance ReadMusicPerformance(int iD)

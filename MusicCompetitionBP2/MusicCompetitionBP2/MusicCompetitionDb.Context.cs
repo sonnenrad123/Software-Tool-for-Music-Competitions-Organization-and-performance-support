@@ -25,7 +25,7 @@ namespace MusicCompetitionBP2
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Singer> Singers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Competition> Competitions { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<MusicPerformance> MusicPerformances { get; set; }

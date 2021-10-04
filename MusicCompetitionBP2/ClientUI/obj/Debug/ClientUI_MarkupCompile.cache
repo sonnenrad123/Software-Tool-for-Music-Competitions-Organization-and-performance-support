@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\App.xaml
-17-1778079455
+18-486202533
 
-45628938444
-15-1433896751
-MainWindow.xaml;Views\CompetitingsTableView.xaml;Views\CompetitionsTableView.xaml;Views\CompetitorsTableView.xaml;Views\EvaluationsTableView.xaml;Views\GenresTableView.xaml;Views\HiredForTableView.xaml;Views\IsExpertTableView.xaml;Views\JuryMembersView.xaml;Views\MainMenuView.xaml;Views\MusicPerformancesTableView.xaml;Views\OrganizationsTableView.xaml;Views\PerformanceHallsTableView.xaml;Views\PossessesATableView.xaml;Views\PublishingHousesTableView.xaml;Views\ReservationsTableView.xaml;Views\SingersTableView.xaml;
+48-593828629
+17765653411
+LoginWindow.xaml;MainWindow.xaml;Views\CompetitingsTableView.xaml;Views\CompetitionsTableView.xaml;Views\CompetitorsTableView.xaml;Views\EvaluationsTableView.xaml;Views\GenresTableView.xaml;Views\HiredForTableView.xaml;Views\IsExpertTableView.xaml;Views\JuryMembersView.xaml;Views\MainMenuView.xaml;Views\MusicPerformancesTableView.xaml;Views\OrganizationsTableView.xaml;Views\PerformanceHallsTableView.xaml;Views\PossessesATableView.xaml;Views\PublishingHousesTableView.xaml;Views\ReservationsTableView.xaml;Views\UsersTableView.xaml;
 
 False
 

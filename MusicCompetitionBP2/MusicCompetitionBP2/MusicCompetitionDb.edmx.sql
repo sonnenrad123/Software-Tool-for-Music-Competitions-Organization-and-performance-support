@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/01/2021 14:34:18
+-- Date Created: 10/04/2021 13:54:59
 -- Generated from EDMX file: D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
 -- --------------------------------------------------
 
@@ -65,11 +65,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CompetitingMusicPerformance]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MusicPerformances] DROP CONSTRAINT [FK_CompetitingMusicPerformance];
 GO
-IF OBJECT_ID(N'[dbo].[FK_JuryMember_inherits_Singer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_JuryMember] DROP CONSTRAINT [FK_JuryMember_inherits_Singer];
+IF OBJECT_ID(N'[dbo].[FK_JuryMember_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Singers_JuryMember] DROP CONSTRAINT [FK_JuryMember_inherits_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Competitor_inherits_Singer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_Singer];
+IF OBJECT_ID(N'[dbo].[FK_Competitor_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Singers_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Administrator_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Singers_Administrator] DROP CONSTRAINT [FK_Administrator_inherits_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EventOrganizer_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Singers_EventOrganizer] DROP CONSTRAINT [FK_EventOrganizer_inherits_User];
 GO
 
 -- --------------------------------------------------
@@ -121,13 +127,19 @@ GO
 IF OBJECT_ID(N'[dbo].[Singers_Competitor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Singers_Competitor];
 GO
+IF OBJECT_ID(N'[dbo].[Singers_Administrator]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Singers_Administrator];
+GO
+IF OBJECT_ID(N'[dbo].[Singers_EventOrganizer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Singers_EventOrganizer];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'Singers'
-CREATE TABLE [dbo].[Singers] (
+-- Creating table 'Users'
+CREATE TABLE [dbo].[Users] (
     [JMBG_SIN] bigint  NOT NULL,
     [FIRSTNAME_SIN] nvarchar(max)  NOT NULL,
     [LASTNAME_SIN] nvarchar(max)  NOT NULL,
@@ -137,7 +149,8 @@ CREATE TABLE [dbo].[Singers] (
     [ADDRESS_SIN_HOME_NUMBER] nvarchar(max)  NOT NULL,
     [ADDRESS_SIN_CITY] nvarchar(max)  NOT NULL,
     [ADDRESS_SIN_STREET] nvarchar(max)  NOT NULL,
-    [Type] nvarchar(max)  NOT NULL
+    [Type] nvarchar(max)  NOT NULL,
+    [Password] nvarchar(max)  NULL
 );
 GO
 
@@ -247,14 +260,26 @@ CREATE TABLE [dbo].[Competitings] (
 );
 GO
 
--- Creating table 'Singers_JuryMember'
-CREATE TABLE [dbo].[Singers_JuryMember] (
+-- Creating table 'Users_JuryMember'
+CREATE TABLE [dbo].[Users_JuryMember] (
     [JMBG_SIN] bigint  NOT NULL
 );
 GO
 
--- Creating table 'Singers_Competitor'
-CREATE TABLE [dbo].[Singers_Competitor] (
+-- Creating table 'Users_Competitor'
+CREATE TABLE [dbo].[Users_Competitor] (
+    [JMBG_SIN] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'Users_Administrator'
+CREATE TABLE [dbo].[Users_Administrator] (
+    [JMBG_SIN] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'Users_EventOrganizer'
+CREATE TABLE [dbo].[Users_EventOrganizer] (
     [JMBG_SIN] bigint  NOT NULL
 );
 GO
@@ -263,9 +288,9 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [JMBG_SIN] in table 'Singers'
-ALTER TABLE [dbo].[Singers]
-ADD CONSTRAINT [PK_Singers]
+-- Creating primary key on [JMBG_SIN] in table 'Users'
+ALTER TABLE [dbo].[Users]
+ADD CONSTRAINT [PK_Users]
     PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
 GO
 
@@ -341,15 +366,27 @@ ADD CONSTRAINT [PK_Competitings]
     PRIMARY KEY CLUSTERED ([CompetitorJMBG_SIN], [OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP] ASC);
 GO
 
--- Creating primary key on [JMBG_SIN] in table 'Singers_JuryMember'
-ALTER TABLE [dbo].[Singers_JuryMember]
-ADD CONSTRAINT [PK_Singers_JuryMember]
+-- Creating primary key on [JMBG_SIN] in table 'Users_JuryMember'
+ALTER TABLE [dbo].[Users_JuryMember]
+ADD CONSTRAINT [PK_Users_JuryMember]
     PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
 GO
 
--- Creating primary key on [JMBG_SIN] in table 'Singers_Competitor'
-ALTER TABLE [dbo].[Singers_Competitor]
-ADD CONSTRAINT [PK_Singers_Competitor]
+-- Creating primary key on [JMBG_SIN] in table 'Users_Competitor'
+ALTER TABLE [dbo].[Users_Competitor]
+ADD CONSTRAINT [PK_Users_Competitor]
+    PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
+GO
+
+-- Creating primary key on [JMBG_SIN] in table 'Users_Administrator'
+ALTER TABLE [dbo].[Users_Administrator]
+ADD CONSTRAINT [PK_Users_Administrator]
+    PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
+GO
+
+-- Creating primary key on [JMBG_SIN] in table 'Users_EventOrganizer'
+ALTER TABLE [dbo].[Users_EventOrganizer]
+ADD CONSTRAINT [PK_Users_EventOrganizer]
     PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
 GO
 
@@ -385,7 +422,7 @@ GO
 ALTER TABLE [dbo].[HiredForSet]
 ADD CONSTRAINT [FK_JuryMemberHiredFor]
     FOREIGN KEY ([JuryMemberJMBG_SIN])
-    REFERENCES [dbo].[Singers_JuryMember]
+    REFERENCES [dbo].[Users_JuryMember]
         ([JMBG_SIN])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -433,7 +470,7 @@ GO
 ALTER TABLE [dbo].[IsExpertSet]
 ADD CONSTRAINT [FK_JuryMemberIsExpert]
     FOREIGN KEY ([JuryMemberJMBG_SIN])
-    REFERENCES [dbo].[Singers_JuryMember]
+    REFERENCES [dbo].[Users_JuryMember]
         ([JMBG_SIN])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -520,7 +557,7 @@ GO
 ALTER TABLE [dbo].[Competitings]
 ADD CONSTRAINT [FK_CompetitorCompetiting]
     FOREIGN KEY ([CompetitorJMBG_SIN])
-    REFERENCES [dbo].[Singers_Competitor]
+    REFERENCES [dbo].[Users_Competitor]
         ([JMBG_SIN])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -555,20 +592,38 @@ ON [dbo].[MusicPerformances]
     ([CompetitingCompetitorJMBG_SIN], [CompetitingOrganizePublishingHouseID_PH], [CompetitingOrganizeCompetitionID_COMP]);
 GO
 
--- Creating foreign key on [JMBG_SIN] in table 'Singers_JuryMember'
-ALTER TABLE [dbo].[Singers_JuryMember]
-ADD CONSTRAINT [FK_JuryMember_inherits_Singer]
+-- Creating foreign key on [JMBG_SIN] in table 'Users_JuryMember'
+ALTER TABLE [dbo].[Users_JuryMember]
+ADD CONSTRAINT [FK_JuryMember_inherits_User]
     FOREIGN KEY ([JMBG_SIN])
-    REFERENCES [dbo].[Singers]
+    REFERENCES [dbo].[Users]
         ([JMBG_SIN])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [JMBG_SIN] in table 'Singers_Competitor'
-ALTER TABLE [dbo].[Singers_Competitor]
-ADD CONSTRAINT [FK_Competitor_inherits_Singer]
+-- Creating foreign key on [JMBG_SIN] in table 'Users_Competitor'
+ALTER TABLE [dbo].[Users_Competitor]
+ADD CONSTRAINT [FK_Competitor_inherits_User]
     FOREIGN KEY ([JMBG_SIN])
-    REFERENCES [dbo].[Singers]
+    REFERENCES [dbo].[Users]
+        ([JMBG_SIN])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [JMBG_SIN] in table 'Users_Administrator'
+ALTER TABLE [dbo].[Users_Administrator]
+ADD CONSTRAINT [FK_Administrator_inherits_User]
+    FOREIGN KEY ([JMBG_SIN])
+    REFERENCES [dbo].[Users]
+        ([JMBG_SIN])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [JMBG_SIN] in table 'Users_EventOrganizer'
+ALTER TABLE [dbo].[Users_EventOrganizer]
+ADD CONSTRAINT [FK_EventOrganizer_inherits_User]
+    FOREIGN KEY ([JMBG_SIN])
+    REFERENCES [dbo].[Users]
         ([JMBG_SIN])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO

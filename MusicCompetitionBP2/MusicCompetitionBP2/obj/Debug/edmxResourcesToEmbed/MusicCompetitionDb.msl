@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MusicCompetitionDbStoreContainer" CdmEntityContainer="MusicCompetitionDbContext">
-    <EntitySetMapping Name="Singers">
-      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Singer)">
-        <MappingFragment StoreEntitySet="Singers">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.User)">
+        <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
           <ScalarProperty Name="FIRSTNAME_SIN" ColumnName="FIRSTNAME_SIN" />
           <ScalarProperty Name="LASTNAME_SIN" ColumnName="LASTNAME_SIN" />
@@ -16,15 +16,26 @@
             <ScalarProperty Name="STREET" ColumnName="ADDRESS_SIN_STREET" />
           </ComplexProperty>
           <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.JuryMember)">
-        <MappingFragment StoreEntitySet="Singers_JuryMember">
+        <MappingFragment StoreEntitySet="Users_JuryMember">
           <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Competitor)">
-        <MappingFragment StoreEntitySet="Singers_Competitor">
+        <MappingFragment StoreEntitySet="Users_Competitor">
+          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Administrator)">
+        <MappingFragment StoreEntitySet="Users_Administrator">
+          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.EventOrganizer)">
+        <MappingFragment StoreEntitySet="Users_EventOrganizer">
           <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
         </MappingFragment>
       </EntityTypeMapping>

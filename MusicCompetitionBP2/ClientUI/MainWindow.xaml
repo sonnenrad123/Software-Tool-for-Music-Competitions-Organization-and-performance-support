@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         
-        Title="MainWindow" Height="600" Width="800" WindowState="Maximized" >
+        Title="MainWindow" Height="600" Width="800" WindowState="Maximized" FontFamily="Segoe UI Emoji" Icon="mic2.png">
     
     
     
@@ -67,8 +67,8 @@
         <DataTemplate DataType="{x:Type viewModel:ReservationsTableViewModel}">
             <views:ReservationsTableView></views:ReservationsTableView>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:SingersTableViewModel}">
-            <views:SingersTableView></views:SingersTableView>
+        <DataTemplate DataType="{x:Type viewModel:UsersTableViewModel}">
+            <views:UsersTableView></views:UsersTableView>
         </DataTemplate>
     </Window.Resources>
     
@@ -81,8 +81,8 @@
             <ContentControl Content="{Binding CurrentViewModel}" HorizontalAlignment="Left" Margin="10,10,0,0"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
         <StackPanel Grid.Row="1"  VerticalAlignment="Bottom" >
-            <Button x:Name="HomeBtn" Content="Main menu" Height="29" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding BackToHome}" />
-            <Button x:Name="BackBtn" Content="Back" Height="28" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding BackToHome}" />
+            <Button x:Name="HomeBtn" Content="Main menu" Height="29" Opacity="0.8" Command="{Binding BackToHome}" />
+            <Button x:Name="BackBtn" Content="Back" Height="28" Opacity="0.8" Command="{Binding BackToHome}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vocal-2.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mic2.png")]
 
 

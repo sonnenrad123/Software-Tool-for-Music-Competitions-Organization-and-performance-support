@@ -9,7 +9,7 @@ using Common.Models;
 namespace Common.Interfaces
 {
     [ServiceContract]
-    public interface IAllOperations:ICreateOperations,IReadOperations,IUpdateOperations,IDeleteOperations
+    public interface IAllOperations:ICreateOperations,IReadOperations,IUpdateOperations,IDeleteOperations,ILoginOperations
     {
         [OperationContract]
         bool AddCompetitorToCompetition(long competitorJMBG, int competitionID,int pubhouseID);

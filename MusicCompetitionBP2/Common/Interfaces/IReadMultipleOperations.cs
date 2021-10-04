@@ -17,6 +17,8 @@ namespace Common.Interfaces
         [OperationContract]
         IEnumerable<JuryMember> ReadJuryMembers();
         [OperationContract]
+        IEnumerable<EventOrganizer> ReadEventOrganizers();
+        [OperationContract]
         IEnumerable<MusicPerformance> ReadMusicPerformances();
         [OperationContract]
         IEnumerable<Genre> ReadGenres();

@@ -16,6 +16,8 @@ namespace Common.Interfaces
         [OperationContract]
         void EditJuryMember(JuryMember jM);
         [OperationContract]
+        void EditEventOrganizer(EventOrganizer eo);
+        [OperationContract]
         void EditMusicPerformance(MusicPerformance mP);
         [OperationContract]
         void EditGenre(Genre g);
@@ -25,5 +27,7 @@ namespace Common.Interfaces
         void EditPublishingHouse(PublishingHouse ph);
         [OperationContract]
         void EditPerformanceHall(PerformanceHall pH);
+        [OperationContract]
+        void EditPassword(User u);
     }
 }

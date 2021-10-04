@@ -12,7 +12,7 @@ namespace MusicCompetitionBP2
     using System;
     using System.Collections.Generic;
     
-    public partial class Competitor : Singer
+    public partial class Competitor : User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Competitor()

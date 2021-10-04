@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MusicCompetitionDb" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
   <EntityContainer Name="MusicCompetitionDbContext" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Singers" EntityType="MusicCompetitionDb.Singer" />
+    <EntitySet Name="Users" EntityType="MusicCompetitionDb.User" />
     <EntitySet Name="Competitions" EntityType="MusicCompetitionDb.Competition" />
     <EntitySet Name="Genres" EntityType="MusicCompetitionDb.Genre" />
     <EntitySet Name="MusicPerformances" EntityType="MusicCompetitionDb.MusicPerformance" />
@@ -18,7 +18,7 @@
     </AssociationSet>
     <EntitySet Name="HiredForSet" EntityType="MusicCompetitionDb.HiredFor" />
     <AssociationSet Name="JuryMemberHiredFor" Association="MusicCompetitionDb.JuryMemberHiredFor">
-      <End Role="JuryMember" EntitySet="Singers" />
+      <End Role="JuryMember" EntitySet="Users" />
       <End Role="HiredFor" EntitySet="HiredForSet" />
     </AssociationSet>
     <AssociationSet Name="CompetitionHiredFor" Association="MusicCompetitionDb.CompetitionHiredFor">
@@ -36,7 +36,7 @@
     </AssociationSet>
     <EntitySet Name="IsExpertSet" EntityType="MusicCompetitionDb.IsExpert" />
     <AssociationSet Name="JuryMemberIsExpert" Association="MusicCompetitionDb.JuryMemberIsExpert">
-      <End Role="JuryMember" EntitySet="Singers" />
+      <End Role="JuryMember" EntitySet="Users" />
       <End Role="IsExpert" EntitySet="IsExpertSet" />
     </AssociationSet>
     <AssociationSet Name="GenreIsExpert" Association="MusicCompetitionDb.GenreIsExpert">
@@ -67,7 +67,7 @@
     </AssociationSet>
     <EntitySet Name="Competitings" EntityType="MusicCompetitionDb.Competiting" />
     <AssociationSet Name="CompetitorCompetiting" Association="MusicCompetitionDb.CompetitorCompetiting">
-      <End Role="Competitor" EntitySet="Singers" />
+      <End Role="Competitor" EntitySet="Users" />
       <End Role="Competiting" EntitySet="Competitings" />
     </AssociationSet>
     <AssociationSet Name="OrganizeCompetiting" Association="MusicCompetitionDb.OrganizeCompetiting">
@@ -79,7 +79,7 @@
       <End Role="MusicPerformance" EntitySet="MusicPerformances" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Singer">
+  <EntityType Name="User">
     <Key>
       <PropertyRef Name="JMBG_SIN" />
     </Key>
@@ -91,11 +91,12 @@
     <Property Name="PHONE_NO_SIN" Type="String" Nullable="false" />
     <Property Name="ADDRESS_SIN" Type="MusicCompetitionDb.ADDRESS" Nullable="false" />
     <Property Name="Type" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="true" />
   </EntityType>
-  <EntityType Name="Competitor" BaseType="MusicCompetitionDb.Singer">
+  <EntityType Name="Competitor" BaseType="MusicCompetitionDb.User">
     <NavigationProperty Name="Competiting" Relationship="MusicCompetitionDb.CompetitorCompetiting" FromRole="Competitor" ToRole="Competiting" />
   </EntityType>
-  <EntityType Name="JuryMember" BaseType="MusicCompetitionDb.Singer">
+  <EntityType Name="JuryMember" BaseType="MusicCompetitionDb.User">
     <NavigationProperty Name="HiredFor" Relationship="MusicCompetitionDb.JuryMemberHiredFor" FromRole="JuryMember" ToRole="HiredFor" />
     <NavigationProperty Name="IsExpert" Relationship="MusicCompetitionDb.JuryMemberIsExpert" FromRole="JuryMember" ToRole="IsExpert" />
   </EntityType>
@@ -449,4 +450,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Administrator" BaseType="MusicCompetitionDb.User" />
+  <EntityType Name="EventOrganizer" BaseType="MusicCompetitionDb.User" />
 </Schema>
