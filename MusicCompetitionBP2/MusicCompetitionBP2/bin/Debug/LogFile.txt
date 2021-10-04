@@ -1,16 +1,16 @@
-Opened connection at 1.6.2021. 13:09:17 +02:00
-Started transaction at 1.6.2021. 13:09:17 +02:00
-DELETE [dbo].[Singers_Competitor]
+Opened connection at 4.10.2021. 23:24:53 +02:00
+Started transaction at 4.10.2021. 23:24:53 +02:00
+DELETE [dbo].[Users_Competitor]
 WHERE ([JMBG_SIN] = @0)
--- @0: '12' (Type = Int64)
--- Executing at 1.6.2021. 13:09:17 +02:00
--- Completed in 6 ms with result: 20
+-- @0: '10049981' (Type = Int64)
+-- Executing at 4.10.2021. 23:24:53 +02:00
+-- Completed in 5 ms with result: 1
 
-DELETE [dbo].[Singers]
+DELETE [dbo].[Users]
 WHERE ([JMBG_SIN] = @0)
--- @0: '12' (Type = Int64)
--- Executing at 1.6.2021. 13:09:17 +02:00
--- Completed in 6 ms with result: 1
+-- @0: '10049981' (Type = Int64)
+-- Executing at 4.10.2021. 23:24:53 +02:00
+-- Completed in 5 ms with result: 1
 
-Committed transaction at 1.6.2021. 13:09:17 +02:00
-Closed connection at 1.6.2021. 13:09:17 +02:00
+Committed transaction at 4.10.2021. 23:24:53 +02:00
+Closed connection at 4.10.2021. 23:24:53 +02:00

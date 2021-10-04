@@ -16,13 +16,42 @@ namespace MusicCompetitionBP2.Repositories
 
         public Common.Models.User ReadUser(string email, string password) 
         {
-            var loggedUser = dbContext.Users.FirstOrDefault(x => x.EMAIL_SIN == email && (x.Password == password || x.Password == null || x.Password == "ChangePassword"));
+           
+
+            var loggedUser = dbContext.Users.FirstOrDefault(x => x.EMAIL_SIN == email);
+
             if(loggedUser == null)
             {
                 return null;
             }
 
-            return new Common.Models.User(loggedUser.JMBG_SIN, loggedUser.FIRSTNAME_SIN, loggedUser.LASTNAME_SIN, loggedUser.BIRTHDATE_SIN, loggedUser.EMAIL_SIN, loggedUser.PHONE_NO_SIN, new Common.Models.ADDRESS(loggedUser.ADDRESS_SIN.HOME_NUMBER, loggedUser.ADDRESS_SIN.CITY, loggedUser.ADDRESS_SIN.STREET)) { Type = loggedUser.Type,Password = loggedUser.Password };
+            if(loggedUser.Password == "ChangePassword" || loggedUser.Password == "Admin")
+            {
+                return new Common.Models.User(loggedUser.JMBG_SIN, loggedUser.FIRSTNAME_SIN, loggedUser.LASTNAME_SIN, loggedUser.BIRTHDATE_SIN, loggedUser.EMAIL_SIN, loggedUser.PHONE_NO_SIN, new Common.Models.ADDRESS(loggedUser.ADDRESS_SIN.HOME_NUMBER, loggedUser.ADDRESS_SIN.CITY, loggedUser.ADDRESS_SIN.STREET)) { Type = loggedUser.Type, Password = loggedUser.Password };
+            }
+
+            if (loggedUser.Password.Contains("-FL-"))
+            {
+                if(loggedUser.Password == password)
+                {
+                    return new Common.Models.User(loggedUser.JMBG_SIN, loggedUser.FIRSTNAME_SIN, loggedUser.LASTNAME_SIN, loggedUser.BIRTHDATE_SIN, loggedUser.EMAIL_SIN, loggedUser.PHONE_NO_SIN, new Common.Models.ADDRESS(loggedUser.ADDRESS_SIN.HOME_NUMBER, loggedUser.ADDRESS_SIN.CITY, loggedUser.ADDRESS_SIN.STREET)) { Type = loggedUser.Type, Password = loggedUser.Password };
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            if (Common.PasswordHasher.Verify(password, loggedUser.Password))
+            {
+                return new Common.Models.User(loggedUser.JMBG_SIN, loggedUser.FIRSTNAME_SIN, loggedUser.LASTNAME_SIN, loggedUser.BIRTHDATE_SIN, loggedUser.EMAIL_SIN, loggedUser.PHONE_NO_SIN, new Common.Models.ADDRESS(loggedUser.ADDRESS_SIN.HOME_NUMBER, loggedUser.ADDRESS_SIN.CITY, loggedUser.ADDRESS_SIN.STREET)) { Type = loggedUser.Type, Password = loggedUser.Password };
+            }
+            else
+            {
+                return null;
+            }
+
+            
         }
         public void ChangePassword(Common.Models.User u)
         {

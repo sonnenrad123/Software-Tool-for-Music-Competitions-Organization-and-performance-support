@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +25,10 @@ namespace MusicCompetitionBP2.Repositories
                 return false;
             }
 
+            string addition = RandomString(20);
+            string password = "-FL-" + addition;
+
+
             JuryMember tempCmp = new JuryMember()
             {
                 ADDRESS_SIN = new ADDRESS() { CITY = competitor.ADDRESS_SIN.CITY, HOME_NUMBER = competitor.ADDRESS_SIN.HOME_NUMBER, STREET = competitor.ADDRESS_SIN.STREET },
@@ -31,9 +38,19 @@ namespace MusicCompetitionBP2.Repositories
                 JMBG_SIN = competitor.JMBG_SIN,
                 LASTNAME_SIN = competitor.LASTNAME_SIN,
                 PHONE_NO_SIN = competitor.PHONE_NO_SIN,
+                Password = password,
                 Type = "JuryMember"
             };
             dbContext.Users.Add(tempCmp);
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("mcompetition2021@gmail.com", "muzickotakmicenje"),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send("mcompetition2021@gmail.com", competitor.EMAIL_SIN, "Your login password for Global Music Competitions app.", string.Format("Your login credentials for Global Music Competitions app are:\nEmail: {0}\nPassword:{1}", competitor.EMAIL_SIN, tempCmp.Password)); ;
 
             return dbContext.SaveChanges() > 0 ? true : false;
         }
@@ -101,7 +118,24 @@ namespace MusicCompetitionBP2.Repositories
             }
         }
 
+        static string RandomString(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+            {
+                byte[] uintBuffer = new byte[sizeof(uint)];
 
+                while (length-- > 0)
+                {
+                    rng.GetBytes(uintBuffer);
+                    uint num = BitConverter.ToUInt32(uintBuffer, 0);
+                    res.Append(valid[(int)(num % (uint)valid.Length)]);
+                }
+            }
+
+            return res.ToString();
+        }
         ~JuryMemberRepository()
         {
             dbContext.Dispose();

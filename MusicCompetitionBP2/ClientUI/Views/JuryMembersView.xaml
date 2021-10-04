@@ -35,8 +35,8 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
             <StackPanel Grid.Row="2">
-                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">JMBG:</Label>
-                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">First name:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Margin="2">JMBG:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Margin="2">First name:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Last name:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Date of birth:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Email:</Label>
@@ -46,26 +46,27 @@
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Number:</Label>
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <TextBox  MinWidth="100" Text="{Binding JmbgTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"></TextBox>
-                <TextBox  MinWidth="100" Text="{Binding FirstNameTB,Mode=TwoWay}" Margin="7" MaxWidth="200"></TextBox>
-                <TextBox  MinWidth="100" Text="{Binding LastNameTB,Mode=TwoWay}" Margin="7" MaxWidth="200"></TextBox>
-                <DatePicker  Margin="4"  SelectedDate="{Binding BirthDP, Mode=TwoWay}">
+                <TextBox  MinWidth="100" Background="#87CEFA" Text="{Binding JmbgTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="4" MaxWidth="200"/>
+                <TextBox  MinWidth="100" Background="#87CEFA"  Text="{Binding FirstNameTB, Mode=TwoWay}" Margin="4" MaxWidth="200"/>
+                <TextBox  MinWidth="100" Background="#87CEFA" Text="{Binding LastNameTB, Mode=TwoWay}" Margin="4" MaxWidth="200"/>
+                <DatePicker  Margin="1"  Background="#87CEFA"  SelectedDate="{Binding BirthDP, Mode=TwoWay}">
                     <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
+                        <Style TargetType="{x:Type DatePickerTextBox}">
                             <Setter Property="IsReadOnly" Value="True"/>
+                            <Setter Property="Background" Value="#87CEFA"/>
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
-                <TextBox  MinWidth="100" Text="{Binding EmailTB,Mode=TwoWay}" Margin="7" MaxWidth="200"></TextBox>
-                <TextBox  MinWidth="100" Text="{Binding PhoneNoTB,Mode=TwoWay}" Margin="7" MaxWidth="200"  PreviewTextInput="PreviewTextInput"></TextBox>
-                <TextBox  MinWidth="100" Text="{Binding CityTB,Mode=TwoWay}" Margin="7" MaxWidth="200" ></TextBox>
-                <TextBox  MinWidth="100" Text="{Binding StreetTB,Mode=TwoWay}" Margin="7" MaxWidth="200" ></TextBox>
-                <TextBox  MinWidth="100" Text="{Binding NumberTB,Mode=TwoWay}" Margin="7" MaxWidth="200" PreviewTextInput="PreviewTextInput"></TextBox>
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding EmailTB, Mode=TwoWay}" Margin="3" MaxWidth="200"/>
+                <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding PhoneNoTB, Mode=TwoWay}" Margin="3" MaxWidth="200"  PreviewTextInput="PreviewTextInput"/>
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding CityTB, Mode=TwoWay}" Margin="3" MaxWidth="200" />
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding StreetTB, Mode=TwoWay}" Margin="3" MaxWidth="200" />
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding NumberTB, Mode=TwoWay}" Margin="3" MaxWidth="200" PreviewTextInput="PreviewTextInput"/>
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="93" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
-        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="93" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,59,0,0" Grid.Row="2" VerticalAlignment="Top" Width="93" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,79,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
     </Grid>
 </UserControl>
