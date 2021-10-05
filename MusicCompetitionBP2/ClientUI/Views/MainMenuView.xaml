@@ -12,8 +12,11 @@
         </Grid.RowDefinitions>
         <Border Padding="100">
             <StackPanel Grid.Row="0"  >
-                <Button x:Name="AdminPanelBtn" Content="Admin Panel" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,20,0,50" Command="{Binding NavigationCommand}" CommandParameter="AdminPanel" Background="#FFF00A0A" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button x:Name="AdminPanelBtn" Content="Admin Panel" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,0" Command="{Binding NavigationCommand}" CommandParameter="AdminPanel" Background="#FFF00A0A" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button x:Name="ControlPanelBtn" Content="View and edit profile" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,0,0,50" Command="{Binding NavigationCommand}" CommandParameter="ControlPanel" Background="#FF53F00A"/>
+                
                 <Button x:Name="CompetitionTableBtn" Content="Competitions" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitions"/>
+
                 <Button x:Name="GenreTableBtn" Content="Genres" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Genres"/>
                 <Button x:Name="PublishingHouseTableBtn" Content="Publishing Houses" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PublishingHouses"/>
                 <Button x:Name="PerformanceHallTableBtn" Content="Performance Halls" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PerformanceHalls"/>

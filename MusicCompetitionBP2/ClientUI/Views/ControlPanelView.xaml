@@ -1,0 +1,60 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClientUI.Views.ControlPanelView"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" FontFamily="Segoe UI Emoji">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Background="Black" Opacity="0.8" Grid.Row="0" Grid.ColumnSpan="2">
+            <Label Content="View and edit profile"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Background="#7F000000">
+            <Label Content="JMBG:" Foreground="White"  FontSize="22"></Label>
+            <Label Content="First name:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Last name:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Email:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Phone No.:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Date of birth:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Address" HorizontalAlignment="Center" Foreground="White" FontStyle="Italic" FontSize="22"></Label>
+            <Label Content="City:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Street:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Street number:" Foreground="White" FontSize="22"></Label>
+            <Label Content="Password" HorizontalAlignment="Center" Foreground="White" FontStyle="Italic" FontSize="22"></Label>
+            <Label Content="Password:" Foreground="White" FontSize="22"></Label>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="#7F000000">
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding JmbgTB, Mode=TwoWay}"  Margin="7" MaxWidth="400" IsReadOnly="True"></TextBox>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding FirstNameTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding LastNameTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding EmailTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding PhoneNoTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
+            <DatePicker  Margin="4"  SelectedDate="{Binding BirthDP, Mode=TwoWay}">
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding CityTB, Mode=TwoWay}"  Margin="7,40,7,7" MaxWidth="400"></TextBox>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding StreetTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
+            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding NumberTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
+            <PasswordBox x:Name="passwordPB" Password="NoChange"  Background="#87CEFA" MinWidth="200" Margin="7,40,7,7" MaxWidth="400" ></PasswordBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <Button Content="Edit Profile" Command="{Binding ModifyCommand}" CommandParameter="{Binding ElementName=passwordPB}"></Button>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

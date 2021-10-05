@@ -73,6 +73,9 @@ namespace ClientUI
                     admtemp.NavigationEvent += (object sender, NavigationEventArgs e) => Navigate(e.Location);
                     CurrentViewModel = admtemp;
                     break;
+                case "ControlPanel":
+                    CurrentViewModel = new ControlPanelViewModel();
+                    break;
                 case "Users":
                     CurrentViewModel = new UsersTableViewModel();
                     break;

@@ -77,6 +77,7 @@
     <Compile Include="ViewModel\CompetitingsTableViewModel.cs" />
     <Compile Include="ViewModel\CompetitionsTableViewModel.cs" />
     <Compile Include="ViewModel\CompetitorsTableViewModel.cs" />
+    <Compile Include="ViewModel\ControlPanelViewModel.cs" />
     <Compile Include="ViewModel\EvaluationsTableViewModel.cs" />
     <Compile Include="ViewModel\GenresTableViewModel.cs" />
     <Compile Include="ViewModel\HiredForTableViewModel.cs" />
@@ -101,6 +102,9 @@
     </Compile>
     <Compile Include="Views\CompetitorsTableView.xaml.cs">
       <DependentUpon>CompetitorsTableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlPanelView.xaml.cs">
+      <DependentUpon>ControlPanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EvaluationsTableView.xaml.cs">
       <DependentUpon>EvaluationsTableView.xaml</DependentUpon>
@@ -173,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CompetitorsTableView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
