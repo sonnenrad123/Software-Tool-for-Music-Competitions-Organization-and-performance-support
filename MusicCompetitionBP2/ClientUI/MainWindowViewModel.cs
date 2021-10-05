@@ -19,7 +19,7 @@ namespace ClientUI
 
         private BindableBase currentViewModel;
         private MainMenuViewModel MainMenu;
-        //private CompetitorsTableViewModel competitorsTable = new CompetitorsTableViewModel();
+        
 
 
 
@@ -32,7 +32,8 @@ namespace ClientUI
 
         public MainWindowViewModel()
         {
-            MainMenu = new MainMenuViewModel(this);
+            MainMenu = new MainMenuViewModel();
+            MainMenu.NavigationEvent += (object sender, NavigationEventArgs e) => Navigate(e.Location);
             CurrentViewModel = MainMenu;
             MenuCommand = new MyICommand<string>(Navigate);
             BackToHome = new MyICommand(Home);

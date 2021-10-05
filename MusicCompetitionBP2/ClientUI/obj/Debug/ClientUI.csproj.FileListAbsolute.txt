@@ -108,5 +108,5 @@ D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\ClientUI.
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\ClientUI.csproj.CopyComplete
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\ClientUI.exe
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\ClientUI.pdb
-D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\AdminPanel.g.cs
-D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\AdminPanel.baml
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\AdminPanelView.g.cs
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\AdminPanelView.baml

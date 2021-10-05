@@ -71,7 +71,7 @@
             <views:UsersTableView></views:UsersTableView>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:AdminPanelViewModel}">
-            <views:AdminPanel></views:AdminPanel>
+            <views:AdminPanelView></views:AdminPanelView>
         </DataTemplate>
     </Window.Resources>
     

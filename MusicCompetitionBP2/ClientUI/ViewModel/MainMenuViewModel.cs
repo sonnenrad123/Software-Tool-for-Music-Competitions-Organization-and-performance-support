@@ -10,20 +10,18 @@ namespace ClientUI.ViewModel
     {
         
         public MyICommand<string> NavigationCommand { get; private set; }
-        private MainWindowViewModel mainWindow;
+        public event EventHandler<NavigationEventArgs> NavigationEvent;
+        
 
-        public MainMenuViewModel(MainWindowViewModel mainWindow)
+        public MainMenuViewModel()
         {
-            this.mainWindow = mainWindow;
+            
             NavigationCommand = new MyICommand<string>(Navigate);
         }
 
 
-        private void Navigate(string view)
-        {
-            mainWindow.Navigate(view);
-            
-        }
+        public void Navigate(string view) => NavigationEvent?.Invoke(this, new NavigationEventArgs(view));
+        
 
 
     }

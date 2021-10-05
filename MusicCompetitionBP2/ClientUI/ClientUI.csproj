@@ -69,6 +69,7 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindowViewModel.cs" />
+    <Compile Include="NavigationEventArgs.cs" />
     <Compile Include="RepositoryCommunicationProvider.cs" />
     <Compile Include="ValidationBase.cs" />
     <Compile Include="ValidationErrors.cs" />
@@ -89,8 +90,8 @@
     <Compile Include="ViewModel\PublishingHousesTableViewModel.cs" />
     <Compile Include="ViewModel\ReservationsTableViewModel.cs" />
     <Compile Include="ViewModel\UsersTableViewModel.cs" />
-    <Compile Include="Views\AdminPanel.xaml.cs">
-      <DependentUpon>AdminPanel.xaml</DependentUpon>
+    <Compile Include="Views\AdminPanelView.xaml.cs">
+      <DependentUpon>AdminPanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CompetitingsTableView.xaml.cs">
       <DependentUpon>CompetitingsTableView.xaml</DependentUpon>
@@ -159,7 +160,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AdminPanel.xaml">
+    <Page Include="Views\AdminPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
