@@ -12,11 +12,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Background="Black" Opacity="0.8" Grid.Row="0">
-            <Label Content="Jury members"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
+            <Label Content="Admin Panel"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
         </Grid>
         <Border Padding="50" Grid.Row="1">
             <StackPanel Grid.Row="1"  >
-                <Button x:Name="SingerTableBtn" Content="All users" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10" Command="{Binding }" CommandParameter="Users"/>
+                <Button x:Name="SingerTableBtn" Content="All users" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10" Command="{Binding NavigationCommand}" CommandParameter="Users"/>
                 <Button x:Name="CompetitorTableBtn" Content="Competitors" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10"  Command="{Binding NavigationCommand}" CommandParameter="Competitors"/>
                 <Button x:Name="JuryMemberTableBtn" Content="Jury Members" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10"  Command="{Binding NavigationCommand}" CommandParameter="JuryMembers"/>
 

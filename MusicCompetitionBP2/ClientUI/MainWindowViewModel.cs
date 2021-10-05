@@ -68,6 +68,11 @@ namespace ClientUI
             akcije.Add(new Akcija("Navigacija", currentViewModel));//cuvamo prethodni view
             switch (view)
             {
+                case "AdminPanel":
+                    AdminPanelViewModel admtemp = new AdminPanelViewModel();
+                    admtemp.NavigationEvent += (object sender, NavigationEventArgs e) => Navigate(e.Location);
+                    CurrentViewModel = admtemp;
+                    break;
                 case "Users":
                     CurrentViewModel = new UsersTableViewModel();
                     break;

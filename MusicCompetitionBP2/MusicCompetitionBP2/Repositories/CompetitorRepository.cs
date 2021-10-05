@@ -21,7 +21,7 @@ namespace MusicCompetitionBP2.Repositories
 
         public bool Create(Common.Models.Competitor competitor)
         {
-            if(dbContext.Users.FirstOrDefault((x) => x.JMBG_SIN == competitor.JMBG_SIN) != null)//ako pronadjemo nekoga sa istim jmbg-om ne mere
+            if(dbContext.Users.FirstOrDefault((x) => x.JMBG_SIN == competitor.JMBG_SIN || x.EMAIL_SIN == competitor.EMAIL_SIN) != null)//ako pronadjemo nekoga sa istim jmbg-om ili mail-om ne mere
             {
                 return false;
             }
