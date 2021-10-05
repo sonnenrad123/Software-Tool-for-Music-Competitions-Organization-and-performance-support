@@ -87,6 +87,7 @@ namespace MusicCompetitionBP2.Repositories
         public void Update(Common.Models.JuryMember comp)
         {
             var temp = dbContext.Users.FirstOrDefault((x) => x.JMBG_SIN == comp.JMBG_SIN);
+            comp.Password = temp.Password;
             dbContext.Entry(temp).CurrentValues.SetValues(comp);
             dbContext.SaveChanges();
         }
