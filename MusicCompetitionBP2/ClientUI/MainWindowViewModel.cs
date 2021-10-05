@@ -9,7 +9,7 @@ namespace ClientUI
 {
     public class MainWindowViewModel: BindableBase
     {
-        //cuvamo ulogovanog korisnika
+        
 
 
         public MyICommand<string> MenuCommand { get; private set; }

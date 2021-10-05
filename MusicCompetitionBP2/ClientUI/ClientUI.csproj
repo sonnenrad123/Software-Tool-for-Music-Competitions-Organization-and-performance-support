@@ -72,6 +72,7 @@
     <Compile Include="RepositoryCommunicationProvider.cs" />
     <Compile Include="ValidationBase.cs" />
     <Compile Include="ValidationErrors.cs" />
+    <Compile Include="ViewModel\AdminPanelViewModel.cs" />
     <Compile Include="ViewModel\CompetitingsTableViewModel.cs" />
     <Compile Include="ViewModel\CompetitionsTableViewModel.cs" />
     <Compile Include="ViewModel\CompetitorsTableViewModel.cs" />
@@ -88,6 +89,9 @@
     <Compile Include="ViewModel\PublishingHousesTableViewModel.cs" />
     <Compile Include="ViewModel\ReservationsTableViewModel.cs" />
     <Compile Include="ViewModel\UsersTableViewModel.cs" />
+    <Compile Include="Views\AdminPanel.xaml.cs">
+      <DependentUpon>AdminPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CompetitingsTableView.xaml.cs">
       <DependentUpon>CompetitingsTableView.xaml</DependentUpon>
     </Compile>
@@ -155,6 +159,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CompetitingsTableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

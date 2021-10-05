@@ -10,23 +10,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-       
-        <StackPanel Grid.Row="0" >
-            <Button x:Name="SingerTableBtn" Content="All users" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Users"/>
-            <Button x:Name="CompetitorTableBtn" Content="Competitors" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitors"/>
-            <Button x:Name="JuryMemberTableBtn" Content="Jury Members" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="JuryMembers"/>
-            <Button x:Name="CompetitionTableBtn" Content="Competitions" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitions"/>
-            <Button x:Name="GenreTableBtn" Content="Genres" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Genres"/>
-            <Button x:Name="PublishingHouseTableBtn" Content="Publishing Houses" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PublishingHouses"/>
-            <Button x:Name="PerformanceHallTableBtn" Content="Performance Halls" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PerformanceHalls"/>
-            <Button x:Name="MusicPerformanceTableBtn" Content="Music Performances" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="MusicPerformances"/>
-            <Button x:Name="CompetitingsTableBtn" Content="All competitings" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitings"/>
-            <Button x:Name="PossessesATableBtn" Content="Competition genres" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PossessesA"/>
-            <Button x:Name="EvaluateTableBtn" Content="Performance evaluations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8"  Command="{Binding NavigationCommand}" CommandParameter="Evaluations"/>
-            <Button x:Name="ExpertisesTableBtn" Content="Genre expertises" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="IsExpertSet"/>
-            <Button x:Name="HiredForTableBtn" Content="Jury engagements" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Engagements"/>
-            <Button x:Name="OrganizeTableBtn" Content="Publishing house organizations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Organizations"/>
-            <Button x:Name="ReserveTableBtn" Content="Hall reservations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Reservations"/>
-        </StackPanel>
+        <Border Padding="100">
+            <StackPanel Grid.Row="0"  >
+                <Button x:Name="SingerTableBtn" Content="All users" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Users"/>
+                <Button x:Name="CompetitorTableBtn" Content="Competitors" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitors"/>
+                <Button x:Name="JuryMemberTableBtn" Content="Jury Members" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="JuryMembers"/>
+                <Button x:Name="CompetitionTableBtn" Content="Competitions" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitions"/>
+                <Button x:Name="GenreTableBtn" Content="Genres" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Genres"/>
+                <Button x:Name="PublishingHouseTableBtn" Content="Publishing Houses" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PublishingHouses"/>
+                <Button x:Name="PerformanceHallTableBtn" Content="Performance Halls" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PerformanceHalls"/>
+                <Button x:Name="MusicPerformanceTableBtn" Content="Music Performances" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="MusicPerformances"/>
+                <Button x:Name="CompetitingsTableBtn" Content="All competitings" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Competitings"/>
+                <Button x:Name="PossessesATableBtn" Content="Competition genres" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="PossessesA"/>
+                <Button x:Name="EvaluateTableBtn" Content="Performance evaluations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8"  Command="{Binding NavigationCommand}" CommandParameter="Evaluations"/>
+                <Button x:Name="ExpertisesTableBtn" Content="Genre expertises" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="IsExpertSet"/>
+                <Button x:Name="HiredForTableBtn" Content="Jury engagements" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Engagements"/>
+                <Button x:Name="OrganizeTableBtn" Content="Publishing house organizations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Organizations"/>
+                <Button x:Name="ReserveTableBtn" Content="Hall reservations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Reservations"/>
+            </StackPanel>
+        </Border>
+        
     </Grid>
 </UserControl>
