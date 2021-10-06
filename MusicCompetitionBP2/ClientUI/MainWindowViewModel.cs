@@ -13,6 +13,7 @@ namespace ClientUI
 
 
         public MyICommand<string> MenuCommand { get; private set; }
+        public MyICommand<MainWindow> LogOutCommand { get; private set; }
        
         public MyICommand BackCommand { get; set; }
         public MyICommand BackToHome { get; set; }
@@ -38,6 +39,8 @@ namespace ClientUI
             MenuCommand = new MyICommand<string>(Navigate);
             BackToHome = new MyICommand(Home);
             BackCommand = new MyICommand(Back);
+
+            LogOutCommand = new MyICommand<MainWindow>(LogOut);
         }
 
 
@@ -126,6 +129,15 @@ namespace ClientUI
                     break;
 
             }
+        }
+
+        public void LogOut(MainWindow wnd)
+        {
+            LoggedInUserSingleton.Instance.loggedInUser = null;
+            LoginWindow lw = new LoginWindow();
+            lw.Show();
+            wnd.Close();
+            
         }
     }
 }

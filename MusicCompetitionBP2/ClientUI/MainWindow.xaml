@@ -83,8 +83,8 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="900*"/>
-            <RowDefinition Height="100*" />
+            <RowDefinition Height="800*"/>
+            <RowDefinition Height="200*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ContentControl Content="{Binding CurrentViewModel}" HorizontalAlignment="Left" Margin="10,10,0,0"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
@@ -92,6 +92,9 @@
         <StackPanel Grid.Row="1"  VerticalAlignment="Bottom" >
             <Button x:Name="HomeBtn" Content="Main menu" Height="29" Opacity="0.8" Command="{Binding BackToHome}" />
             <Button x:Name="BackBtn" Content="Back" Height="28" Opacity="0.8" Command="{Binding BackToHome}" />
+            <Button x:Name="LogOutBtn" Content="Log out" Height="28" Opacity="0.8" Command="{Binding LogOutCommand}" Background="#FFF00A0A" CommandParameter="{Binding ElementName=GlavniProzor}" />
+            
+            
         </StackPanel>
     </Grid>
 </Window>
