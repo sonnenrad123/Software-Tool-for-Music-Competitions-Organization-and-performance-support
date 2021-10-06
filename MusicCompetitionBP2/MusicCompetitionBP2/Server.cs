@@ -160,6 +160,10 @@ namespace MusicCompetitionBP2
             return repo.PublishingHouseRepository.Remove(iD);
         }
 
+        public void EditAdministrator(Common.Models.Administrator c)
+        {
+            repo.AdminRepository.Update(c);
+        }
 
         public void EditCompetition(Common.Models.Competition c)
         {
@@ -219,6 +223,11 @@ namespace MusicCompetitionBP2
         public bool HireSingerForCompetition(long juryMemberJMBG, int competitionID)
         {
             return repo.HiredForRepository.Create(juryMemberJMBG, competitionID);
+        }
+
+        public Common.Models.Administrator ReadAdministrator(long JMBG)
+        {
+            return repo.AdminRepository.Read(JMBG);
         }
 
         public IEnumerable<Common.Models.Competiting> ReadCompetitings()

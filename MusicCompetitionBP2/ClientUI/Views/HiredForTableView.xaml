@@ -37,12 +37,12 @@
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Jury Member JMBG:</Label>
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <ComboBox IsEditable="True" x:Name="GenreCB" Margin="4" Width="150" ItemsSource="{Binding CompetitionStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCompetition}"></ComboBox>
-                <ComboBox IsEditable="True" x:Name="CompetitionCB" Margin="4" ItemsSource="{Binding JuryMemberStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedJuryMember}"></ComboBox>
+                <ComboBox Background="#87CEFA"  IsEditable="True" x:Name="GenreCB" Margin="4" Width="150" ItemsSource="{Binding CompetitionStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCompetition}"></ComboBox>
+                <ComboBox Background="#87CEFA" IsEditable="True" x:Name="CompetitionCB" Margin="4" ItemsSource="{Binding JuryMemberStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedJuryMember}"></ComboBox>
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,46,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
     </Grid>
 </UserControl>

@@ -78,6 +78,10 @@
       <End Role="Competiting" EntitySet="Competitings" />
       <End Role="MusicPerformance" EntitySet="MusicPerformances" />
     </AssociationSet>
+    <AssociationSet Name="PublishingHouseEventOrganizer" Association="MusicCompetitionDb.PublishingHouseEventOrganizer">
+      <End Role="PublishingHouse" EntitySet="PublishingHouses" />
+      <End Role="EventOrganizer" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -153,6 +157,7 @@
     <Property Name="NAME_PH" Type="String" Nullable="false" />
     <Property Name="ADR_PH" Type="MusicCompetitionDb.ADDRESS" Nullable="false" />
     <NavigationProperty Name="Organize" Relationship="MusicCompetitionDb.PublishingHouseOrganize" FromRole="PublishingHouse" ToRole="Organize" />
+    <NavigationProperty Name="EventOrganizer" Relationship="MusicCompetitionDb.PublishingHouseEventOrganizer" FromRole="PublishingHouse" ToRole="EventOrganizer" />
   </EntityType>
   <EntityType Name="PerformanceHall">
     <Key>
@@ -451,5 +456,20 @@
     </ReferentialConstraint>
   </Association>
   <EntityType Name="Administrator" BaseType="MusicCompetitionDb.User" />
-  <EntityType Name="EventOrganizer" BaseType="MusicCompetitionDb.User" />
+  <EntityType Name="EventOrganizer" BaseType="MusicCompetitionDb.User">
+    <NavigationProperty Name="PublishingHouse" Relationship="MusicCompetitionDb.PublishingHouseEventOrganizer" FromRole="EventOrganizer" ToRole="PublishingHouse" />
+    <Property Name="PublishingHouseID_PH" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="PublishingHouseEventOrganizer">
+    <End Type="MusicCompetitionDb.PublishingHouse" Role="PublishingHouse" Multiplicity="1" />
+    <End Type="MusicCompetitionDb.EventOrganizer" Role="EventOrganizer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PublishingHouse">
+        <PropertyRef Name="ID_PH" />
+      </Principal>
+      <Dependent Role="EventOrganizer">
+        <PropertyRef Name="PublishingHouseID_PH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

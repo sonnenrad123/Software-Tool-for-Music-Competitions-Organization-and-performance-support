@@ -76,6 +76,9 @@
         <DataTemplate DataType="{x:Type viewModel:ControlPanelViewModel}">
             <views:ControlPanelView></views:ControlPanelView>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:EventOrganizerTableViewModel}">
+            <views:EventOrganizerTableView></views:EventOrganizerTableView>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>

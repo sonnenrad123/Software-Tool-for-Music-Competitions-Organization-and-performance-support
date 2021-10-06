@@ -17,6 +17,7 @@ namespace MusicCompetitionBP2
         public CompetitingRepository CompetitingRepository { get; }
         public CompetitionRepository CompetitionRepository { get; }
         public CompetitorRepository CompetitorRepository { get; }
+        public AdminRepository AdminRepository { get; }
         public EventOrganizerRepository EventOrganizerRepository { get; }
         public EvaluateRepository EvaluateRepository { get; }
         public GenreRepository GenreRepository { get; }
@@ -39,6 +40,7 @@ namespace MusicCompetitionBP2
             CompetitingRepository = new CompetitingRepository(DbContext);
             CompetitionRepository = new CompetitionRepository(DbContext);
             CompetitorRepository = new CompetitorRepository(DbContext);
+            AdminRepository = new AdminRepository(DbContext);
             EvaluateRepository = new EvaluateRepository(DbContext);
             GenreRepository = new GenreRepository(DbContext);
             HiredForRepository = new HiredForRepository(DbContext);

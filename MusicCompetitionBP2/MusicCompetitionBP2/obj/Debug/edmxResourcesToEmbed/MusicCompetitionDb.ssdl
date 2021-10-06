@@ -16,8 +16,8 @@
     <EntitySet Name="Competitings" EntityType="MusicCompetitionDb.Store.Competitings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_JuryMember" EntityType="MusicCompetitionDb.Store.Users_JuryMember" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Competitor" EntityType="MusicCompetitionDb.Store.Users_Competitor" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Users_Administrator" EntityType="MusicCompetitionDb.Store.Users_Administrator" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_EventOrganizer" EntityType="MusicCompetitionDb.Store.Users_EventOrganizer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Administrator" EntityType="MusicCompetitionDb.Store.Users_Administrator" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="PublishingHouseOrganize" Association="MusicCompetitionDb.Store.PublishingHouseOrganize">
       <End Role="PublishingHouse" EntitySet="PublishingHouses" />
       <End Role="Organize" EntitySet="Organizations" />
@@ -82,6 +82,10 @@
       <End Role="Competiting" EntitySet="Competitings" />
       <End Role="MusicPerformance" EntitySet="MusicPerformances" />
     </AssociationSet>
+    <AssociationSet Name="PublishingHouseEventOrganizer" Association="MusicCompetitionDb.Store.PublishingHouseEventOrganizer">
+      <End Role="PublishingHouse" EntitySet="PublishingHouses" />
+      <End Role="EventOrganizer" EntitySet="Users_EventOrganizer" />
+    </AssociationSet>
     <AssociationSet Name="FK_JuryMember_inherits_User" Association="MusicCompetitionDb.Store.FK_JuryMember_inherits_User">
       <End Role="User" EntitySet="Users" />
       <End Role="JuryMember" EntitySet="Users_JuryMember" />
@@ -90,13 +94,13 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Competitor" EntitySet="Users_Competitor" />
     </AssociationSet>
-    <AssociationSet Name="FK_Administrator_inherits_User" Association="MusicCompetitionDb.Store.FK_Administrator_inherits_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Administrator" EntitySet="Users_Administrator" />
-    </AssociationSet>
     <AssociationSet Name="FK_EventOrganizer_inherits_User" Association="MusicCompetitionDb.Store.FK_EventOrganizer_inherits_User">
       <End Role="User" EntitySet="Users" />
       <End Role="EventOrganizer" EntitySet="Users_EventOrganizer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Administrator_inherits_User" Association="MusicCompetitionDb.Store.FK_Administrator_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Administrator" EntitySet="Users_Administrator" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Users">
@@ -243,13 +247,14 @@
     </Key>
     <Property Name="JMBG_SIN" Type="bigint" Nullable="false" />
   </EntityType>
-  <EntityType Name="Users_Administrator">
+  <EntityType Name="Users_EventOrganizer">
     <Key>
       <PropertyRef Name="JMBG_SIN" />
     </Key>
+    <Property Name="PublishingHouseID_PH" Type="int" Nullable="false" />
     <Property Name="JMBG_SIN" Type="bigint" Nullable="false" />
   </EntityType>
-  <EntityType Name="Users_EventOrganizer">
+  <EntityType Name="Users_Administrator">
     <Key>
       <PropertyRef Name="JMBG_SIN" />
     </Key>
@@ -457,6 +462,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="PublishingHouseEventOrganizer">
+    <End Role="PublishingHouse" Type="MusicCompetitionDb.Store.PublishingHouses" Multiplicity="1" />
+    <End Role="EventOrganizer" Type="MusicCompetitionDb.Store.Users_EventOrganizer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PublishingHouse">
+        <PropertyRef Name="ID_PH" />
+      </Principal>
+      <Dependent Role="EventOrganizer">
+        <PropertyRef Name="PublishingHouseID_PH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_JuryMember_inherits_User">
     <End Role="User" Type="MusicCompetitionDb.Store.Users" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -485,20 +502,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Administrator_inherits_User">
-    <End Role="User" Type="MusicCompetitionDb.Store.Users" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Administrator" Type="MusicCompetitionDb.Store.Users_Administrator" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="JMBG_SIN" />
-      </Principal>
-      <Dependent Role="Administrator">
-        <PropertyRef Name="JMBG_SIN" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_EventOrganizer_inherits_User">
     <End Role="User" Type="MusicCompetitionDb.Store.Users" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -509,6 +512,20 @@
         <PropertyRef Name="JMBG_SIN" />
       </Principal>
       <Dependent Role="EventOrganizer">
+        <PropertyRef Name="JMBG_SIN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Administrator_inherits_User">
+    <End Role="User" Type="MusicCompetitionDb.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Administrator" Type="MusicCompetitionDb.Store.Users_Administrator" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="JMBG_SIN" />
+      </Principal>
+      <Dependent Role="Administrator">
         <PropertyRef Name="JMBG_SIN" />
       </Dependent>
     </ReferentialConstraint>

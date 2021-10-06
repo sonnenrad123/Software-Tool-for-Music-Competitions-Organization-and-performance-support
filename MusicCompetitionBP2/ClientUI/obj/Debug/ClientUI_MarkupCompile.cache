@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\App.xaml
-20-766581637
+21-379637730
 
-53216489668
+551355681275
 17765653411
-LoginWindow.xaml;MainWindow.xaml;Views\AdminPanelView.xaml;Views\CompetitingsTableView.xaml;Views\CompetitionsTableView.xaml;Views\CompetitorsTableView.xaml;Views\ControlPanelView.xaml;Views\EvaluationsTableView.xaml;Views\GenresTableView.xaml;Views\HiredForTableView.xaml;Views\IsExpertTableView.xaml;Views\JuryMembersView.xaml;Views\MainMenuView.xaml;Views\MusicPerformancesTableView.xaml;Views\OrganizationsTableView.xaml;Views\PerformanceHallsTableView.xaml;Views\PossessesATableView.xaml;Views\PublishingHousesTableView.xaml;Views\ReservationsTableView.xaml;Views\UsersTableView.xaml;
+LoginWindow.xaml;MainWindow.xaml;Views\AdminPanelView.xaml;Views\CompetitingsTableView.xaml;Views\CompetitionsTableView.xaml;Views\CompetitorsTableView.xaml;Views\ControlPanelView.xaml;Views\EvaluationsTableView.xaml;Views\EventOrganizerTableView.xaml;Views\GenresTableView.xaml;Views\HiredForTableView.xaml;Views\IsExpertTableView.xaml;Views\JuryMembersView.xaml;Views\MainMenuView.xaml;Views\MusicPerformancesTableView.xaml;Views\OrganizationsTableView.xaml;Views\PerformanceHallsTableView.xaml;Views\PossessesATableView.xaml;Views\PublishingHousesTableView.xaml;Views\ReservationsTableView.xaml;Views\UsersTableView.xaml;
 
 False
 

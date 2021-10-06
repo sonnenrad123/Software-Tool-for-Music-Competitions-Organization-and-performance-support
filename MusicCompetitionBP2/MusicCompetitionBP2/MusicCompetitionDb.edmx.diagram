@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9ae604e4b34d46be9777fec750b61fc4" Name="Diagram1" ZoomLevel="74" >
-        <EntityTypeShape EntityType="MusicCompetitionDb.User" Width="1.5" PointX="13.5" PointY="0.5" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.Competitor" Width="1.5" PointX="12.25" PointY="3.875" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.User" Width="1.5" PointX="13.375" PointY="1.25" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.Competitor" Width="1.5" PointX="12.125" PointY="4.375" />
         <InheritanceConnector EntityType="MusicCompetitionDb.Competitor" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.JuryMember" Width="1.5" PointX="14.25" PointY="3.75" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.JuryMember" Width="1.5" PointX="14.25" PointY="4.375" />
         <InheritanceConnector EntityType="MusicCompetitionDb.JuryMember" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Competition" Width="1.5" PointX="6.625" PointY="4" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Genre" Width="1.5" PointX="6.375" PointY="9.5" />
         <EntityTypeShape EntityType="MusicCompetitionDb.MusicPerformance" Width="1.5" PointX="9.625" PointY="6.5" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.PublishingHouse" Width="1.5" PointX="2.625" PointY="0.875" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.PublishingHouse" Width="1.5" PointX="2.625" PointY="0.5" />
         <EntityTypeShape EntityType="MusicCompetitionDb.PerformanceHall" Width="1.5" PointX="1.5" PointY="6.375" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Organize" Width="1.5" PointX="4.5" PointY="1.75" />
         <AssociationConnector Association="MusicCompetitionDb.PublishingHouseOrganize" />
@@ -43,8 +43,9 @@
         <InheritanceConnector EntityType="MusicCompetitionDb.Competitor" />
         <EntityTypeShape EntityType="MusicCompetitionDb.Administrator" Width="1.5" PointX="16.625" PointY="2.875" IsExpanded="true" />
         <InheritanceConnector EntityType="MusicCompetitionDb.Administrator" />
-        <EntityTypeShape EntityType="MusicCompetitionDb.EventOrganizer" Width="1.5" PointX="16.625" PointY="1.625" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.EventOrganizer" Width="1.5" PointX="16.625" PointY="0.5" />
         <InheritanceConnector EntityType="MusicCompetitionDb.EventOrganizer" />
+        <AssociationConnector Association="MusicCompetitionDb.PublishingHouseEventOrganizer" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

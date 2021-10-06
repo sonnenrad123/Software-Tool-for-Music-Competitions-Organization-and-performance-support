@@ -85,6 +85,9 @@ namespace ClientUI
                 case "JuryMembers":
                     CurrentViewModel = new JuryMembersTableViewModel();
                     break;
+                case "EventOrganizers":
+                    CurrentViewModel = new EventOrganizerTableViewModel();
+                    break;
                 case "Competitions":
                     CurrentViewModel = new CompetitionsTableViewModel(this);
                     break;

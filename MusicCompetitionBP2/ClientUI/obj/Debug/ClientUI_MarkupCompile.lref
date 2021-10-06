@@ -6,7 +6,9 @@ FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\AdminPanelVi
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\CompetitingsTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\CompetitionsTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\CompetitorsTableView.xaml;;
+FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\ControlPanelView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\EvaluationsTableView.xaml;;
+FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\EventOrganizerTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\GenresTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\HiredForTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\IsExpertTableView.xaml;;
@@ -19,5 +21,4 @@ FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\PossessesATa
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\PublishingHousesTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\ReservationsTableView.xaml;;
 FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\UsersTableView.xaml;;
-FD:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\Views\ControlPanelView.xaml;;
 

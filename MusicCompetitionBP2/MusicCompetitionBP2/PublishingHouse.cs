@@ -18,6 +18,7 @@ namespace MusicCompetitionBP2
         public PublishingHouse()
         {
             this.Organize = new HashSet<Organize>();
+            this.EventOrganizer = new HashSet<EventOrganizer>();
             this.ADR_PH = new ADDRESS();
         }
     
@@ -28,5 +29,7 @@ namespace MusicCompetitionBP2
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Organize> Organize { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventOrganizer> EventOrganizer { get; set; }
     }
 }

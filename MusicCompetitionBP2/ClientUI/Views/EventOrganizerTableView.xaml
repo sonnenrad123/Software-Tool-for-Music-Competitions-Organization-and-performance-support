@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ClientUI.Views.EventOrganizerTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="1100" d:DesignWidth="1000" FontFamily="Segoe UI Emoji">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="650*"></RowDefinition>
+            <RowDefinition Height="350*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Background="Black" Opacity="0.8" Grid.Row="0">
+            <Label Content="Event organizers"  VerticalAlignment="Top" HorizontalAlignment="Center"  Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="22"/>
+        </Grid>
+
+        <Grid Grid.Row="1" >
+
+            <DataGrid  x:Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" RowBackground="AliceBlue" ItemsSource="{Binding Path=EventOrganizers, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedEventOrganizer}" CanUserAddRows="False"  Background="#87CEFA" Opacity="0.8" MinHeight="500">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="JMBG" Binding="{Binding JMBG_SIN}" Width="*" />
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FIRSTNAME_SIN}" Width="*" />
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LASTNAME_SIN}" Width="*" />
+                    <DataGridTextColumn Header="Date of birth" Binding="{Binding BIRTHDATE_SIN,StringFormat='dd.MM.yyyy'}" Width="*"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding EMAIL_SIN}" Width="*"/>
+                    <DataGridTextColumn Header="Phone No." Binding="{Binding PHONE_NO_SIN}" Width="*"/>
+                    <DataGridTextColumn Header="Address" Binding="{Binding ADDRESS_SIN}" Width="*"/>
+                    <DataGridTextColumn Header="P.H. Name" Binding="{Binding PublishingHouse.NAME_PH}" Width="*"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
+            <StackPanel Grid.Row="2">
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Margin="2">JMBG:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Margin="2">First name:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Last name:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Date of birth:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Email:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Phone No.:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">City:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Street name:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Number:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">P.H. Name:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBox  MinWidth="100" Background="#87CEFA" Text="{Binding JmbgTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="4" MaxWidth="200"/>
+                <TextBox  MinWidth="100" Background="#87CEFA"  Text="{Binding FirstNameTB, Mode=TwoWay}" Margin="4" MaxWidth="200"/>
+                <TextBox  MinWidth="100" Background="#87CEFA" Text="{Binding LastNameTB, Mode=TwoWay}" Margin="4" MaxWidth="200"/>
+                <DatePicker  Margin="1"  Background="#87CEFA"  SelectedDate="{Binding BirthDP, Mode=TwoWay}">
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                            <Setter Property="Background" Value="#87CEFA"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding EmailTB, Mode=TwoWay}" Margin="3" MaxWidth="200"/>
+                <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding PhoneNoTB, Mode=TwoWay}" Margin="3" MaxWidth="200"  PreviewTextInput="PreviewTextInput"/>
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding CityTB, Mode=TwoWay}" Margin="3" MaxWidth="200" />
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding StreetTB, Mode=TwoWay}" Margin="3" MaxWidth="200" />
+                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding NumberTB, Mode=TwoWay}" Margin="3" MaxWidth="200" PreviewTextInput="PreviewTextInput"/>
+                <ComboBox IsEditable="True" Background="#87CEFA" Margin="3"  MinWidth="200"  x:Name="PhCB"  ItemsSource="{Binding PublishingHouseStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPublishingHouse}"></ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+                <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+                <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
+                <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

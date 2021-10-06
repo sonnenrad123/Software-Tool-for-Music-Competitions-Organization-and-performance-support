@@ -29,13 +29,14 @@
           <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
         </MappingFragment>
       </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Administrator)">
-        <MappingFragment StoreEntitySet="Users_Administrator">
-          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
-        </MappingFragment>
-      </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.EventOrganizer)">
         <MappingFragment StoreEntitySet="Users_EventOrganizer">
+          <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
+          <ScalarProperty Name="PublishingHouseID_PH" ColumnName="PublishingHouseID_PH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.Administrator)">
+        <MappingFragment StoreEntitySet="Users_Administrator">
           <ScalarProperty Name="JMBG_SIN" ColumnName="JMBG_SIN" />
         </MappingFragment>
       </EntityTypeMapping>

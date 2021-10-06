@@ -14,5 +14,8 @@ namespace MusicCompetitionBP2
     
     public partial class EventOrganizer : User
     {
+        public int PublishingHouseID_PH { get; set; }
+    
+        public virtual PublishingHouse PublishingHouse { get; set; }
     }
 }

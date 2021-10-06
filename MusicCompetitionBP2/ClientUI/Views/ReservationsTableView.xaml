@@ -42,13 +42,13 @@
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Performance Hall ID:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Reservation date:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Start time:</Label>
-                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">End time:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Content="End time:"/>
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <ComboBox IsEditable="True" x:Name="CompetitorCB" Margin="4" Width="150" ItemsSource="{Binding PublishingHouseStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPublishingHouse}"></ComboBox>
-                <ComboBox IsEditable="True" x:Name="SCB" Margin="4" ItemsSource="{Binding CompetitionStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCompetition}"></ComboBox>
-                <ComboBox IsEditable="True" x:Name="DCB" Margin="5" ItemsSource="{Binding PerformanceHallStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPerformanceHall}"></ComboBox>
-                <DatePicker  Margin="5"  SelectedDate="{Binding ReservationDP, Mode=TwoWay}">
+                <ComboBox Background="#87CEFA" IsEditable="True" x:Name="CompetitorCB" Margin="2" Width="150" ItemsSource="{Binding PublishingHouseStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPublishingHouse}"></ComboBox>
+                <ComboBox Background="#87CEFA" IsEditable="True" x:Name="SCB" Margin="2" ItemsSource="{Binding CompetitionStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCompetition}"></ComboBox>
+                <ComboBox Background="#87CEFA" IsEditable="True" x:Name="DCB" Margin="2" ItemsSource="{Binding PerformanceHallStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPerformanceHall}"></ComboBox>
+                <DatePicker  Margin="2"  SelectedDate="{Binding ReservationDP, Mode=TwoWay}">
                     <DatePicker.Resources>
                         <Style TargetType="DatePickerTextBox">
                             <Setter Property="IsReadOnly" Value="True"/>
@@ -56,20 +56,20 @@
                     </DatePicker.Resources>
                 </DatePicker>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Name="StartTimeHoursTB" MaxLength="2" Width="30" Text="{Binding StartTimeHoursTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                    <TextBox Background="#87CEFA" Name="StartTimeHoursTB" MaxLength="2" Width="30" Text="{Binding StartTimeHoursTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="3" MaxWidth="200"/>
                     <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="30">:</Label>
-                    <TextBox Name="StartTimeMinutesTB" MaxLength="2" Width="30" Text="{Binding StartTimeMinutesTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                    <TextBox Background="#87CEFA" Name="StartTimeMinutesTB" MaxLength="2" Width="30" Text="{Binding StartTimeMinutesTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="3" MaxWidth="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="EndTimeHoursTB" MaxLength="2"  Width="30" Text="{Binding EndTimeHoursTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                    <TextBox Background="#87CEFA" x:Name="EndTimeHoursTB" MaxLength="2"  Width="30" Text="{Binding EndTimeHoursTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="3" MaxWidth="200"/>
                     <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="30">:</Label>
-                    <TextBox x:Name="EndTimeMinutesTB" MaxLength="2" Width="30" Text="{Binding EndTimeMinutesTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="7" MaxWidth="200"/>
+                    <TextBox Background="#87CEFA" x:Name="EndTimeMinutesTB" MaxLength="2" Width="30" Text="{Binding EndTimeMinutesTB, Mode=TwoWay}" PreviewTextInput="PreviewTextInput" Margin="3" MaxWidth="200"/>
                 </StackPanel>
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
-        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,59,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
+        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,79,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
     </Grid>
 </UserControl>

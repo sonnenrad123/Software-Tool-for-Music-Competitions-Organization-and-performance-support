@@ -112,3 +112,5 @@ D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\Adm
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\AdminPanelView.baml
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\ControlPanelView.g.cs
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\ControlPanelView.baml
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\EventOrganizerTableView.g.cs
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\ClientUI\obj\Debug\Views\EventOrganizerTableView.baml

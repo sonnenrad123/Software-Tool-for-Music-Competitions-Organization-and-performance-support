@@ -19,6 +19,7 @@
                 <Button x:Name="SingerTableBtn" Content="All users" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10" Command="{Binding NavigationCommand}" CommandParameter="Users"/>
                 <Button x:Name="CompetitorTableBtn" Content="Competitors" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10"  Command="{Binding NavigationCommand}" CommandParameter="Competitors"/>
                 <Button x:Name="JuryMemberTableBtn" Content="Jury Members" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10"  Command="{Binding NavigationCommand}" CommandParameter="JuryMembers"/>
+                <Button x:Name="EventOrganizerTableBtn" Content="Event Organizers" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Margin="0,10,0,10"  Command="{Binding NavigationCommand}" CommandParameter="EventOrganizers"/>
 
             </StackPanel>
         </Border>

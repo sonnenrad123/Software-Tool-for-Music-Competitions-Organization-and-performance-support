@@ -18,6 +18,14 @@ namespace MusicCompetitionBP2.Repositories
 
         public bool Create(Common.Models.PublishingHouse ph)
         {
+            PublishingHouse chk = dbContext.PublishingHouses.AsNoTracking().FirstOrDefault(x => x.NAME_PH == ph.NAME_PH);
+
+            if (chk != null)//zabranjeno isto ime
+            {
+                return false;
+            }
+
+
             PublishingHouse phtemp = new PublishingHouse()
             {
                 ADR_PH = new ADDRESS() { STREET = ph.ADR_PH.STREET, CITY = ph.ADR_PH.CITY, HOME_NUMBER = ph.ADR_PH.HOME_NUMBER },

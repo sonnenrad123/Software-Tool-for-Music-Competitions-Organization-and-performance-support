@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/04/2021 13:54:59
+-- Date Created: 10/06/2021 13:20:19
 -- Generated from EDMX file: D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
 -- --------------------------------------------------
 
@@ -66,24 +66,24 @@ IF OBJECT_ID(N'[dbo].[FK_CompetitingMusicPerformance]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MusicPerformances] DROP CONSTRAINT [FK_CompetitingMusicPerformance];
 GO
 IF OBJECT_ID(N'[dbo].[FK_JuryMember_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_JuryMember] DROP CONSTRAINT [FK_JuryMember_inherits_User];
+    ALTER TABLE [dbo].[Users_JuryMember] DROP CONSTRAINT [FK_JuryMember_inherits_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Competitor_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_User];
+    ALTER TABLE [dbo].[Users_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Administrator_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_Administrator] DROP CONSTRAINT [FK_Administrator_inherits_User];
+    ALTER TABLE [dbo].[Users_Administrator] DROP CONSTRAINT [FK_Administrator_inherits_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_EventOrganizer_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Singers_EventOrganizer] DROP CONSTRAINT [FK_EventOrganizer_inherits_User];
+    ALTER TABLE [dbo].[Users_EventOrganizer] DROP CONSTRAINT [FK_EventOrganizer_inherits_User];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Singers]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Singers];
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
 GO
 IF OBJECT_ID(N'[dbo].[Competitions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Competitions];
@@ -121,17 +121,17 @@ GO
 IF OBJECT_ID(N'[dbo].[Competitings]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Competitings];
 GO
-IF OBJECT_ID(N'[dbo].[Singers_JuryMember]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Singers_JuryMember];
+IF OBJECT_ID(N'[dbo].[Users_JuryMember]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_JuryMember];
 GO
-IF OBJECT_ID(N'[dbo].[Singers_Competitor]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Singers_Competitor];
+IF OBJECT_ID(N'[dbo].[Users_Competitor]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_Competitor];
 GO
-IF OBJECT_ID(N'[dbo].[Singers_Administrator]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Singers_Administrator];
+IF OBJECT_ID(N'[dbo].[Users_Administrator]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_Administrator];
 GO
-IF OBJECT_ID(N'[dbo].[Singers_EventOrganizer]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Singers_EventOrganizer];
+IF OBJECT_ID(N'[dbo].[Users_EventOrganizer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_EventOrganizer];
 GO
 
 -- --------------------------------------------------
@@ -272,14 +272,15 @@ CREATE TABLE [dbo].[Users_Competitor] (
 );
 GO
 
--- Creating table 'Users_Administrator'
-CREATE TABLE [dbo].[Users_Administrator] (
+-- Creating table 'Users_EventOrganizer'
+CREATE TABLE [dbo].[Users_EventOrganizer] (
+    [PublishingHouseID_PH] int  NOT NULL,
     [JMBG_SIN] bigint  NOT NULL
 );
 GO
 
--- Creating table 'Users_EventOrganizer'
-CREATE TABLE [dbo].[Users_EventOrganizer] (
+-- Creating table 'Users_Administrator'
+CREATE TABLE [dbo].[Users_Administrator] (
     [JMBG_SIN] bigint  NOT NULL
 );
 GO
@@ -378,15 +379,15 @@ ADD CONSTRAINT [PK_Users_Competitor]
     PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
 GO
 
--- Creating primary key on [JMBG_SIN] in table 'Users_Administrator'
-ALTER TABLE [dbo].[Users_Administrator]
-ADD CONSTRAINT [PK_Users_Administrator]
-    PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
-GO
-
 -- Creating primary key on [JMBG_SIN] in table 'Users_EventOrganizer'
 ALTER TABLE [dbo].[Users_EventOrganizer]
 ADD CONSTRAINT [PK_Users_EventOrganizer]
+    PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
+GO
+
+-- Creating primary key on [JMBG_SIN] in table 'Users_Administrator'
+ALTER TABLE [dbo].[Users_Administrator]
+ADD CONSTRAINT [PK_Users_Administrator]
     PRIMARY KEY CLUSTERED ([JMBG_SIN] ASC);
 GO
 
@@ -592,6 +593,21 @@ ON [dbo].[MusicPerformances]
     ([CompetitingCompetitorJMBG_SIN], [CompetitingOrganizePublishingHouseID_PH], [CompetitingOrganizeCompetitionID_COMP]);
 GO
 
+-- Creating foreign key on [PublishingHouseID_PH] in table 'Users_EventOrganizer'
+ALTER TABLE [dbo].[Users_EventOrganizer]
+ADD CONSTRAINT [FK_PublishingHouseEventOrganizer]
+    FOREIGN KEY ([PublishingHouseID_PH])
+    REFERENCES [dbo].[PublishingHouses]
+        ([ID_PH])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PublishingHouseEventOrganizer'
+CREATE INDEX [IX_FK_PublishingHouseEventOrganizer]
+ON [dbo].[Users_EventOrganizer]
+    ([PublishingHouseID_PH]);
+GO
+
 -- Creating foreign key on [JMBG_SIN] in table 'Users_JuryMember'
 ALTER TABLE [dbo].[Users_JuryMember]
 ADD CONSTRAINT [FK_JuryMember_inherits_User]
@@ -610,18 +626,18 @@ ADD CONSTRAINT [FK_Competitor_inherits_User]
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [JMBG_SIN] in table 'Users_Administrator'
-ALTER TABLE [dbo].[Users_Administrator]
-ADD CONSTRAINT [FK_Administrator_inherits_User]
+-- Creating foreign key on [JMBG_SIN] in table 'Users_EventOrganizer'
+ALTER TABLE [dbo].[Users_EventOrganizer]
+ADD CONSTRAINT [FK_EventOrganizer_inherits_User]
     FOREIGN KEY ([JMBG_SIN])
     REFERENCES [dbo].[Users]
         ([JMBG_SIN])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [JMBG_SIN] in table 'Users_EventOrganizer'
-ALTER TABLE [dbo].[Users_EventOrganizer]
-ADD CONSTRAINT [FK_EventOrganizer_inherits_User]
+-- Creating foreign key on [JMBG_SIN] in table 'Users_Administrator'
+ALTER TABLE [dbo].[Users_Administrator]
+ADD CONSTRAINT [FK_Administrator_inherits_User]
     FOREIGN KEY ([JMBG_SIN])
     REFERENCES [dbo].[Users]
         ([JMBG_SIN])

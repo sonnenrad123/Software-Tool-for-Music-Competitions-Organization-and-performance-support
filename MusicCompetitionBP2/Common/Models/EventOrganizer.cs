@@ -14,6 +14,12 @@ namespace Common.Models
         {
             Type = "EventOrganizer";
         }
+
+        [DataMember]
+        public int PublishingHouseID_PH { get; set; }
+        [DataMember]
+        public PublishingHouse PublishingHouse { get; set; }
+
         public override string ToString()
         {
             return base.ToString();

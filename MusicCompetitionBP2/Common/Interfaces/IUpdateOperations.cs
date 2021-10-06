@@ -14,6 +14,8 @@ namespace Common.Interfaces
         [OperationContract]
         void EditCompetitor(Competitor c);
         [OperationContract]
+        void EditAdministrator(Administrator c);
+        [OperationContract]
         void EditJuryMember(JuryMember jM);
         [OperationContract]
         void EditEventOrganizer(EventOrganizer eo);

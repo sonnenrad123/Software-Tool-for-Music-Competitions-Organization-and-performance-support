@@ -29,6 +29,12 @@ namespace ClientUI.ViewModel
                 ret.Add(jm);
             }
 
+            foreach (Common.Models.EventOrganizer ev in repo.RepositoryProxy.ReadEventOrganizers())
+            {
+                ret.Add(ev);
+            }
+
+
             Singers = new ObservableCollection<Common.Models.User>(ret);
         }
     }

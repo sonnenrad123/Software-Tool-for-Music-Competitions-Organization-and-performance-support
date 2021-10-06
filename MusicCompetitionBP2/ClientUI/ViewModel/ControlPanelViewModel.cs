@@ -73,11 +73,43 @@ namespace ClientUI.ViewModel
                 if(LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
                 {
                     repo.RepositoryProxy.EditCompetitor(new Common.Models.Competitor(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                    Common.Models.User editSession;
+
+                    editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
+                    LoggedInUserSingleton.Instance.loggedInUser = editSession;
                 }
                 if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")
                 {
                     repo.RepositoryProxy.EditJuryMember(new Common.Models.JuryMember(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                    Common.Models.User editSession;
+
+                    editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
+                    LoggedInUserSingleton.Instance.loggedInUser = editSession;
                 }
+
+                if(LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+                {
+                    Common.Models.EventOrganizer evtemp = repo.RepositoryProxy.ReadEventOrganizers().FirstOrDefault(t => t.JMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+
+                    repo.RepositoryProxy.EditEventOrganizer(new Common.Models.EventOrganizer(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)) { PublishingHouseID_PH = evtemp.PublishingHouseID_PH });
+                    Common.Models.User editSession;
+
+                    editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
+                    LoggedInUserSingleton.Instance.loggedInUser = editSession;
+                }
+
+                if(LoggedInUserSingleton.Instance.loggedInUser.Type == "Administrator")
+                {
+                    repo.RepositoryProxy.EditAdministrator(new Common.Models.Administrator(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                    Common.Models.User editSession;
+
+                    editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
+                    LoggedInUserSingleton.Instance.loggedInUser = editSession;
+                }
+
+               
+                
+
 
                 //ako treba promeni i password
                 if (pb.Password.ToString() != "NoChange")
@@ -114,8 +146,8 @@ namespace ClientUI.ViewModel
                 System.Windows.MessageBox.Show("Wrong input!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            System.Windows.MessageBox.Show("Profile edited successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Windows.MessageBox.Show("Profile edited!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
         }
 
 
