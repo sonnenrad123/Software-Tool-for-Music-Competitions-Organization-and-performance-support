@@ -91,7 +91,7 @@
         </Grid>
         <StackPanel Grid.Row="1"  VerticalAlignment="Bottom" >
             <Button x:Name="HomeBtn" Content="Main menu" Height="29" Opacity="0.8" Command="{Binding BackToHome}" />
-            <Button x:Name="BackBtn" Content="Back" Height="28" Opacity="0.8" Command="{Binding BackToHome}" />
+            <Button x:Name="BackBtn" Content="Back" Height="28" Opacity="0.8" Command="{Binding BackCommand}" />
             <Button x:Name="LogOutBtn" Content="Log out" Height="28" Opacity="0.8" Command="{Binding LogOutCommand}" Background="#FFF00A0A" CommandParameter="{Binding ElementName=GlavniProzor}" />
             
             

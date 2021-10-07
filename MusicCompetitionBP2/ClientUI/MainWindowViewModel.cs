@@ -62,7 +62,17 @@ namespace ClientUI
 
         private void Back()
         {
-            
+            if(akcije.Count > 0 )
+            {
+                Akcija tempakc = akcije[akcije.Count - 1];
+                CurrentViewModel = tempakc.Objekat as BindableBase;
+                akcije.RemoveAt(akcije.Count - 1);
+            }
+            else
+            {
+                CurrentViewModel = MainMenu;
+                akcije.Clear();
+            }
         }
 
 
