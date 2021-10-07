@@ -35,6 +35,8 @@ namespace ClientUI.ViewModel
         public MyICommand ModifyCommand { get; set; }
 
 
+        private bool isEventOrganizer = false;
+        public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
 
         public MusicPerformancesTableViewModel()
         {
@@ -43,17 +45,91 @@ namespace ClientUI.ViewModel
             Competitions = repo.RepositoryProxy.ReadCompetitions().ToList();
             Competitors = repo.RepositoryProxy.ReadCompetitors().ToList();
             Genres = repo.RepositoryProxy.ReadGenres().ToList();
-            
-            foreach(Competitor cmp in Competitors)
+            IsEventOrganizer = LoggedInUserSingleton.Instance.CheckRole("EventOrganizer");
+
+            foreach (Competitor cmp in Competitors)
             {
                 string ime_prezime = cmp.FIRSTNAME_SIN + " " + cmp.LASTNAME_SIN;
                 CompetitorStrings.Add(cmp.JMBG_SIN.ToString());
             }
 
+
+
+
             foreach(Competition cmp in Competitions)
             {
                 CompetitionStrings.Add(cmp.NAME_COMP);
             }
+
+            //sada ako nije admin vec event organizer on moze dodati samo ucesnike na svoja takmicenja i videti samo takmicenja u okviru svoje organizacije
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                CompetitionStrings.Clear();
+                EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                List<Organize> organizations = repo.RepositoryProxy.ReadOrganizations().ToList();
+
+                foreach (Competition cmp in Competitions)
+                {
+                    Organize orgtemp = organizations.FirstOrDefault(o => o.CompetitionID_COMP == cmp.ID_COMP);
+                    if(orgtemp != null)
+                    {
+                        if(orgtemp.PublishingHouseID_PH == eotemp.PublishingHouseID_PH)
+                        {
+                            CompetitionStrings.Add(cmp.NAME_COMP);
+                        }
+                    }
+                }
+
+                MusicPerformances.Clear();
+                List<MusicPerformance> musicPerformances = repo.RepositoryProxy.ReadMusicPerformances().ToList();
+
+                foreach(MusicPerformance mp in musicPerformances)
+                {
+                    if(mp.CompetitingOrganizePublishingHouseID_PH == eotemp.PublishingHouseID_PH)//moze videti samo nastupe pod svojom nadleznosti
+                    {
+                        MusicPerformances.Add(mp);
+                    }
+                }
+
+
+            }
+
+
+            //ako je ziri moze da vidi samo izvodjenja koja su se desila na takmicenja gde je on angazovan
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")
+            {
+                MusicPerformances.Clear();
+                List<MusicPerformance> musicPerformances = repo.RepositoryProxy.ReadMusicPerformances().ToList();
+
+                List<HiredFor> hfs = repo.RepositoryProxy.ReadEngagemenets().ToList();
+
+
+                foreach (MusicPerformance mp in musicPerformances)
+                {
+                    HiredFor hftemp = hfs.FirstOrDefault(h => h.CompetitionID_COMP == mp.Competiting.OrganizeCompetitionID_COMP && h.JuryMemberJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+
+                    if (hftemp != null)//moze videti samo nastupe pod svojom nadleznosti
+                    {
+                        MusicPerformances.Add(mp);
+                    }
+                }
+            }
+
+            //ako je takmicar moze videti samo svoje nastupe
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
+            {
+                MusicPerformances.Clear();
+                List<MusicPerformance> musicPerformances = repo.RepositoryProxy.ReadMusicPerformances().ToList();
+
+                foreach (MusicPerformance mp in musicPerformances)
+                {
+                    if (mp.CompetitingCompetitorJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        MusicPerformances.Add(mp);
+                    }
+                }
+            }
+
 
             foreach(Genre g in Genres)
             {
@@ -62,7 +138,7 @@ namespace ClientUI.ViewModel
             OnPropertyChanged("CompetitorStrings");
             OnPropertyChanged("CompetitionStrings");
             OnPropertyChanged("GenreStrings");
-
+            OnPropertyChanged("MusicPerformances");
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             AddCommand = new MyICommand(OnAdd, CanAdd);
             ModifyCommand = new MyICommand(OnModify, CanModify);
@@ -286,7 +362,50 @@ namespace ClientUI.ViewModel
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             MusicPerformances = new ObservableCollection<Common.Models.MusicPerformance>(repo.RepositoryProxy.ReadMusicPerformances());
+
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                
+                EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                List<Organize> organizations = repo.RepositoryProxy.ReadOrganizations().ToList();
+                MusicPerformances.Clear();
+                List<MusicPerformance> musicPerformances = repo.RepositoryProxy.ReadMusicPerformances().ToList();
+
+                foreach (MusicPerformance mp in musicPerformances)
+                {
+                    if (mp.CompetitingOrganizePublishingHouseID_PH == eotemp.PublishingHouseID_PH)//moze videti samo nastupe pod svojom nadleznosti
+                    {
+                        MusicPerformances.Add(mp);
+                    }
+                }
+
+
+            }
+            //ako je ziri moze da vidi samo izvodjenja koja su se desila na takmicenja gde je on angazovan
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")
+            {
+                MusicPerformances.Clear();
+                List<MusicPerformance> musicPerformances = repo.RepositoryProxy.ReadMusicPerformances().ToList();
+
+                List<HiredFor> hfs = repo.RepositoryProxy.ReadEngagemenets().ToList();
+
+
+                foreach (MusicPerformance mp in musicPerformances)
+                {
+                    HiredFor hftemp = hfs.FirstOrDefault(h => h.CompetitionID_COMP == mp.Competiting.OrganizeCompetitionID_COMP && h.JuryMemberJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+
+                    if (hftemp != null)//moze videti samo nastupe pod svojom nadleznosti
+                    {
+                        MusicPerformances.Add(mp);
+                    }
+                }
+            }
+
+
             OnPropertyChanged("MusicPerformances");
+
+
+
         }
     }
 }

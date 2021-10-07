@@ -14,7 +14,7 @@ namespace MusicCompetitionBP2.Repositories
             this.dbContext = dbContext;
         }
 
-        public bool Create(Common.Models.Competition cmp)
+        public bool Create(Common.Models.Competition cmp,out int idComp)
         {
             
             Competition temp = new Competition()
@@ -26,7 +26,17 @@ namespace MusicCompetitionBP2.Repositories
                 
             };
             dbContext.Competitions.Add(temp);
-            return dbContext.SaveChanges() > 0 ? true : false;
+            
+            bool ok = dbContext.SaveChanges() > 0 ? true : false;
+            if (ok)
+            {
+                idComp = temp.ID_COMP;
+            }
+            else
+            {
+                idComp = -1;
+            }
+            return ok;
         }
 
         public Common.Models.Competition Read(int idComp)

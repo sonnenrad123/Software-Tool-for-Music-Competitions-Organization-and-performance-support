@@ -28,6 +28,16 @@ namespace ClientUI
 
         public Common.Models.User loggedInUser { get; set; }
 
-        
+        public bool CheckRole(string role)
+        {
+            if (Instance.loggedInUser.Type == role || Instance.loggedInUser.Type == "Administrator")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

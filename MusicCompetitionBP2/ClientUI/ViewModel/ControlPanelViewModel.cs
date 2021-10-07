@@ -21,12 +21,24 @@ namespace ClientUI.ViewModel
         private string streetTB = "";
         private string numberTB = "";
 
+        private string myPHTB = "-1";
+        private bool isEventOrganizer = false;
+        public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
+
         public MyICommand<PasswordBox> ModifyCommand { get; set; }
 
         public ControlPanelViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             ModifyCommand = new MyICommand<PasswordBox>(OnModify, CanModify);
+            IsEventOrganizer = LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer";
+
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                MyPHTB = eotemp.PublishingHouseID_PH.ToString();
+            }
+
             LoadLoggedInUser();
         }
 
@@ -42,6 +54,7 @@ namespace ClientUI.ViewModel
         public string CityTB { get => cityTB; set { cityTB = value; OnPropertyChanged("CityTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string StreetTB { get => streetTB; set { streetTB = value; OnPropertyChanged("StreetTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string NumberTB { get => numberTB; set { numberTB = value; OnPropertyChanged("NumberTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
+        public string MyPHTB { get => myPHTB; set { myPHTB = value; OnPropertyChanged("MyPHTB");} }
 
 
 

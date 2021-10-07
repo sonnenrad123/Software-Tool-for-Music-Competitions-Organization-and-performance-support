@@ -23,7 +23,7 @@ namespace Common.Interfaces
         [OperationContract]
         bool AddGenre(Genre g);
         [OperationContract]
-        bool AddCompetition(Competition c);
+        bool AddCompetition(Competition c,out int idComp);
         [OperationContract]
         bool AddPublishingHouse(PublishingHouse ph);
         [OperationContract]

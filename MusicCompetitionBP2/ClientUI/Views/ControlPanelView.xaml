@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ClientUI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClientUI.Views.ControlPanelView"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" FontFamily="Segoe UI Emoji">
+             d:DesignHeight="700" d:DesignWidth="800" FontFamily="Segoe UI Emoji">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -33,6 +33,7 @@
             <Label Content="Street number:" Foreground="White" FontSize="22"></Label>
             <Label Content="Password" HorizontalAlignment="Center" Foreground="White" FontStyle="Italic" FontSize="22"></Label>
             <Label Content="Password:" Foreground="White" FontSize="22"></Label>
+            <Label Content="My publishing house:" Foreground="White" FontSize="22" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"></Label>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Background="#7F000000">
             <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding JmbgTB, Mode=TwoWay}"  Margin="7" MaxWidth="400" IsReadOnly="True"></TextBox>
@@ -51,6 +52,7 @@
             <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding StreetTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
             <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding NumberTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
             <PasswordBox x:Name="passwordPB" Password="NoChange"  Background="#87CEFA" MinWidth="200" Margin="7,40,7,7" MaxWidth="400" ></PasswordBox>
+            <TextBox IsReadOnly="True" Background="#87CEFA" MinWidth="200" Text="{Binding MyPHTB, Mode=TwoWay}"  Margin="7" MaxWidth="400" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
             <Button Content="Edit Profile" Command="{Binding ModifyCommand}" CommandParameter="{Binding ElementName=passwordPB}"></Button>

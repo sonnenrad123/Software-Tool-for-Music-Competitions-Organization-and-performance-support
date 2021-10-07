@@ -17,6 +17,9 @@ namespace ClientUI.ViewModel
         public List<string> CompetitorStrings { get; set; } = new List<string>();
         public List<string> CompetitionStrings { get; set; } = new List<string>();
 
+        private bool isEventOrganizer = false;
+        public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
+
 
         public List<Common.Models.Competitor> Competitors;
         public List<Common.Models.Competition> Competitions;
@@ -31,6 +34,7 @@ namespace ClientUI.ViewModel
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             Competitings = new ObservableCollection<Common.Models.Competiting>(repo.RepositoryProxy.ReadCompetitings());
+            IsEventOrganizer = LoggedInUserSingleton.Instance.CheckRole("EventOrganizer");
             Competitions = repo.RepositoryProxy.ReadCompetitions().ToList();
             Competitors = repo.RepositoryProxy.ReadCompetitors().ToList();
             Organizations = repo.RepositoryProxy.ReadOrganizations().ToList();
@@ -47,11 +51,39 @@ namespace ClientUI.ViewModel
                 Common.Models.Organize org = Organizations.Find(x => x.CompetitionID_COMP == cmp.ID_COMP);
                 if (org != null && cmp.DATE_START > DateTime.Now)
                 {
-                    CompetitionStrings.Add(cmp.ID_COMP.ToString());
+                   if(LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+                    {
+                        Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                        if(eotemp.PublishingHouseID_PH == org.PublishingHouseID_PH)//EO moze da prijavi takmicare samo na takmicenja od njegove izdavacke kuce
+                        {
+                            CompetitionStrings.Add(cmp.ID_COMP.ToString());
+                        }
+                    }
+                    
+                    
+                    
                 }
                
             }
 
+            //ako je ulogovan takmicar on moze da vidi samo svoja takmicenja
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
+            {
+                List<Common.Models.Competiting> competitings = repo.RepositoryProxy.ReadCompetitings().ToList();
+                Competitings = new ObservableCollection<Common.Models.Competiting>();
+                foreach (Common.Models.Competiting cmptemp in competitings)
+                {
+                    if(cmptemp.CompetitorJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        Competitings.Add(cmptemp);
+                    }
+                }
+
+            }
+
+
+
+            OnPropertyChanged("Competitings");
             OnPropertyChanged("CompetitorStrings");
             OnPropertyChanged("CompetitionStrings");
             
@@ -137,6 +169,22 @@ namespace ClientUI.ViewModel
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             Competitings = new ObservableCollection<Common.Models.Competiting>(repo.RepositoryProxy.ReadCompetitings());
+
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
+            {
+                List<Common.Models.Competiting> competitings = repo.RepositoryProxy.ReadCompetitings().ToList();
+                Competitings = new ObservableCollection<Common.Models.Competiting>();
+                foreach (Common.Models.Competiting cmptemp in competitings)
+                {
+                    if (cmptemp.CompetitorJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        Competitings.Add(cmptemp);
+                    }
+                }
+
+            }
+
+
             OnPropertyChanged("Competitings");
         }
 

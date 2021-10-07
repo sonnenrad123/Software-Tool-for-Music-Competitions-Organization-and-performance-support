@@ -19,24 +19,81 @@ namespace ClientUI.ViewModel
         private string maxCompetitorsTB="";
         private DateTime startDateDP = DateTime.Now;
         private DateTime endDateDP = DateTime.Now;
-       
+
+
+
+        private bool isEventOrganizer = false;
+        public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
+        private bool isCompetitor = false;
+        public bool IsCompetitor { get => isCompetitor; set { isCompetitor = value; OnPropertyChanged("IsCompetitor"); } }
+
 
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
         public MyICommand ModifyCommand { get; set; }
+        public MyICommand ApplyCommand { get; set; }
         public CompetitionsTableViewModel(MainWindowViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             Competitions = new ObservableCollection<Competition>(repo.RepositoryProxy.ReadCompetitions());
+
+
+            IsEventOrganizer = LoggedInUserSingleton.Instance.CheckRole("EventOrganizer");
+            OnPropertyChanged("IsEventOrganizer");
+            IsCompetitor = LoggedInUserSingleton.Instance.CheckRole("Competitor");
+            OnPropertyChanged("IsCompetitor");
+
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             AddCommand = new MyICommand(OnAdd, CanAdd);
             ModifyCommand = new MyICommand(OnModify, CanModify);
+            ApplyCommand = new MyICommand(OnApply, CanApply);
+        }
+
+        private bool CanApply()
+        {
+            return selectedCompetition != null;
+        }
+
+        private void OnApply()
+        {
+            if (selectedCompetition == null)
+            {
+                return;
+            }
+
+            long CompetitorJMBG = LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN;
+            int idCompetition = selectedCompetition.ID_COMP;
+
+            RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            Organize orgtemp = repo.RepositoryProxy.ReadOrganizations().FirstOrDefault(x => x.CompetitionID_COMP == idCompetition);
+
+            if(orgtemp == null)
+            {
+                System.Windows.MessageBox.Show("Selected competition isn't still organized by publishing house!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            
+
+            if (repo.RepositoryProxy.AddCompetitorToCompetition(CompetitorJMBG, idCompetition, orgtemp.PublishingHouseID_PH) == false)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please, try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Successfully applied for competition with Name: " + orgtemp.Competition.NAME_COMP +".", "Congrats.", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
         }
 
 
         private bool CanModify()
         {
+
+
             return selectedCompetition!=null && NameTB != "" && int.TryParse(MaxCompetitorsTB, out int mc) && StartDateDP != null && EndDateDP != null && StartDateDP<=EndDateDP;
         }
 
@@ -55,6 +112,7 @@ namespace ClientUI.ViewModel
 
         private bool CanAdd()
         {
+
             return (NameTB != "" && int.TryParse(MaxCompetitorsTB, out int mc) && StartDateDP != null && EndDateDP != null && StartDateDP<=EndDateDP);
         }
 
@@ -67,7 +125,19 @@ namespace ClientUI.ViewModel
                 return;
             }
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
-            repo.RepositoryProxy.AddCompetition(new Competition(-1, startDateDP, endDateDP, NameTB, maxcomp));
+
+            int idComp = -1;
+
+
+            repo.RepositoryProxy.AddCompetition(new Competition(-1, startDateDP, endDateDP, NameTB, maxcomp),out idComp);
+
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer" && idComp != -1)
+            {
+                EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                repo.RepositoryProxy.AddPublishingHouseOrganization(idComp, eotemp.PublishingHouseID_PH);
+            }
+
+
             RefreshTable();
         }
 
@@ -106,6 +176,7 @@ namespace ClientUI.ViewModel
                 DeleteCommand.RaiseCanExecuteChanged();
                 AddCommand.RaiseCanExecuteChanged();
                 ModifyCommand.RaiseCanExecuteChanged();
+                ApplyCommand.RaiseCanExecuteChanged();
             }
         }
 

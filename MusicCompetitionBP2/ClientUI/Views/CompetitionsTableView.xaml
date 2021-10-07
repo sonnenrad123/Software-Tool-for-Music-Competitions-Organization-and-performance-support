@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClientUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Segoe UI Emoji">
+             d:DesignHeight="650" d:DesignWidth="800" FontFamily="Segoe UI Emoji">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"></RowDefinition>
@@ -59,8 +59,9 @@
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
-        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,46,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,83,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,46,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,83,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="ApplyForCompetitionBtn" Content="Apply for comp." HorizontalAlignment="Left" Margin="372,120,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#FF53F00A" Foreground="#FFFAFB79" Command="{Binding ApplyCommand}" Visibility="{Binding IsCompetitor, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

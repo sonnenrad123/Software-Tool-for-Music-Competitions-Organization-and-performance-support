@@ -27,7 +27,7 @@ namespace MusicCompetitionBP2.Repositories
                 dbContext.SaveChanges();
                 return true;
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return false;   
             }

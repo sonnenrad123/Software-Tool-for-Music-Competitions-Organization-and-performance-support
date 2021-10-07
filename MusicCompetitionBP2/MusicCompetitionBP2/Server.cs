@@ -14,9 +14,9 @@ namespace MusicCompetitionBP2
 
         private MainRepository repo = new MainRepository(new MusicCompetitionDbContext());
 
-        public bool AddCompetition(Common.Models.Competition c)
+        public bool AddCompetition(Common.Models.Competition c,out int idComp)
         {
-            return repo.CompetitionRepository.Create(c);
+            return repo.CompetitionRepository.Create(c,out idComp);
         }
 
         public bool AddCompetitor(Common.Models.Competitor c)
