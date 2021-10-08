@@ -42,14 +42,22 @@ namespace MusicCompetitionBP2.Repositories
                 Type = "EventOrganizer"
             };
             dbContext.Users.Add(tempCmp);
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            try
             {
-                Port = 587,
-                Credentials = new NetworkCredential("mcompetition2021@gmail.com", "muzickotakmicenje"),
-                EnableSsl = true,
-            };
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("mcompetition2021@gmail.com", "muzickotakmicenje"),
+                    EnableSsl = true,
+                };
 
-            smtpClient.Send("mcompetition2021@gmail.com", tempCmp.EMAIL_SIN, "Your login password for Global Music Competitions app.", string.Format("Your login credentials for Global Music Competitions app are:\nEmail: {0}\nPassword:{1}", tempCmp.EMAIL_SIN, tempCmp.Password)); ;
+                smtpClient.Send("mcompetition2021@gmail.com", tempCmp.EMAIL_SIN, "Your login password for Global Music Competitions app.", string.Format("Your login credentials for Global Music Competitions app are:\nEmail: {0}\nPassword:{1}", tempCmp.EMAIL_SIN, tempCmp.Password)); ;
+            }
+            catch (Exception)
+            {
+
+            }
+            
 
 
             return dbContext.SaveChanges() > 0 ? true : false;

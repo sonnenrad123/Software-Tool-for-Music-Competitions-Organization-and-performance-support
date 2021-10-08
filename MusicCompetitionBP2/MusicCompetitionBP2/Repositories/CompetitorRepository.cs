@@ -115,6 +115,15 @@ namespace MusicCompetitionBP2.Repositories
                 {
                     using (var sqlLogFile = new StreamWriter("LogFile.txt"))
                     {
+                        //ocene njegovih nastupa
+                        dbContext.Database.ExecuteSqlCommand(string.Format("Delete from Evaluations where MusicPerformanceID_PERF in (select ID_PERF from MusicPerformances where CompetitingCompetitorJMBG_SIN = {0})", JMBG));
+                        //njegove nastupe
+                        dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from MusicPerformances where CompetitingCompetitorJMBG_SIN = {0}", JMBG));
+
+                        //iz ucestvuje na
+                        dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Competitings where CompetitorJMBG_SIN =  {0}", JMBG));
+
+
                         dbContext.Database.Log = sqlLogFile.Write;
                         dbContext.Users.Remove(s);
                         dbContext.SaveChanges();

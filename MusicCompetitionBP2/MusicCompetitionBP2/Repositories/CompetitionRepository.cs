@@ -77,11 +77,29 @@ namespace MusicCompetitionBP2.Repositories
                 {
                     return false;
                 }
+
+                //prvo sve rezervacije za to takmicenje
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Reservations where OrganizeCompetitionID_COMP =  {0}", idComp));
+                OrganizeRepository or = new OrganizeRepository(dbContext);
+
+                //pa organizacije
+                Organize orgtemp = dbContext.Organizations.FirstOrDefault(o => o.CompetitionID_COMP == idComp);
+                while(orgtemp != null)
+                {
+                    or.Remove(orgtemp.CompetitionID_COMP, orgtemp.PublishingHouseID_PH);
+                    orgtemp = dbContext.Organizations.FirstOrDefault(o => o.CompetitionID_COMP == idComp);
+                }
+                //pa zaduzenja
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from HiredForSet where CompetitionID_COMP = {0}", idComp));
+                //pa poseduje zanr
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from PossessesASet where CompetitionID_COMP = {0}", idComp));
+
+
                 dbContext.Competitions.Remove(c);
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

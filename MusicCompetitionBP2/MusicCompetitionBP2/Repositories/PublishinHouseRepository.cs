@@ -75,11 +75,24 @@ namespace MusicCompetitionBP2.Repositories
                 {
                     return false;
                 }
+                //obrisati i organizatore koji rade za datu PH
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Users where JMBG_SIN in (select JMBG_SIN from Users_EventOrganizer where PublishingHouseID_PH = {0})", phID));
+
+
+                //i zatim sve organizacije date kuce i kaskadno pustiti dalje brisanje
+                OrganizeRepository or = new OrganizeRepository(dbContext);
+                Organize orgtemp = dbContext.Organizations.FirstOrDefault(o => o.PublishingHouseID_PH == phID);
+                while (orgtemp != null)
+                {
+                    or.Remove(orgtemp.CompetitionID_COMP, orgtemp.PublishingHouseID_PH);
+                    orgtemp = dbContext.Organizations.FirstOrDefault(o => o.PublishingHouseID_PH == phID);
+                }
+
                 dbContext.PublishingHouses.Remove(ph);
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

@@ -49,6 +49,10 @@ namespace MusicCompetitionBP2.Repositories
             try
             {
                 var res = dbContext.MusicPerformances.FirstOrDefault((x) => x.ID_PERF == perfID);
+
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Evaluations where MusicPerformanceID_PERF =   {0}", perfID));
+
+
                 dbContext.MusicPerformances.Remove(res);
                 dbContext.SaveChanges();
                 return true;

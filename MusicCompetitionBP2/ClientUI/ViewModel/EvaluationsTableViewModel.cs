@@ -217,6 +217,7 @@ namespace ClientUI.ViewModel
 
                     if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")//ako je u pitanju ziri on vidi ocene za takmicenja na kojima je zaduzen i ocenjuje ucesnike istih
                     {
+                        JuryMemberStrings.Clear();
                         JuryMemberStrings.Add(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN.ToString());
                     }
 

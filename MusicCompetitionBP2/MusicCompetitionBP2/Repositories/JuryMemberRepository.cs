@@ -104,6 +104,19 @@ namespace MusicCompetitionBP2.Repositories
                 }
                 if (s.Type == "JuryMember")
                 {
+                    //kaskadno brisanje
+
+                    //ocene clana zirija
+                    dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Evaluations where IsExpertJuryMemberJMBG_SIN = {0}",JMBG));
+
+                    //angazovanja za takmicenja
+                    dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from HiredForSet where JuryMemberJMBG_SIN = {0}", JMBG));
+
+                    //ekspertize
+                    dbContext.Database.ExecuteSqlCommand(string.Format("DELETE FROM IsExpertSet WHERE JuryMemberJMBG_SIN = {0};",JMBG));
+
+
+
                     dbContext.Users.Remove(s);
                     dbContext.SaveChanges();
                     return true;

@@ -59,10 +59,14 @@ namespace ClientUI.ViewModel
                             CompetitionStrings.Add(cmp.ID_COMP.ToString());
                         }
                     }
-                    
+                    else if(LoggedInUserSingleton.Instance.loggedInUser.Type == "Administrator")
+                    {
+                        CompetitionStrings.Add(cmp.ID_COMP.ToString());
+                    }
                     
                     
                 }
+                
                
             }
 

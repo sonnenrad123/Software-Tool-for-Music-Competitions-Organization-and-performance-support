@@ -63,6 +63,9 @@ namespace MusicCompetitionBP2.Repositories
                 {
                     return false;
                 }
+                
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Reservations where PerformanceHallID_HALL = {0}", phID));
+
                 dbContext.PerformanceHalls.Remove(ph);
                 dbContext.SaveChanges();
                 return true;

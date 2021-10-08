@@ -63,8 +63,11 @@ namespace ClientUI.ViewModel
             set
             {
                 selectedOrganization = value;
-                SelectedPublishingHouse = selectedOrganization.PublishingHouse.NAME_PH;
-                SelectedCompetition = selectedOrganization.CompetitionID_COMP.ToString();
+                if (selectedOrganization != null)
+                {
+                    SelectedPublishingHouse = selectedOrganization.PublishingHouse.NAME_PH;
+                    SelectedCompetition = selectedOrganization.CompetitionID_COMP.ToString();
+                }
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }

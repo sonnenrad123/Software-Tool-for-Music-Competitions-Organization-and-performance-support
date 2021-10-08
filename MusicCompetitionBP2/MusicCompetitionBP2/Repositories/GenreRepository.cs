@@ -56,11 +56,27 @@ namespace MusicCompetitionBP2.Repositories
                 {
                     return false;
                 }
+
+                //kaskadno brisanje
+
+                //obrisati sve iz tabele possesA
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from PossessesASet where GenreID_GENRE = {0}", genreId));
+
+                //ocene za nastupe tog zanra
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from Evaluations where MusicPerformanceID_PERF in (select ID_PERF from MusicPerformances where GenreID_GENRE = {0})", genreId));
+
+                //ekspertize za dati zanr
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from IsExpertSet where GenreID_GENRE = {0}", genreId));
+
+                //nastupe sa tim zanrom
+                dbContext.Database.ExecuteSqlCommand(string.Format("DELETE from MusicPerformances where GenreID_GENRE = {0}", genreId));
+
+
                 dbContext.Genres.Remove(g);
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

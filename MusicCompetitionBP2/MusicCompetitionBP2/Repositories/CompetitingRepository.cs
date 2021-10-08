@@ -44,8 +44,18 @@ namespace MusicCompetitionBP2.Repositories
 
                 while (mf != null)
                 {
+
+                    var eval = dbContext.Evaluations.FirstOrDefault(e => e.MusicPerformanceID_PERF == mf.ID_PERF);
+                    while(eval != null)
+                    {
+                        dbContext.Evaluations.Remove(eval);
+                        dbContext.SaveChanges();
+                        eval = dbContext.Evaluations.FirstOrDefault(e => e.MusicPerformanceID_PERF == mf.ID_PERF);
+                    }
+
+
                     dbContext.MusicPerformances.Remove(mf);
-                   
+                    
                     dbContext.SaveChanges();
                     mf = dbContext.MusicPerformances.FirstOrDefault((x) => x.CompetitingOrganizeCompetitionID_COMP == organizeCompetitionID_COMP && x.CompetitingOrganizePublishingHouseID_PH == organizePublishingHouseID_PH && x.CompetitingCompetitorJMBG_SIN == CompetitorJMBG);
                 }

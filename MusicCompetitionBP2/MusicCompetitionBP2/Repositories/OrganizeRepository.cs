@@ -35,6 +35,7 @@ namespace MusicCompetitionBP2.Repositories
                 var org = dbContext.Organizations.FirstOrDefault((x) => x.CompetitionID_COMP == idComp && x.PublishingHouseID_PH == phID);
                 var reserv = dbContext.Reservations.FirstOrDefault((x) => x.OrganizeCompetitionID_COMP == idComp && x.OrganizePublishingHouseID_PH == phID);
 
+                //obrisem sve rezervacije hala
                 while (reserv != null)
                 {
                     dbContext.Reservations.Remove(reserv);
@@ -42,7 +43,15 @@ namespace MusicCompetitionBP2.Repositories
                     reserv = dbContext.Reservations.FirstOrDefault((x) => x.OrganizeCompetitionID_COMP == idComp && x.OrganizePublishingHouseID_PH == phID);
                 }
 
+                //sve competitings na takmicenju idComp koje organizuje kuca sa PHID i dalje kaskadno sta treba
+                CompetitingRepository cr = new CompetitingRepository(dbContext);
 
+                Competiting competiting = dbContext.Competitings.FirstOrDefault(x => x.OrganizeCompetitionID_COMP == idComp && x.OrganizePublishingHouseID_PH == phID);
+                while(competiting != null)
+                {
+                    cr.Remove(competiting.CompetitorJMBG_SIN, competiting.OrganizeCompetitionID_COMP, competiting.OrganizePublishingHouseID_PH);
+                    competiting = dbContext.Competitings.FirstOrDefault(x => x.OrganizeCompetitionID_COMP == idComp && x.OrganizePublishingHouseID_PH == phID);
+                }
 
 
                 dbContext.Organizations.Remove(org);
