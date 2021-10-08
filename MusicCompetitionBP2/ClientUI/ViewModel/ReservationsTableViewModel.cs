@@ -56,8 +56,38 @@ namespace ClientUI.ViewModel
                 PerformanceHallStrings.Add(ph.ID_HALL.ToString());
             }
 
+            //ako nije admin vec EO moze videti samo svoje izdavacke kuce i rezervisati hale za njih
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                PublishingHouseStrings.Clear();
+                Reservations.Clear();
+                //filtriraj combo box
+                foreach(Common.Models.PublishingHouse ph in PublishingHouses)
+                {
+                    if(ph.ID_PH == eotemp.PublishingHouseID_PH)
+                    {
+                        PublishingHouseStrings.Add(ph.ID_PH.ToString());
+                    }
+                }
+                //filtriraj tabelu
+                List<Common.Models.Reserve> reserves = repo.RepositoryProxy.ReadHallReservations().ToList();
+                foreach(Common.Models.Reserve res in reserves)
+                {
+                    if (res.OrganizePublishingHouseID_PH == eotemp.PublishingHouseID_PH)
+                    {
+                        Reservations.Add(res);
+                    }
+                }
+
+
+
+
+            }
+
             OnPropertyChanged("PublishingHouseStrings");
             OnPropertyChanged("PerformanceHallStrings");
+            OnPropertyChanged("Reservations");
         }
 
         private bool CanModify()
@@ -331,6 +361,32 @@ namespace ClientUI.ViewModel
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             Reservations = new ObservableCollection<Common.Models.Reserve>(repo.RepositoryProxy.ReadHallReservations());
+
+
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                Reservations.Clear();
+                
+                //filtriraj tabelu
+                List<Common.Models.Reserve> reserves = repo.RepositoryProxy.ReadHallReservations().ToList();
+                foreach (Common.Models.Reserve res in reserves)
+                {
+                    if (res.OrganizePublishingHouseID_PH == eotemp.PublishingHouseID_PH)
+                    {
+                        Reservations.Add(res);
+                    }
+                }
+
+
+
+
+            }
+
+
+
+
+
             OnPropertyChanged("Reservations");
 
         }

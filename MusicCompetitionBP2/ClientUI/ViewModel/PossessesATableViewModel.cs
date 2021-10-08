@@ -20,12 +20,17 @@ namespace ClientUI.ViewModel
         public List<Common.Models.Genre> Genres;
         public List<Common.Models.Competition> Competitions;
 
+        private bool isEventOrganizer = false;
+        public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
+
+
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
 
         public PossessesATableViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            IsEventOrganizer = LoggedInUserSingleton.Instance.CheckRole("EventOrganizer");
             CompetitionGenres = new ObservableCollection<Common.Models.PossessesA>(repo.RepositoryProxy.ReadPossessATable());
             Competitions = repo.RepositoryProxy.ReadCompetitions().ToList();
             Genres = repo.RepositoryProxy.ReadGenres().ToList();
@@ -41,6 +46,25 @@ namespace ClientUI.ViewModel
             {
                 CompetitionStrings.Add(cmp.ID_COMP.ToString());
             }
+
+
+            //EO moze dodati samo za svoja takmicenja zanrove
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                CompetitionStrings.Clear();
+                foreach(Common.Models.Competition cmp in Competitions)
+                {
+                    Common.Models.Organize orgtemp = repo.RepositoryProxy.ReadOrganizations().FirstOrDefault(o => o.PublishingHouseID_PH == eotemp.PublishingHouseID_PH && o.CompetitionID_COMP == cmp.ID_COMP);
+                    if(orgtemp != null)
+                    {
+                        CompetitionStrings.Add(cmp.ID_COMP.ToString());
+                    }
+
+                }
+            }
+
+
             OnPropertyChanged("GenreStrings");
             OnPropertyChanged("CompetitionStrings");
         }

@@ -42,7 +42,7 @@
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/> 
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,46,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}" Visibility="{Binding IsAdministrator, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,46,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand }" />
     </Grid>
 </UserControl>

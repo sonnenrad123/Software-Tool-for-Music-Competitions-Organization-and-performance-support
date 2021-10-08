@@ -25,12 +25,16 @@ namespace ClientUI.ViewModel
         public List<Common.Models.IsExpert> IsExpertSet;
         public List<Common.Models.JuryMember> JuryMembers;
 
+        private bool isJuryMember = false;
+        public bool IsJuryMember { get => isJuryMember; set { isJuryMember = value; OnPropertyChanged("IsJuryMember"); } }
+
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
         public MyICommand ModifyCommand { get; set; }
 
         public EvaluationsTableViewModel()
         {
+            IsJuryMember = LoggedInUserSingleton.Instance.CheckRole("JuryMember");
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             Evaluations = new ObservableCollection<Common.Models.Evaluate>(repo.RepositoryProxy.ReadEvaluations());
             MusicPerformances = repo.RepositoryProxy.ReadMusicPerformances().ToList();
@@ -45,10 +49,93 @@ namespace ClientUI.ViewModel
             {
                 MusicPerformanceStrings.Add(mf.ID_PERF.ToString());
             }
-           
+
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")//ako je u pitanju ziri on vidi ocene za takmicenja na kojima je zaduzen i ocenjuje ucesnike istih
+            {
+                JuryMemberStrings.Clear();
+                MusicPerformanceStrings.Clear();
+
+
+                JuryMemberStrings.Add(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN.ToString());
+                SelectedJuryMember = JuryMemberStrings[0];
+                foreach (Common.Models.MusicPerformance mf in MusicPerformances)//dajemo mu u opticaj samo takmicenja za koja je ekspert i na kojima je zaduzen
+                {
+                    // da li je ekspert
+                    Common.Models.IsExpert isexp = IsExpertSet.FirstOrDefault(i => i.GenreID_GENRE == mf.GenreID_GENRE && i.JuryMemberJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                    if (isexp != null)
+                    {
+                        //da li je angazovan za odredjeno takmicenje
+                        Common.Models.HiredFor hftemp = repo.RepositoryProxy.ReadEngagemenets().FirstOrDefault(e => e.CompetitionID_COMP == mf.CompetitingOrganizeCompetitionID_COMP && e.JuryMemberJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                        if (hftemp != null)
+                        {
+                            MusicPerformanceStrings.Add(mf.ID_PERF.ToString());
+                        }
+                    }
+
+
+                }
+
+            }
+
+
+            //filtriranje tabele
+
+            //ako je ziri member vidi sve ocene koje je on dodelio
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")
+            {
+                List<Common.Models.Evaluate> evalstemp = repo.RepositoryProxy.ReadEvaluations().ToList();
+                Evaluations.Clear();
+
+                foreach(Common.Models.Evaluate et in evalstemp)
+                {
+                    if(et.IsExpertJuryMemberJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        Evaluations.Add(et);
+                    }
+                }
+                OnPropertyChanged("Evaluations");
+            }
+
+
+            //ako je eventorganizer vidi samo ocene za takmicare u okviru njegove izdavacke kuce
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                List<Common.Models.Evaluate> evalstemp = repo.RepositoryProxy.ReadEvaluations().ToList();
+                Evaluations.Clear();
+
+                foreach (Common.Models.Evaluate et in evalstemp)
+                {
+                    if (et.MusicPerformance.CompetitingOrganizePublishingHouseID_PH == eotemp.PublishingHouseID_PH)
+                    {
+                        Evaluations.Add(et);
+                    }
+                }
+                OnPropertyChanged("Evaluations");
+            }
+
+            //ako je competitor vidi svoje ocene
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
+            {
+
+                List<Common.Models.Evaluate> evalstemp = repo.RepositoryProxy.ReadEvaluations().ToList();
+                Evaluations.Clear();
+
+                foreach (Common.Models.Evaluate et in evalstemp)
+                {
+                    if (et.MusicPerformance.CompetitingCompetitorJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        Evaluations.Add(et);
+                    }
+                }
+                OnPropertyChanged("Evaluations");
+            }
+
+
 
             OnPropertyChanged("JuryMemberStrings");
             OnPropertyChanged("MusicPerformanceStrings");
+            OnPropertyChanged("SelectedJuryMember");
         }
 
 
@@ -127,6 +214,12 @@ namespace ClientUI.ViewModel
                             JuryMemberStrings.Add(jr.JuryMemberJMBG_SIN.ToString());
                         }
                     }
+
+                    if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")//ako je u pitanju ziri on vidi ocene za takmicenja na kojima je zaduzen i ocenjuje ucesnike istih
+                    {
+                        JuryMemberStrings.Add(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN.ToString());
+                    }
+
 
                     OnPropertyChanged("JuryMemberStrings");
                     OnPropertyChanged("SelectedMusicPerformance");
@@ -275,7 +368,54 @@ namespace ClientUI.ViewModel
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             Evaluations = new ObservableCollection<Common.Models.Evaluate>(repo.RepositoryProxy.ReadEvaluations());
             OnPropertyChanged("Evaluations");
-            
+            //ako je ziri member vidi sve ocene koje je on dodelio
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")
+            {
+                List<Common.Models.Evaluate> evalstemp = repo.RepositoryProxy.ReadEvaluations().ToList();
+                Evaluations.Clear();
+
+                foreach (Common.Models.Evaluate et in evalstemp)
+                {
+                    if (et.IsExpertJuryMemberJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        Evaluations.Add(et);
+                    }
+                }
+                OnPropertyChanged("Evaluations");
+            }
+            //ako je eventorganizer vidi samo ocene za takmicare u okviru njegove izdavacke kuce
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                List<Common.Models.Evaluate> evalstemp = repo.RepositoryProxy.ReadEvaluations().ToList();
+                Evaluations.Clear();
+
+                foreach (Common.Models.Evaluate et in evalstemp)
+                {
+                    if (et.MusicPerformance.CompetitingOrganizePublishingHouseID_PH == eotemp.PublishingHouseID_PH)
+                    {
+                        Evaluations.Add(et);
+                    }
+                }
+                OnPropertyChanged("Evaluations");
+            }
+            //ako je competitor vidi svoje ocene
+            if (LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
+            {
+                
+                List<Common.Models.Evaluate> evalstemp = repo.RepositoryProxy.ReadEvaluations().ToList();
+                Evaluations.Clear();
+
+                foreach (Common.Models.Evaluate et in evalstemp)
+                {
+                    if (et.MusicPerformance.CompetitingCompetitorJMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN)
+                    {
+                        Evaluations.Add(et);
+                    }
+                }
+                OnPropertyChanged("Evaluations");
+            }
+
         }
     }
 }

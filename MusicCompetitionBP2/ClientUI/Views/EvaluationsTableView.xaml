@@ -50,8 +50,8 @@
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
-        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}"/>
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,79,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}" Visibility="{Binding IsJuryMember, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="ModifyBtn" Content="Modify selected" HorizontalAlignment="Left" Margin="372,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding ModifyCommand}" Visibility="{Binding IsJuryMember, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,79,0,0" Grid.Row="2" VerticalAlignment="Top" Width="133" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}" Visibility="{Binding IsJuryMember, Converter={StaticResource BooleanToVisibilityConverter}}" />
     </Grid>
 </UserControl>

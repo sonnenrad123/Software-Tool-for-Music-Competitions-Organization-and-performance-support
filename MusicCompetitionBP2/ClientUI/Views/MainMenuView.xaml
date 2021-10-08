@@ -27,7 +27,7 @@
                 
                 <Button x:Name="HiredForTableBtn" Content="Jury engagements" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Engagements"/>
                 <Button x:Name="OrganizeTableBtn" Content="Publ. house organizations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Organizations" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <Button x:Name="ReserveTableBtn" Content="Hall reservations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Reservations"/>
+                <Button x:Name="ReserveTableBtn" Content="Hall reservations" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="205" Height="38" Opacity="0.8" Command="{Binding NavigationCommand}" CommandParameter="Reservations" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 
             </StackPanel>
         </Border>

@@ -26,10 +26,14 @@ namespace ClientUI.ViewModel
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
 
+        private bool isAdministrator = false;
+        public bool IsAdministrator { get => isAdministrator; set { isAdministrator = value; OnPropertyChanged("IsAdministrator"); } }
+
 
         public OrganizationsTableViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            IsAdministrator = LoggedInUserSingleton.Instance.CheckRole("Administrator");
             Organizations = new ObservableCollection<Common.Models.Organize>(repo.RepositoryProxy.ReadOrganizations());
             Competitions = repo.RepositoryProxy.ReadCompetitions().ToList();
             PublishingHouses = repo.RepositoryProxy.ReadPublishingHouses().ToList();
@@ -59,6 +63,8 @@ namespace ClientUI.ViewModel
             set
             {
                 selectedOrganization = value;
+                SelectedPublishingHouse = selectedOrganization.PublishingHouse.NAME_PH;
+                SelectedCompetition = selectedOrganization.CompetitionID_COMP.ToString();
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }

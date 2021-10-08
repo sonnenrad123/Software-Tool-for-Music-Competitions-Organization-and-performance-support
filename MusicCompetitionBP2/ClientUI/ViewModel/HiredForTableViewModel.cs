@@ -25,8 +25,12 @@ namespace ClientUI.ViewModel
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
 
+        private bool isEventOrganizer = false;
+        public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
+
         public HiredForTableViewModel()
         {
+            IsEventOrganizer = LoggedInUserSingleton.Instance.CheckRole("EventOrganizer");
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
             HiredForSet = new ObservableCollection<Common.Models.HiredFor>(repo.RepositoryProxy.ReadEngagemenets());
 
@@ -44,6 +48,23 @@ namespace ClientUI.ViewModel
             {
                 JuryMemberStrings.Add(jr.JMBG_SIN.ToString());
             }
+
+
+            //ako je event organizator moze dodati samo za takmicenja koja je on kreirao
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer")
+            {
+                CompetitionStrings.Clear();
+                Common.Models.EventOrganizer eotemp = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                foreach (Common.Models.Competition cmp in Competitions)
+                {
+                    Common.Models.Organize orgtemp = repo.RepositoryProxy.ReadOrganizations().FirstOrDefault(o => o.CompetitionID_COMP == cmp.ID_COMP && eotemp.PublishingHouseID_PH == o.PublishingHouseID_PH);
+                    if(orgtemp != null)
+                    {
+                        CompetitionStrings.Add(cmp.NAME_COMP);
+                    }
+                }
+            }
+
 
             OnPropertyChanged("CompetitionStrings");
             OnPropertyChanged("JuryMemberStrings");
