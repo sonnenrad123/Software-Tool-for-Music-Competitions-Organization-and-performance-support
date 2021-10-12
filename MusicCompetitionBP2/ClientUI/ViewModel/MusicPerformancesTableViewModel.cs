@@ -449,7 +449,7 @@ namespace ClientUI.ViewModel
                             }
                             if(allwentokey == false)
                             {
-                                System.Windows.MessageBox.Show(string.Format("Some of the records ignored because of authorization errors."), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                System.Windows.MessageBox.Show(string.Format("Some of the records ignored because of validation errors."), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
 
                         }
