@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClientUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="1000" FontFamily="Segoe UI Emoji">
+             d:DesignHeight="1200" d:DesignWidth="1000" FontFamily="Segoe UI Emoji">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"></RowDefinition>
             <RowDefinition Height="650*"></RowDefinition>
-            <RowDefinition Height="350*"></RowDefinition>
+            <RowDefinition Height="450*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Background="Black" Opacity="0.8" Grid.Row="0">
@@ -33,7 +33,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8" MinHeight="400">
             <StackPanel Grid.Row="2">
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Margin="2">JMBG:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18" Margin="2">First name:</Label>

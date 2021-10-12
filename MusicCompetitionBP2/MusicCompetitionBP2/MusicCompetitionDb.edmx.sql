@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/06/2021 13:20:19
+-- Date Created: 10/09/2021 09:06:45
 -- Generated from EDMX file: D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
 -- --------------------------------------------------
 
@@ -65,17 +65,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CompetitingMusicPerformance]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MusicPerformances] DROP CONSTRAINT [FK_CompetitingMusicPerformance];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PublishingHouseEventOrganizer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_EventOrganizer] DROP CONSTRAINT [FK_PublishingHouseEventOrganizer];
+GO
 IF OBJECT_ID(N'[dbo].[FK_JuryMember_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_JuryMember] DROP CONSTRAINT [FK_JuryMember_inherits_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Competitor_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Competitor] DROP CONSTRAINT [FK_Competitor_inherits_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Administrator_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_Administrator] DROP CONSTRAINT [FK_Administrator_inherits_User];
-GO
 IF OBJECT_ID(N'[dbo].[FK_EventOrganizer_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_EventOrganizer] DROP CONSTRAINT [FK_EventOrganizer_inherits_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Administrator_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_Administrator] DROP CONSTRAINT [FK_Administrator_inherits_User];
 GO
 
 -- --------------------------------------------------
@@ -127,11 +130,11 @@ GO
 IF OBJECT_ID(N'[dbo].[Users_Competitor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_Competitor];
 GO
-IF OBJECT_ID(N'[dbo].[Users_Administrator]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users_Administrator];
-GO
 IF OBJECT_ID(N'[dbo].[Users_EventOrganizer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_EventOrganizer];
+GO
+IF OBJECT_ID(N'[dbo].[Users_Administrator]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_Administrator];
 GO
 
 -- --------------------------------------------------
