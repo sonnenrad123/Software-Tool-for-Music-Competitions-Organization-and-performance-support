@@ -14,6 +14,7 @@
     <EntitySet Name="Evaluations" EntityType="MusicCompetitionDb.Store.Evaluations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Reservations" EntityType="MusicCompetitionDb.Store.Reservations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Competitings" EntityType="MusicCompetitionDb.Store.Competitings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cities" EntityType="MusicCompetitionDb.Store.Cities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_JuryMember" EntityType="MusicCompetitionDb.Store.Users_JuryMember" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Competitor" EntityType="MusicCompetitionDb.Store.Users_Competitor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_EventOrganizer" EntityType="MusicCompetitionDb.Store.Users_EventOrganizer" store:Type="Tables" Schema="dbo" />
@@ -234,6 +235,13 @@
     <Property Name="CompetitorJMBG_SIN" Type="bigint" Nullable="false" />
     <Property Name="OrganizePublishingHouseID_PH" Type="int" Nullable="false" />
     <Property Name="OrganizeCompetitionID_COMP" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Postcode" />
+    </Key>
+    <Property Name="Postcode" Type="int" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_JuryMember">
     <Key>

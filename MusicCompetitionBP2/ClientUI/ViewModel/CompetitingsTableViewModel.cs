@@ -43,7 +43,7 @@ namespace ClientUI.ViewModel
             foreach (Common.Models.Competitor cmp in Competitors)
             {
                 
-                CompetitorStrings.Add(cmp.JMBG_SIN.ToString());
+                CompetitorStrings.Add(cmp.FIRSTNAME_SIN + " " + cmp.LASTNAME_SIN + "-" + cmp.JMBG_SIN.ToString());
             }
 
             foreach (Common.Models.Competition cmp in Competitions)
@@ -130,7 +130,9 @@ namespace ClientUI.ViewModel
             long competitorId = -1;
             int competitionId = -1;
 
-            if(long.TryParse(SelectedCompetitor, out competitorId) && int.TryParse(SelectedCompetition, out competitionId))
+            string competitorJmbg = selectedCompetitor.Split('-')[1];
+
+            if(long.TryParse(competitorJmbg, out competitorId) && int.TryParse(SelectedCompetition, out competitionId))
             {
                 Common.Models.Organize org = Organizations.Find(x => x.CompetitionID_COMP == competitionId);
                 if (repo.RepositoryProxy.AddCompetitorToCompetition(competitorId, competitionId,org.PublishingHouseID_PH))

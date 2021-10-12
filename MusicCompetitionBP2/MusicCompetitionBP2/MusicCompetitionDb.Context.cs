@@ -38,5 +38,6 @@ namespace MusicCompetitionBP2
         public virtual DbSet<Evaluate> Evaluations { get; set; }
         public virtual DbSet<Reserve> Reservations { get; set; }
         public virtual DbSet<Competiting> Competitings { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
     }
 }

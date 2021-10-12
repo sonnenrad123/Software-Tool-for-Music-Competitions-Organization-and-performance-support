@@ -16,7 +16,11 @@ namespace ClientUI
         public MyICommand<LoginWindow> LoginCommand { get; private set; }
         private BindableBase currentViewModel;
         private string emailTB = "";
+
         
+        private bool reenterPasswordVisible = false;
+
+        public bool ReenterPasswordVisible { get => reenterPasswordVisible; set { reenterPasswordVisible = value; OnPropertyChanged("ReenterPasswordVisible"); } }
 
         public LoginWindowViewModel()
         {
@@ -59,6 +63,12 @@ namespace ClientUI
                     return;
                 }
 
+                if(wnd.PasswordBox.Password.ToString() != wnd.PasswordBoxReenter.Password.ToString())
+                {
+                    MessageBox.Show("Passwords do not match", "Registration error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 loggedInUser.Password = Common.PasswordHasher.Hash(wnd.PasswordBox.Password.ToString(), 10);
                 repo.RepositoryProxy.EditPassword(loggedInUser);
                 
@@ -70,6 +80,7 @@ namespace ClientUI
                 MessageBox.Show("We detected you logged in with auto-generated password. Please login again and next password you enter will be used for future login.", "Choose password.", MessageBoxButton.OK, MessageBoxImage.Information);
                 loggedInUser.Password = "ChangePassword";
                 repo.RepositoryProxy.EditPassword(loggedInUser);
+                ReenterPasswordVisible = true;
                 return;
             }
 

@@ -40,7 +40,7 @@
             </StackPanel>
             <StackPanel Grid.Row="2">
                 <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding NameTB, Mode=TwoWay}" Margin="3" MaxWidth="200"></TextBox>
-                <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding CityTB,Mode=TwoWay}" Margin="3" MaxWidth="200" ></TextBox>
+                <ComboBox Background="#87CEFA"  IsEditable="True" x:Name="CityCB" Margin="4" Width="150" ItemsSource="{Binding CityStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCity}"></ComboBox>
                 <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding StreetTB,Mode=TwoWay}" Margin="3" MaxWidth="200" ></TextBox>
                 <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding NumberTB,Mode=TwoWay}" Margin="3" MaxWidth="200" PreviewTextInput="PreviewTextInput"></TextBox>
 

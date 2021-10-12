@@ -53,6 +53,7 @@
     <Compile Include="Interfaces\IUpdateOperations.cs" />
     <Compile Include="Models\ADDRESS.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Competiting.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Competitor.cs" />

@@ -17,7 +17,7 @@ namespace ClientUI.ViewModel
         private string emailTB = "";
 
         private string phoneNoTB = "";
-        private string cityTB = "";
+
         private string streetTB = "";
         private string numberTB = "";
 
@@ -25,11 +25,22 @@ namespace ClientUI.ViewModel
         private bool isEventOrganizer = false;
         public bool IsEventOrganizer { get => isEventOrganizer; set { isEventOrganizer = value; OnPropertyChanged("IsEventOrganizer"); } }
 
+        public List<string> CityStrings { get; set; } = new List<string>();
+        private string selectedCity;
+        private List<Common.Models.City> cities;
+
         public MyICommand<PasswordBox> ModifyCommand { get; set; }
 
         public ControlPanelViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+
+            cities = repo.RepositoryProxy.ReadCities().ToList();
+            foreach (Common.Models.City c in cities)
+            {
+                CityStrings.Add(c.Postcode + "-" + c.CityName);
+            }
+
             ModifyCommand = new MyICommand<PasswordBox>(OnModify, CanModify);
             IsEventOrganizer = LoggedInUserSingleton.Instance.loggedInUser.Type == "EventOrganizer";
 
@@ -51,12 +62,12 @@ namespace ClientUI.ViewModel
         public DateTime BirthDP { get => birthDP; set { birthDP = value; OnPropertyChanged("BirthDP"); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string EmailTB { get => emailTB; set { emailTB = value; OnPropertyChanged("EmailTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string PhoneNoTB { get => phoneNoTB; set { phoneNoTB = value; OnPropertyChanged("PhoneNoTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
-        public string CityTB { get => cityTB; set { cityTB = value; OnPropertyChanged("CityTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
+       
         public string StreetTB { get => streetTB; set { streetTB = value; OnPropertyChanged("StreetTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string NumberTB { get => numberTB; set { numberTB = value; OnPropertyChanged("NumberTB"); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string MyPHTB { get => myPHTB; set { myPHTB = value; OnPropertyChanged("MyPHTB");} }
 
-
+        public string SelectedCity { get => selectedCity; set { selectedCity = value; OnPropertyChanged("SelectedCity");  ModifyCommand.RaiseCanExecuteChanged(); } }
 
 
         private bool CanModify(PasswordBox pb)
@@ -67,7 +78,12 @@ namespace ClientUI.ViewModel
                 return false;
             }
 
-            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null || emailTB == "" || phoneNoTB == "" || cityTB == "" || streetTB == "" || !(int.TryParse(numberTB, out int n)) || BirthDP > DateTime.Now.AddYears(-10) || pb.Password.ToString()=="")
+            if (!CityStrings.Contains(selectedCity))
+            {
+                allRight = false;
+            }
+
+            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null || emailTB == "" || phoneNoTB == "" || streetTB == "" || !(int.TryParse(numberTB, out int n)) || BirthDP > DateTime.Now.AddYears(-10) || pb.Password.ToString()=="")
             {
                 allRight = false;
             }
@@ -83,9 +99,10 @@ namespace ClientUI.ViewModel
 
             if (CanModify(pb))
             {
-                if(LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
+                string city = selectedCity.Split('-')[1];
+                if (LoggedInUserSingleton.Instance.loggedInUser.Type == "Competitor")
                 {
-                    repo.RepositoryProxy.EditCompetitor(new Common.Models.Competitor(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                    repo.RepositoryProxy.EditCompetitor(new Common.Models.Competitor(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)));
                     Common.Models.User editSession;
 
                     editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
@@ -93,7 +110,7 @@ namespace ClientUI.ViewModel
                 }
                 if (LoggedInUserSingleton.Instance.loggedInUser.Type == "JuryMember")
                 {
-                    repo.RepositoryProxy.EditJuryMember(new Common.Models.JuryMember(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                    repo.RepositoryProxy.EditJuryMember(new Common.Models.JuryMember(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)));
                     Common.Models.User editSession;
 
                     editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
@@ -104,7 +121,7 @@ namespace ClientUI.ViewModel
                 {
                     Common.Models.EventOrganizer evtemp = repo.RepositoryProxy.ReadEventOrganizers().FirstOrDefault(t => t.JMBG_SIN == LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
 
-                    repo.RepositoryProxy.EditEventOrganizer(new Common.Models.EventOrganizer(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)) { PublishingHouseID_PH = evtemp.PublishingHouseID_PH });
+                    repo.RepositoryProxy.EditEventOrganizer(new Common.Models.EventOrganizer(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)) { PublishingHouseID_PH = evtemp.PublishingHouseID_PH });
                     Common.Models.User editSession;
 
                     editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
@@ -113,7 +130,7 @@ namespace ClientUI.ViewModel
 
                 if(LoggedInUserSingleton.Instance.loggedInUser.Type == "Administrator")
                 {
-                    repo.RepositoryProxy.EditAdministrator(new Common.Models.Administrator(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                    repo.RepositoryProxy.EditAdministrator(new Common.Models.Administrator(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)));
                     Common.Models.User editSession;
 
                     editSession = repo.RepositoryProxy.ReadLoggedInUser(emailTB, LoggedInUserSingleton.Instance.loggedInUser.Password);
@@ -137,7 +154,7 @@ namespace ClientUI.ViewModel
 
 
 
-                    Common.Models.User tempuser = new Common.Models.User(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB))
+                    Common.Models.User tempuser = new Common.Models.User(long.Parse(jmbgTB), firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB))
                     {
                         Password = Common.PasswordHasher.Hash(pb.Password.ToString(), 10),
                         Type = LoggedInUserSingleton.Instance.loggedInUser.Type
@@ -181,8 +198,17 @@ namespace ClientUI.ViewModel
                 //AddressTB = selectedCompetitor.ADDRESS_SIN;
                 PhoneNoTB = tempUser.PHONE_NO_SIN;
                 StreetTB = tempUser.ADDRESS_SIN.STREET;
-                CityTB = tempUser.ADDRESS_SIN.CITY;
+             
                 NumberTB = tempUser.ADDRESS_SIN.HOME_NUMBER;
+
+                foreach (Common.Models.City c in cities)
+                {
+                    if (tempUser.ADDRESS_SIN.CITY == c.CityName)
+                    {
+                        SelectedCity = c.Postcode + "-" + c.CityName;
+                    }
+                }
+
 
                 OnPropertyChanged("FirstNameTB");
                 OnPropertyChanged("LastNameTB");
@@ -191,7 +217,7 @@ namespace ClientUI.ViewModel
                 OnPropertyChanged("EmailTB");
                 OnPropertyChanged("PhoneNoTB");
                 OnPropertyChanged("StreetTB");
-                OnPropertyChanged("CityTB");
+                OnPropertyChanged("SelectedCity");
                 OnPropertyChanged("NumberTB");
             }
             //DeleteCommand.RaiseCanExecuteChanged();

@@ -230,6 +230,11 @@ namespace MusicCompetitionBP2
             return repo.AdminRepository.Read(JMBG);
         }
 
+        public IEnumerable<Common.Models.City> ReadCities()
+        {
+            return repo.CityRepository.ReadAll();
+        }
+
         public IEnumerable<Common.Models.Competiting> ReadCompetitings()
         {
             return repo.CompetitingRepository.ReadAll();

@@ -27,6 +27,10 @@ namespace ClientUI.ViewModel
         private string streetTB = "";
         private string numberTB = "";
 
+        public List<string> CityStrings { get; set; } = new List<string>();
+        private string selectedCity;
+        private List<City> cities;
+
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
         public MyICommand ModifyCommand { get; set; }
@@ -34,6 +38,13 @@ namespace ClientUI.ViewModel
         public JuryMembersTableViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            cities = repo.RepositoryProxy.ReadCities().ToList();
+            foreach(City c in cities)
+            {
+                CityStrings.Add(c.Postcode + "-" + c.CityName);
+            }
+
+
             JuryMembers = new ObservableCollection<Common.Models.JuryMember>(repo.RepositoryProxy.ReadJuryMembers());
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             AddCommand = new MyICommand(OnAdd, CanAdd);
@@ -56,12 +67,16 @@ namespace ClientUI.ViewModel
 
             }
 
+            if (!CityStrings.Contains(selectedCity)){
+                allRight = false;
+            }
+
             if(BirthDP > DateTime.Now.AddYears(-10))
             {
                 allRight = false;
             }
 
-            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null && emailTB == "" || phoneNoTB == "" || cityTB == "" || streetTB == "" || !int.TryParse(numberTB, out int n))
+            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null && emailTB == "" || phoneNoTB == "" || streetTB == "" || !int.TryParse(numberTB, out int n))
             {
                 allRight = false;
             }
@@ -75,7 +90,9 @@ namespace ClientUI.ViewModel
 
             if (CanModify())
             {
-                repo.RepositoryProxy.EditJuryMember(new Common.Models.JuryMember(selectedJuryMember.JMBG_SIN, firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                string city = selectedCity.Split('-')[1];
+
+                repo.RepositoryProxy.EditJuryMember(new Common.Models.JuryMember(selectedJuryMember.JMBG_SIN, firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)));
                 RefreshTable();
             }
             else
@@ -87,7 +104,13 @@ namespace ClientUI.ViewModel
 
         private bool CanAdd()
         {
-            return (long.TryParse(JmbgTB, out long x) && FirstNameTB != "" && lastNameTB != "" && birthDP != null && emailTB != "" && phoneNoTB != "" && cityTB != "" && streetTB != "" && int.TryParse(numberTB, out int n) && BirthDP < DateTime.Now.AddYears(-10));
+
+            if (!CityStrings.Contains(selectedCity))
+            {
+                return false;
+            }
+
+            return (long.TryParse(JmbgTB, out long x) && FirstNameTB != "" && lastNameTB != "" && birthDP != null && emailTB != "" && phoneNoTB != "" && streetTB != "" && int.TryParse(numberTB, out int n) && BirthDP < DateTime.Now.AddYears(-10));
 
         }
 
@@ -115,10 +138,17 @@ namespace ClientUI.ViewModel
                 }
 
             }
-
+            string city = selectedCity.Split('-')[1];
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
-            repo.RepositoryProxy.AddJuryMember(new Common.Models.JuryMember(jmbg, FirstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(adrnum.ToString(), cityTB, streetTB)));
-            RefreshTable();
+            if(repo.RepositoryProxy.AddJuryMember(new Common.Models.JuryMember(jmbg, FirstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(adrnum.ToString(), city, streetTB))))
+            {
+                RefreshTable();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Provided email address already exists in database!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
         }
 
         private bool CanDelete()
@@ -157,6 +187,15 @@ namespace ClientUI.ViewModel
                     //AddressTB = selectedJuryMember.ADDRESS_SIN;
                     PhoneNoTB = selectedJuryMember.PHONE_NO_SIN;
                     StreetTB = selectedJuryMember.ADDRESS_SIN.STREET;
+
+                    foreach(City c in cities)
+                    {
+                        if(selectedJuryMember.ADDRESS_SIN.CITY == c.CityName)
+                        {
+                            SelectedCity = c.Postcode + "-" + c.CityName;
+                        }
+                    }
+
                     CityTB = selectedJuryMember.ADDRESS_SIN.CITY;
                     NumberTB = selectedJuryMember.ADDRESS_SIN.HOME_NUMBER;
 
@@ -167,7 +206,7 @@ namespace ClientUI.ViewModel
                     OnPropertyChanged("EmailTB");
                     OnPropertyChanged("PhoneNoTB");
                     OnPropertyChanged("StreetTB");
-                    OnPropertyChanged("CityTB");
+                    OnPropertyChanged("SelectedCity");
                     OnPropertyChanged("NumberTB");
                 }
                 DeleteCommand.RaiseCanExecuteChanged();
@@ -184,6 +223,9 @@ namespace ClientUI.ViewModel
         public string CityTB { get => cityTB; set { cityTB = value; OnPropertyChanged("CityTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string StreetTB { get => streetTB; set { streetTB = value; OnPropertyChanged("StreetTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string NumberTB { get => numberTB; set { numberTB = value; OnPropertyChanged("NumberTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
+
+        public string SelectedCity { get => selectedCity; set { selectedCity = value; OnPropertyChanged("SelectedCity"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
+
         private void RefreshTable()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();

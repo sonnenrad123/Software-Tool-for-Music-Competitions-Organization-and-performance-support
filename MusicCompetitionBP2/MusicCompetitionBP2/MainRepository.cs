@@ -31,6 +31,7 @@ namespace MusicCompetitionBP2
         public PublishinHouseRepository PublishingHouseRepository { get; }
         public ReserveRepository ReserveRepository { get; }
         public AuthRepository AuthRepository { get; }
+        public CityRepository CityRepository { get; }
         public MainRepository(MusicCompetitionDbContext dbc)
         {
             DbContext = dbc;
@@ -54,6 +55,7 @@ namespace MusicCompetitionBP2
             ReserveRepository = new ReserveRepository(DbContext);
             EventOrganizerRepository = new EventOrganizerRepository(DbContext);
             AuthRepository = new AuthRepository(DbContext);
+            CityRepository = new CityRepository(DbContext);
         }
 
         ~MainRepository()

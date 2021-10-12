@@ -19,6 +19,7 @@
     <EntitySet Name="Evaluations" EntityType="MusicCompetitionDb.Store.Evaluations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Reservations" EntityType="MusicCompetitionDb.Store.Reservations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Competitings" EntityType="MusicCompetitionDb.Store.Competitings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cities" EntityType="MusicCompetitionDb.Store.Cities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_JuryMember" EntityType="MusicCompetitionDb.Store.Users_JuryMember" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Competitor" EntityType="MusicCompetitionDb.Store.Users_Competitor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_EventOrganizer" EntityType="MusicCompetitionDb.Store.Users_EventOrganizer" store:Type="Tables" Schema="dbo" />
@@ -239,6 +240,13 @@
     <Property Name="CompetitorJMBG_SIN" Type="bigint" Nullable="false" />
     <Property Name="OrganizePublishingHouseID_PH" Type="int" Nullable="false" />
     <Property Name="OrganizeCompetitionID_COMP" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Postcode" />
+    </Key>
+    <Property Name="Postcode" Type="int" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_JuryMember">
     <Key>
@@ -621,6 +629,7 @@
             <End Role="PublishingHouse" EntitySet="PublishingHouses" />
             <End Role="EventOrganizer" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Cities" EntityType="MusicCompetitionDb.City" />
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1031,6 +1040,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="City" >
+          <Key>
+            <PropertyRef Name="Postcode" />
+          </Key>
+          <Property Name="Postcode" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1194,6 +1210,14 @@
           <ScalarProperty Name="CompetitorJMBG_SIN" ColumnName="CompetitorJMBG_SIN" />
           <ScalarProperty Name="OrganizePublishingHouseID_PH" ColumnName="OrganizePublishingHouseID_PH" />
           <ScalarProperty Name="OrganizeCompetitionID_COMP" ColumnName="OrganizeCompetitionID_COMP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="IsTypeOf(MusicCompetitionDb.City)">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

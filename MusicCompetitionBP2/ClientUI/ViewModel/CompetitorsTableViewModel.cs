@@ -24,6 +24,11 @@ namespace ClientUI.ViewModel
         private string streetTB = "";
         private string numberTB = "";
 
+        public List<string> CityStrings { get; set; } = new List<string>();
+        private string selectedCity;
+        private List<Common.Models.City> cities;
+
+
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
         public MyICommand ModifyCommand { get; set; }
@@ -31,6 +36,13 @@ namespace ClientUI.ViewModel
         public CompetitorsTableViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+
+            cities = repo.RepositoryProxy.ReadCities().ToList();
+            foreach (Common.Models.City c in cities)
+            {
+                CityStrings.Add(c.Postcode + "-" + c.CityName);
+            }
+
             Competitors = new ObservableCollection<Common.Models.Competitor>(repo.RepositoryProxy.ReadCompetitors());
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             AddCommand = new MyICommand(OnAdd, CanAdd);
@@ -54,7 +66,12 @@ namespace ClientUI.ViewModel
                
             }
 
-            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null || emailTB == "" || phoneNoTB == "" || cityTB == "" || streetTB == "" || !(int.TryParse(numberTB, out int n)) || BirthDP > DateTime.Now.AddYears(-10))
+            if (!CityStrings.Contains(selectedCity))
+            {
+                allRight = false;
+            }
+
+            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null || emailTB == "" || phoneNoTB == "" || cityTB == ""  || !(int.TryParse(numberTB, out int n)) || BirthDP > DateTime.Now.AddYears(-10))
             {
                 allRight = false;
             }
@@ -68,7 +85,8 @@ namespace ClientUI.ViewModel
 
             if (CanModify())
             {
-                repo.RepositoryProxy.EditCompetitor(new Common.Models.Competitor(selectedCompetitor.JMBG_SIN, firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)));
+                string city = selectedCity.Split('-')[1];
+                repo.RepositoryProxy.EditCompetitor(new Common.Models.Competitor(selectedCompetitor.JMBG_SIN, firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)));
                 RefreshTable();
             }
             else
@@ -82,7 +100,11 @@ namespace ClientUI.ViewModel
 
         private bool CanAdd()
         {
-            return (long.TryParse(JmbgTB,out long x) && FirstNameTB != "" && lastNameTB != "" && birthDP != null && emailTB != "" && phoneNoTB != "" && cityTB != "" && streetTB != "" && int.TryParse(numberTB,out int n) && BirthDP < DateTime.Now.AddYears(-10));
+            if (!CityStrings.Contains(selectedCity))
+            {
+                return false;
+            }
+            return (long.TryParse(JmbgTB,out long x) && FirstNameTB != "" && lastNameTB != "" && birthDP != null && emailTB != "" && phoneNoTB != ""  && streetTB != "" && int.TryParse(numberTB,out int n) && BirthDP < DateTime.Now.AddYears(-10));
             
         }
 
@@ -111,8 +133,17 @@ namespace ClientUI.ViewModel
             }
 
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
-            repo.RepositoryProxy.AddCompetitor(new Common.Models.Competitor(jmbg, FirstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(adrnum.ToString(), cityTB, streetTB)));
-            RefreshTable();
+            string city = selectedCity.Split('-')[1];
+            
+            
+            if (repo.RepositoryProxy.AddCompetitor(new Common.Models.Competitor(jmbg, FirstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(adrnum.ToString(), city, streetTB))))
+            {
+                RefreshTable();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Provided email address already exists in database!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private bool CanDelete()
@@ -148,7 +179,15 @@ namespace ClientUI.ViewModel
                     StreetTB = selectedCompetitor.ADDRESS_SIN.STREET;
                     CityTB = selectedCompetitor.ADDRESS_SIN.CITY;
                     NumberTB = selectedCompetitor.ADDRESS_SIN.HOME_NUMBER;
-                  
+
+                    foreach (Common.Models.City c in cities)
+                    {
+                        if (selectedCompetitor.ADDRESS_SIN.CITY == c.CityName)
+                        {
+                            SelectedCity = c.Postcode + "-" + c.CityName;
+                        }
+                    }
+
                     OnPropertyChanged("FirstNameTB");
                     OnPropertyChanged("LastNameTB");
                     OnPropertyChanged("JmbgTB");
@@ -156,7 +195,7 @@ namespace ClientUI.ViewModel
                     OnPropertyChanged("EmailTB");
                     OnPropertyChanged("PhoneNoTB");
                     OnPropertyChanged("StreetTB");
-                    OnPropertyChanged("CityTB");
+                    OnPropertyChanged("SelectedCity");
                     OnPropertyChanged("NumberTB");
                 }
                 DeleteCommand.RaiseCanExecuteChanged();
@@ -174,7 +213,7 @@ namespace ClientUI.ViewModel
         public string CityTB { get => cityTB; set { cityTB = value; OnPropertyChanged("CityTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string StreetTB { get => streetTB; set { streetTB = value; OnPropertyChanged("StreetTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string NumberTB { get => numberTB; set { numberTB = value; OnPropertyChanged("NumberTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
-
+        public string SelectedCity { get => selectedCity; set { selectedCity = value; OnPropertyChanged("SelectedCity"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
 
         private void RefreshTable()
         {

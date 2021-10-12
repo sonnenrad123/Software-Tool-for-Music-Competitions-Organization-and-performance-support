@@ -82,6 +82,7 @@
       <End Role="PublishingHouse" EntitySet="PublishingHouses" />
       <End Role="EventOrganizer" EntitySet="Users" />
     </AssociationSet>
+    <EntitySet Name="Cities" EntityType="MusicCompetitionDb.City" />
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -472,4 +473,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Postcode" />
+    </Key>
+    <Property Name="Postcode" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" Nullable="false" />
+  </EntityType>
 </Schema>

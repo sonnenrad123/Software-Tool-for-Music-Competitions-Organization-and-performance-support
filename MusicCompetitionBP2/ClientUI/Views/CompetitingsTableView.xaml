@@ -34,7 +34,7 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#993E3EE8">
             <StackPanel Grid.Row="2">
-                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">JMBG:</Label>
+                <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Competitor:</Label>
                 <Label Foreground="White" FontStyle="Italic" FontFamily="Aharoni" FontSize="18">Competition ID:</Label>
             </StackPanel>
             <StackPanel Grid.Row="2">
@@ -43,7 +43,7 @@
             </StackPanel>
 
         </StackPanel>
-        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}"/>
-        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,42,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="AddBtn" Content="Add new" HorizontalAlignment="Left" Margin="372,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding AddCommand}" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="DeleteBtn" Content="Delete selected" HorizontalAlignment="Left" Margin="372,42,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Background="#993E3EE8" Foreground="#FFFAFB79" Command="{Binding DeleteCommand}" Visibility="{Binding IsEventOrganizer, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

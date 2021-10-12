@@ -26,6 +26,12 @@ namespace ClientUI.ViewModel
         private string streetTB = "";
         private string numberTB = "";
 
+        public List<string> CityStrings { get; set; } = new List<string>();
+        private string selectedCity;
+        private List<Common.Models.City> cities;
+
+
+
         private string selectedPublishingHouse = "";
         public List<string> PublishingHouseStrings { get; set; } = new List<string>();
         public List<Common.Models.PublishingHouse> PublishingHouses;
@@ -37,6 +43,12 @@ namespace ClientUI.ViewModel
         public EventOrganizerTableViewModel()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            cities = repo.RepositoryProxy.ReadCities().ToList();
+            foreach (Common.Models.City c in cities)
+            {
+                CityStrings.Add(c.Postcode + "-" + c.CityName);
+            }
+
             EventOrganizers = new ObservableCollection<Common.Models.EventOrganizer>(repo.RepositoryProxy.ReadEventOrganizers());
             PublishingHouses = repo.RepositoryProxy.ReadPublishingHouses().ToList();
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
@@ -77,8 +89,11 @@ namespace ClientUI.ViewModel
             {
                 allRight = false;
             }
-
-            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null && emailTB == "" || phoneNoTB == "" || cityTB == "" || streetTB == "" || !int.TryParse(numberTB, out int n))
+            if (!CityStrings.Contains(selectedCity))
+            {
+                allRight = false;
+            }
+            if (FirstNameTB == "" || lastNameTB == "" || birthDP == null && emailTB == "" || phoneNoTB == ""  || streetTB == "" || !int.TryParse(numberTB, out int n))
             {
                 allRight = false;
             }
@@ -109,8 +124,8 @@ namespace ClientUI.ViewModel
                 {
                     System.Windows.MessageBox.Show("Non-existent publishing house!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
-                repo.RepositoryProxy.EditEventOrganizer(new Common.Models.EventOrganizer(selectedEventOrganizer.JMBG_SIN, firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, cityTB, streetTB)) { PublishingHouseID_PH = phtemp.ID_PH});
+                string city = selectedCity.Split('-')[1];
+                repo.RepositoryProxy.EditEventOrganizer(new Common.Models.EventOrganizer(selectedEventOrganizer.JMBG_SIN, firstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(numberTB, city, streetTB)) { PublishingHouseID_PH = phtemp.ID_PH});
                 RefreshTable();
             }
             else
@@ -122,7 +137,10 @@ namespace ClientUI.ViewModel
 
         private bool CanAdd()
         {
-
+            if (!CityStrings.Contains(selectedCity))
+            {
+                return false;
+            }
 
             Common.Models.PublishingHouse phtemp = PublishingHouses.FirstOrDefault(t => t.NAME_PH == selectedPublishingHouse);
             if (phtemp == null)
@@ -131,7 +149,7 @@ namespace ClientUI.ViewModel
             }
 
 
-            return (long.TryParse(JmbgTB, out long x) && FirstNameTB != "" && lastNameTB != "" && birthDP != null && emailTB != "" && phoneNoTB != "" && cityTB != "" && streetTB != "" && int.TryParse(numberTB, out int n) && BirthDP < DateTime.Now.AddYears(-10));
+            return (long.TryParse(JmbgTB, out long x) && FirstNameTB != "" && lastNameTB != "" && birthDP != null && emailTB != "" && phoneNoTB != ""  && int.TryParse(numberTB, out int n) && BirthDP < DateTime.Now.AddYears(-10));
 
         }
 
@@ -167,10 +185,20 @@ namespace ClientUI.ViewModel
                 return;
             }
 
-
+            string city = selectedCity.Split('-')[1];
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
-            repo.RepositoryProxy.AddEventOrganizer(new Common.Models.EventOrganizer(jmbg, FirstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(adrnum.ToString(), cityTB, streetTB)) { PublishingHouseID_PH = phtemp.ID_PH });
-            RefreshTable();
+
+            if (repo.RepositoryProxy.AddEventOrganizer(new Common.Models.EventOrganizer(jmbg, FirstNameTB, lastNameTB, birthDP, emailTB, phoneNoTB, new Common.Models.ADDRESS(adrnum.ToString(), city, streetTB)) { PublishingHouseID_PH = phtemp.ID_PH }))
+            {
+                RefreshTable();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Provided email address already exists in database!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            
+          
         }
 
         private bool CanDelete()
@@ -213,6 +241,14 @@ namespace ClientUI.ViewModel
                     NumberTB = selectedEventOrganizer.ADDRESS_SIN.HOME_NUMBER;
                     SelectedPublishingHouse = selectedEventOrganizer.PublishingHouse.NAME_PH;
 
+                    foreach (Common.Models.City c in cities)
+                    {
+                        if (selectedEventOrganizer.ADDRESS_SIN.CITY == c.CityName)
+                        {
+                            SelectedCity = c.Postcode + "-" + c.CityName;
+                        }
+                    }
+
                     OnPropertyChanged("FirstNameTB");
                     OnPropertyChanged("LastNameTB");
                     OnPropertyChanged("JmbgTB");
@@ -220,7 +256,7 @@ namespace ClientUI.ViewModel
                     OnPropertyChanged("EmailTB");
                     OnPropertyChanged("PhoneNoTB");
                     OnPropertyChanged("StreetTB");
-                    OnPropertyChanged("CityTB");
+                    OnPropertyChanged("SelectedCity");
                     OnPropertyChanged("NumberTB");
                     OnPropertyChanged("SelectedPublishingHouse");
                 }
@@ -238,7 +274,7 @@ namespace ClientUI.ViewModel
         public string CityTB { get => cityTB; set { cityTB = value; OnPropertyChanged("CityTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string StreetTB { get => streetTB; set { streetTB = value; OnPropertyChanged("StreetTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         public string NumberTB { get => numberTB; set { numberTB = value; OnPropertyChanged("NumberTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
-        
+        public string SelectedCity { get => selectedCity; set { selectedCity = value; OnPropertyChanged("SelectedCity"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }
         private void RefreshTable()
         {
             RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();

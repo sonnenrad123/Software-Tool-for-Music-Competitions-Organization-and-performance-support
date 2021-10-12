@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/09/2021 09:06:45
+-- Date Created: 10/12/2021 11:49:51
 -- Generated from EDMX file: D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\MusicCompetitionBP2\MusicCompetitionDb.edmx
 -- --------------------------------------------------
 
@@ -263,6 +263,13 @@ CREATE TABLE [dbo].[Competitings] (
 );
 GO
 
+-- Creating table 'Cities'
+CREATE TABLE [dbo].[Cities] (
+    [Postcode] int  NOT NULL,
+    [CityName] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'Users_JuryMember'
 CREATE TABLE [dbo].[Users_JuryMember] (
     [JMBG_SIN] bigint  NOT NULL
@@ -368,6 +375,12 @@ GO
 ALTER TABLE [dbo].[Competitings]
 ADD CONSTRAINT [PK_Competitings]
     PRIMARY KEY CLUSTERED ([CompetitorJMBG_SIN], [OrganizePublishingHouseID_PH], [OrganizeCompetitionID_COMP] ASC);
+GO
+
+-- Creating primary key on [Postcode] in table 'Cities'
+ALTER TABLE [dbo].[Cities]
+ADD CONSTRAINT [PK_Cities]
+    PRIMARY KEY CLUSTERED ([Postcode] ASC);
 GO
 
 -- Creating primary key on [JMBG_SIN] in table 'Users_JuryMember'

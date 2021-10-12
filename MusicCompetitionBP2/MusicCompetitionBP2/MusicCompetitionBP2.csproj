@@ -59,6 +59,9 @@
     <Compile Include="Administrator.cs">
       <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="City.cs">
+      <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Competiting.cs">
       <DependentUpon>MusicCompetitionDb.tt</DependentUpon>
     </Compile>
@@ -121,6 +124,7 @@
     </Compile>
     <Compile Include="Repositories\AdminRepository.cs" />
     <Compile Include="Repositories\AuthRepository.cs" />
+    <Compile Include="Repositories\CityRepository.cs" />
     <Compile Include="Repositories\CompetitingRepository.cs" />
     <Compile Include="Repositories\CompetitionRepository.cs" />
     <Compile Include="Repositories\CompetitorRepository.cs" />

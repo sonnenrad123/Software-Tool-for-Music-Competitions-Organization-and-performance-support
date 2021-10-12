@@ -46,6 +46,7 @@
         <EntityTypeShape EntityType="MusicCompetitionDb.EventOrganizer" Width="1.5" PointX="16.625" PointY="0.5" />
         <InheritanceConnector EntityType="MusicCompetitionDb.EventOrganizer" />
         <AssociationConnector Association="MusicCompetitionDb.PublishingHouseEventOrganizer" />
+        <EntityTypeShape EntityType="MusicCompetitionDb.City" Width="1.5" PointX="20.125" PointY="1.875" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

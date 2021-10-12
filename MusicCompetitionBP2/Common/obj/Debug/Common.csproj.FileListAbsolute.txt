@@ -9,3 +9,4 @@ D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\bin\Debug\Common.pdb
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.dll
 D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.pdb
+D:\PROJEKTI\DiplomskiProjekatBP\MusicCompetitionBP2\Common\obj\Debug\Common.csproj.AssemblyReference.cache

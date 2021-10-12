@@ -60,7 +60,7 @@
                 </DatePicker>
                 <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding EmailTB, Mode=TwoWay}" Margin="3" MaxWidth="200"/>
                 <TextBox Background="#87CEFA"  MinWidth="100" Text="{Binding PhoneNoTB, Mode=TwoWay}" Margin="3" MaxWidth="200"  PreviewTextInput="PreviewTextInput"/>
-                <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding CityTB, Mode=TwoWay}" Margin="3" MaxWidth="200" />
+                <ComboBox Background="#87CEFA"  IsEditable="True" x:Name="CityCB" Margin="4" Width="200" ItemsSource="{Binding CityStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCity}"></ComboBox>
                 <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding StreetTB, Mode=TwoWay}" Margin="3" MaxWidth="200" />
                 <TextBox Background="#87CEFA" MinWidth="100" Text="{Binding NumberTB, Mode=TwoWay}" Margin="3" MaxWidth="200" PreviewTextInput="PreviewTextInput"/>
                 <ComboBox IsEditable="True" Background="#87CEFA" Margin="3"  MinWidth="200"  x:Name="PhCB"  ItemsSource="{Binding PublishingHouseStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPublishingHouse}"></ComboBox>

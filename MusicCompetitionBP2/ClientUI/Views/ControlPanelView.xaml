@@ -48,7 +48,8 @@
                     </Style>
                 </DatePicker.Resources>
             </DatePicker>
-            <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding CityTB, Mode=TwoWay}"  Margin="7,40,7,7" MaxWidth="400"></TextBox>
+
+            <ComboBox Background="#87CEFA"  IsEditable="True"  x:Name="CityCB" Margin="7,40,7,7" Width="380" ItemsSource="{Binding CityStrings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCity}"></ComboBox>
             <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding StreetTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
             <TextBox  Background="#87CEFA" MinWidth="200" Text="{Binding NumberTB, Mode=TwoWay}"  Margin="7" MaxWidth="400"></TextBox>
             <PasswordBox x:Name="passwordPB" Password="NoChange"  Background="#87CEFA" MinWidth="200" Margin="7,40,7,7" MaxWidth="400" ></PasswordBox>

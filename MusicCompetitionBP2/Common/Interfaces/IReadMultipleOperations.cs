@@ -28,5 +28,7 @@ namespace Common.Interfaces
         IEnumerable<PublishingHouse> ReadPublishingHouses();
         [OperationContract]
         IEnumerable<PerformanceHall> ReadPerformanceHalls();
+        [OperationContract]
+        IEnumerable<City> ReadCities();
     }
 }
