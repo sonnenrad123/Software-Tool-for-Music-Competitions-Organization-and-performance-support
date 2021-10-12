@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Common.Models;
 using System.Windows;
+using System.IO;
+using CsvHelper;
+using System.Globalization;
+using Microsoft.Win32;
+using ClientUI.Resources.ImportClasses;
 
 namespace ClientUI.ViewModel
 {
@@ -33,6 +38,8 @@ namespace ClientUI.ViewModel
         public MyICommand DeleteCommand { get; set; }
         public MyICommand AddCommand { get; set; }
         public MyICommand ModifyCommand { get; set; }
+        public MyICommand ImportCSVCommand { get; set; }
+        public MyICommand ExportCSVCommand { get; set; }
 
 
         private bool isEventOrganizer = false;
@@ -142,6 +149,9 @@ namespace ClientUI.ViewModel
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             AddCommand = new MyICommand(OnAdd, CanAdd);
             ModifyCommand = new MyICommand(OnModify, CanModify);
+
+            ExportCSVCommand = new MyICommand(OnExportCSV);
+            ImportCSVCommand = new MyICommand(OnImportCSV);
         }
 
 
@@ -332,6 +342,49 @@ namespace ClientUI.ViewModel
             
         }
 
+
+
+        private bool AddImportedObjects(MusicPerformanceCSVImportTemplate obj)
+        {
+            RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
+            List<Common.Models.Organize> orgnz = repo.RepositoryProxy.ReadOrganizations().ToList();
+
+
+            long competitorId = obj.Competitor_JMBG??-1;
+            int competitionId = obj.Competition_ID??-1;
+            int genreID = obj.Genre_ID;
+
+
+            if (competitionId == -1 || competitorId == -1 || genreID == -1)
+            {
+                return false;
+            }
+            Common.Models.Organize orgtemp = orgnz.Find(x => x.CompetitionID_COMP == competitionId && x.PublishingHouseID_PH == obj.PH_ID);
+            if (orgtemp == null) { 
+                return false;
+            }
+            
+            //ako nije admin u pitanju vec EO ne sme da doda ono sto nije za njegovu izdavacku kucu
+            if(LoggedInUserSingleton.Instance.loggedInUser.Type != "Administrator")
+            {
+                EventOrganizer eo = repo.RepositoryProxy.ReadEventOrganizer(LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN);
+                if(eo.PublishingHouseID_PH != obj.PH_ID)
+                {
+                    return false;
+                }
+            }
+
+            if (repo.RepositoryProxy.AddMusicPerformance(new MusicPerformance(-1,obj.Original_performer, obj.Song_name, obj.Song_author, obj.Performance_date, obj.Competitor_JMBG, obj.Competition_ID, obj.PH_ID,obj.Genre_ID,null,null)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
         private bool CanDelete()
         {
             return SelectedGenre != null;
@@ -347,7 +400,74 @@ namespace ClientUI.ViewModel
             }
         }
 
+        public void OnExportCSV()
+        {
+            using (var writer = new StreamWriter("MusicPerformancesExport-" + LoggedInUserSingleton.Instance.loggedInUser.JMBG_SIN.ToString() + ".csv"))
+            {
+                List<MusicPerformance> mftemp = MusicPerformances.ToList();
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.Context.RegisterClassMap<MusicPerformanceMap>();
+                    csv.WriteHeader<MusicPerformance>();
+                    csv.NextRecord();
+                    foreach(var mf in mftemp)
+                    {
+                        
+                        csv.WriteRecord(mf);
+                        csv.NextRecord();
+                    }
+                }
 
+            }
+            System.Windows.MessageBox.Show(string.Format("Exporting done."), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public void OnImportCSV()
+        {
+            try
+            {
+                bool allwentokey = true;
+                string csvlocation = string.Empty;
+                OpenFileDialog ofd = new OpenFileDialog();
+                if (ofd.ShowDialog() == true)
+                    csvlocation = ofd.FileName;
+
+                using (var reader = new StreamReader(csvlocation))
+                {
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        try 
+                        { 
+                            List<MusicPerformanceCSVImportTemplate> records = csv.GetRecords<MusicPerformanceCSVImportTemplate>().ToList();
+
+                            foreach(MusicPerformanceCSVImportTemplate tmp in records)
+                            {
+                                if (!AddImportedObjects(tmp))
+                                {
+                                    allwentokey = false;
+                                }
+                            }
+                            if(allwentokey == false)
+                            {
+                                System.Windows.MessageBox.Show(string.Format("Some of the records ignored because of authorization errors."), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            System.Windows.MessageBox.Show(string.Format("Invalid CSV file! Please, try again."), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                
+            }
+            catch(Exception e)
+            {
+                System.Windows.MessageBox.Show(string.Format("Invalid CSV file! Please, try again."), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            System.Windows.MessageBox.Show(string.Format("Importing done."), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            RefreshTable();
+        }
 
 
         public string OrigPerfTB { get => origPerfTB; set { origPerfTB = value; OnPropertyChanged("OrigPerfTB"); AddCommand.RaiseCanExecuteChanged(); ModifyCommand.RaiseCanExecuteChanged(); } }

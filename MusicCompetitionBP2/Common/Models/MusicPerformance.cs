@@ -24,6 +24,7 @@ namespace Common.Models
             Competiting = competiting;
             Genre = genre;
         }
+    
         [DataMember]
         public int ID_PERF { get; set; }
         [DataMember]
