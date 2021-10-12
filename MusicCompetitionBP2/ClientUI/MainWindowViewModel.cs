@@ -20,8 +20,10 @@ namespace ClientUI
 
         private BindableBase currentViewModel;
         private MainMenuViewModel MainMenu;
-        
 
+
+        private string welcomeMessage = "";
+        public string WelcomeMessage { get => welcomeMessage; set { welcomeMessage = value; OnPropertyChanged("WelcomeMessage"); } }
 
 
         //Lista u kojoj se cuvaju izvrsene akcije
@@ -41,6 +43,11 @@ namespace ClientUI
             BackCommand = new MyICommand(Back);
 
             LogOutCommand = new MyICommand<MainWindow>(LogOut);
+
+            Common.Models.User loggedinuser = LoggedInUserSingleton.Instance.loggedInUser;
+            WelcomeMessage = "Welcome  " + loggedinuser.FIRSTNAME_SIN + " " + loggedinuser.LASTNAME_SIN + "." + "Your role is: " + loggedinuser.Type + ".";
+
+
         }
 
 
