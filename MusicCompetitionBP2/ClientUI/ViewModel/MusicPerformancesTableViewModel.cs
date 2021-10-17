@@ -56,8 +56,7 @@ namespace ClientUI.ViewModel
 
             foreach (Competitor cmp in Competitors)
             {
-                string ime_prezime = cmp.FIRSTNAME_SIN + " " + cmp.LASTNAME_SIN;
-                CompetitorStrings.Add(cmp.JMBG_SIN.ToString());
+                CompetitorStrings.Add(cmp.FIRSTNAME_SIN + " " + cmp.LASTNAME_SIN + "-" + cmp.JMBG_SIN.ToString());
             }
 
 
@@ -172,7 +171,7 @@ namespace ClientUI.ViewModel
                     RepositoryCommunicationProvider repo = new RepositoryCommunicationProvider();
 
                     Competitor competitorTemp = repo.RepositoryProxy.ReadCompetitor(selectedMusicPerformance.CompetitingCompetitorJMBG_SIN ?? default(long));
-                    SelectedCompetitor = competitorTemp.JMBG_SIN.ToString();
+                    SelectedCompetitor = competitorTemp.FIRSTNAME_SIN + " " + competitorTemp.LASTNAME_SIN + "-" + competitorTemp.JMBG_SIN.ToString();
 
                     Competition cmpTemp = repo.RepositoryProxy.ReadCompetition(SelectedMusicPerformance.CompetitingOrganizeCompetitionID_COMP ?? default(int));
                     SelectedCompetition = cmpTemp.NAME_COMP;
@@ -226,14 +225,15 @@ namespace ClientUI.ViewModel
             long competitorId = -1;
             int competitionId = -1;
             int genreID = -1;
-            if(selectedMusicPerformance == null)
+            string competitorJmbg = selectedCompetitor.Split('-')[1];
+            if (selectedMusicPerformance == null)
             {
                 ModifyCommand.RaiseCanExecuteChanged();
                 return;
             }
             foreach (Competitor cmp in Competitors)
             {
-                if (selectedCompetitor == (cmp.JMBG_SIN.ToString()))
+                if (competitorJmbg == (cmp.JMBG_SIN.ToString()))
                 {
                     competitorId = cmp.JMBG_SIN;
                 }
@@ -293,10 +293,10 @@ namespace ClientUI.ViewModel
             long competitorId = -1;
             int competitionId = -1;
             int genreID = -1;
-            
+            string competitorJmbg = selectedCompetitor.Split('-')[1];
             foreach (Competitor cmp in Competitors)
             {
-                if(selectedCompetitor == cmp.JMBG_SIN.ToString())
+                if(competitorJmbg == cmp.JMBG_SIN.ToString())
                 {
                     competitorId = cmp.JMBG_SIN;
                 }
